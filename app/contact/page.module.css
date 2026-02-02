@@ -1,0 +1,148 @@
+.contact {
+    padding-top: 80px;
+}
+
+.header {
+    background-color: var(--background);
+    padding: 80px 24px 40px;
+    text-align: center;
+}
+
+.header h1 {
+    color: var(--secondary);
+    margin-bottom: 12px;
+}
+
+.header p {
+    color: var(--text-light);
+    font-size: 1.1rem;
+}
+
+.content {
+    padding: 80px 0;
+    background-color: var(--background);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+}
+
+.info {
+    background-color: var(--white);
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border);
+}
+
+.info h2 {
+    margin-bottom: 16px;
+    font-size: 1.8rem;
+}
+
+.info>p {
+    margin-bottom: 32px;
+    line-height: 1.7;
+}
+
+.infoItems {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.infoItem {
+    display: flex;
+    gap: 16px;
+}
+
+.icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.infoItem h4 {
+    font-size: 1rem;
+    margin-bottom: 4px;
+}
+
+.infoItem p,
+.infoItem a {
+    color: var(--text-light);
+    font-size: 0.95rem;
+}
+
+.infoItem a:hover {
+    color: var(--primary);
+}
+
+.sub {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-top: 2px;
+}
+
+.whatsappBtn {
+    width: 100%;
+    justify-content: center;
+    padding: 16px 24px;
+    font-size: 1rem;
+}
+
+.social {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.socialLink {
+    color: var(--accent);
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.socialLink:hover {
+    text-decoration: underline;
+}
+
+.mapSection {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.mapWrapper {
+    flex: 1;
+    min-height: 400px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.mapNote {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    text-align: center;
+}
+
+@media (max-width: 1024px) {
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .mapWrapper {
+        min-height: 350px;
+    }
+}
+
+@media (max-width: 640px) {
+    .info {
+        padding: 24px;
+    }
+}

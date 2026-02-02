@@ -1,0 +1,282 @@
+/* Glassmorphism Navbar */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 10px 0;
+    /* Reduced spacing */
+    background-color: var(--white);
+    border-bottom: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+}
+
+.navbar.scrolled {
+    padding: 10px 0;
+    box-shadow: var(--shadow-md);
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+}
+
+.rightSection {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.navLinks {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    list-style: none;
+    margin-right: 16px;
+}
+
+/* Nav Links - Glass Style */
+.navLink {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    position: relative;
+    padding: 8px 12px;
+    transition: color 0.3s ease;
+    border-radius: 8px;
+}
+
+.navLink:hover {
+    color: var(--primary);
+    background-color: rgba(0, 0, 0, 0.03);
+    /* Subtle hover bg */
+}
+
+.navLink::after {
+    display: none;
+    /* Remove underline */
+}
+
+/* Search */
+.searchContainer {
+    position: relative;
+    height: 36px;
+    display: flex;
+    align-items: center;
+}
+
+.searchForm {
+    display: flex;
+    align-items: center;
+    background: transparent;
+    border-radius: 40px;
+    padding: 2px;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.searchForm.searchOpen {
+    background: #f5f5f5;
+    border: 1px solid var(--border);
+    padding: 2px 10px;
+}
+
+.searchInput {
+    width: 0;
+    opacity: 0;
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 0.9rem;
+    color: var(--text);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.searchForm.searchOpen .searchInput {
+    width: 180px;
+    opacity: 1;
+    padding-right: 8px;
+}
+
+.searchBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    color: var(--text);
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.searchBtn:hover {
+    color: var(--primary);
+}
+
+
+/* WhatsApp Button */
+.whatsappBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: #25D366;
+    color: white;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.whatsappBtn:hover {
+    background-color: #1da851;
+    transform: scale(1.08);
+    box-shadow: 0 4px 16px rgba(37, 211, 102, 0.4);
+}
+
+.iconBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    color: var(--text);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.iconBtn:hover {
+    background-color: #f5f5f5;
+    color: var(--primary);
+}
+
+/* Mobile Menu Button */
+.mobileMenuBtn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    margin-left: 16px;
+}
+
+.hamburger {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: var(--primary);
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.hamburger::before,
+.hamburger::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 24px;
+    height: 2px;
+    background-color: var(--primary);
+    transition: all 0.3s ease;
+}
+
+.hamburger::before {
+    top: -7px;
+}
+
+.hamburger::after {
+    bottom: -7px;
+}
+
+.hamburger.open {
+    background-color: transparent;
+}
+
+.hamburger.open::before {
+    transform: rotate(45deg);
+    top: 0;
+}
+
+.hamburger.open::after {
+    transform: rotate(-45deg);
+    bottom: 0;
+}
+
+/* Mobile Menu */
+.mobileMenu {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 32px;
+    background-color: var(--white);
+    border-top: 1px solid var(--border);
+    overflow: hidden;
+}
+
+.mobileNavLink {
+    padding: 16px 0;
+    font-size: 1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid var(--border);
+}
+
+.mobileWhatsapp {
+    margin-top: 20px;
+    padding: 14px 24px;
+    background-color: #25D366;
+    color: white;
+    text-align: center;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .navLinks {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 20px;
+        height: 56px;
+    }
+
+    .rightSection {
+        gap: 12px;
+    }
+
+    .logoImage {
+        height: 40px;
+    }
+
+    .navbar.scrolled .logoImage {
+        height: 36px;
+    }
+
+    .searchForm.searchOpen .searchInput {
+        width: 120px;
+        /* Smaller width on mobile */
+    }
+
+    .searchContainer {
+        display: none;
+    }
+
+    .mobileMenuBtn {
+        display: block;
+    }
+}

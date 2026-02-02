@@ -1,0 +1,161 @@
+.catalog {
+    padding-top: 80px;
+}
+
+.header {
+    background-color: var(--background);
+    padding: 80px 24px 40px;
+    text-align: center;
+}
+
+.header h1 {
+    color: var(--secondary);
+    margin-bottom: 12px;
+}
+
+.header p {
+    color: var(--text-light);
+    font-size: 1.1rem;
+}
+
+.filters {
+    background-color: var(--white);
+    padding: 24px 0;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 70px;
+    z-index: 100;
+}
+
+.filterBar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.searchBox {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    background-color: var(--gray-50);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    max-width: 400px;
+}
+
+.searchBox svg {
+    color: var(--muted);
+    flex-shrink: 0;
+}
+
+.searchInput {
+    flex: 1;
+    border: none;
+    background: none;
+    font-size: 1rem;
+    color: var(--text);
+    outline: none;
+}
+
+.searchInput::placeholder {
+    color: var(--muted);
+}
+
+.categoryTabs {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.tab {
+    padding: 10px 20px;
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    background-color: var(--white);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-light);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tab:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.tab.active {
+    background-color: var(--primary);
+    border-color: var(--primary);
+    color: var(--white);
+}
+
+.productsSection {
+    padding: 60px 0;
+    background-color: var(--background);
+    min-height: 50vh;
+}
+
+.resultCount {
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-bottom: 24px;
+}
+
+.productGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.noResults {
+    text-align: center;
+    padding: 60px 24px;
+}
+
+.noResults p {
+    font-size: 1.1rem;
+    color: var(--muted);
+}
+
+.cta {
+    background-color: var(--white);
+    padding: 80px 24px;
+    text-align: center;
+}
+
+.cta h2 {
+    margin-bottom: 12px;
+}
+
+.cta p {
+    margin-bottom: 24px;
+    font-size: 1.05rem;
+}
+
+@media (max-width: 1024px) {
+    .productGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .productGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .filters {
+        top: 60px;
+    }
+
+    .categoryTabs {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        padding-bottom: 8px;
+    }
+
+    .tab {
+        white-space: nowrap;
+    }
+}

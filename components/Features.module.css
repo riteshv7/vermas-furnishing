@@ -1,0 +1,153 @@
+.section {
+    padding: 6rem 0;
+    background-color: var(--gray-50);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Background pattern or subtle texture could go here */
+.section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.05), transparent);
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 4rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.title {
+    font-family: var(--font-playfair);
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--secondary);
+}
+
+.description {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: var(--text-light);
+    margin-bottom: 2rem;
+}
+
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: all 0.3s ease;
+    flex: 0 1 calc(33.333% - 2rem);
+    /* Default to 3 cols for safety, will override with media query */
+    min-width: 250px;
+}
+
+/* Force 4 columns on large screens to match previous design */
+@media (min-width: 1200px) {
+    .feature {
+        flex: 0 1 calc(25% - 2.5rem);
+    }
+}
+
+.feature:hover {
+    transform: translateY(-5px);
+}
+
+.iconWrapper {
+    width: 70px;
+    height: 70px;
+    border: 1px solid #999999;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+    color: var(--secondary);
+    transition: all 0.3s ease;
+    background: transparent;
+}
+
+.feature:hover .iconWrapper {
+    border-color: var(--secondary);
+    color: var(--secondary);
+    background-color: var(--gray-50);
+}
+
+.featureTitle {
+    font-family: var(--font-playfair);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--secondary);
+    letter-spacing: -0.02em;
+}
+
+.featureText {
+    color: var(--text-light);
+    line-height: 1.6;
+    font-size: 0.95rem;
+    max-width: 300px;
+    /* Limit text width for readability */
+    margin: 0 auto;
+}
+
+.statsGrid {
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+    margin-top: 5rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    padding-top: 4rem;
+    flex-wrap: wrap;
+}
+
+.stat {
+    text-align: center;
+}
+
+.statNumber {
+    display: block;
+    font-family: var(--font-playfair);
+    font-size: 2.5rem;
+    color: var(--primary);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.statLabel {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+@media (max-width: 768px) {
+    .section {
+        padding: 4rem 0;
+    }
+
+    .title {
+        font-size: 2rem;
+    }
+
+    .statsGrid {
+        gap: 2rem;
+        flex-direction: column;
+        align-items: center;
+    }
+}
