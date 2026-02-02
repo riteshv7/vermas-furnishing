@@ -48,6 +48,7 @@ export default function ProductDisplay({ product, relatedProducts }) {
                 >
                     {/* Gallery Section */}
                     <div className={styles.gallery}>
+                        {/* Desktop Interactive Image */}
                         <div className={styles.mainImageWrapper} onClick={() => setLightboxOpen(true)}>
                             <AnimatePresence mode="wait">
                                 <motion.div
@@ -72,6 +73,24 @@ export default function ProductDisplay({ product, relatedProducts }) {
                                     </div>
                                 </motion.div>
                             </AnimatePresence>
+                        </div>
+
+                        {/* Mobile Swipe-to-Scroll Container */}
+                        <div className={styles.mobileScrollContainer}>
+                            {images.map((img, idx) => (
+                                <div key={idx} className={styles.mobileSlide} onClick={() => {
+                                    setCurrentImageIndex(idx);
+                                    setLightboxOpen(true);
+                                }}>
+                                    <Image
+                                        src={img}
+                                        alt={`${product.name} - View ${idx + 1}`}
+                                        fill
+                                        className={styles.mainImage}
+                                        priority={idx === 0}
+                                    />
+                                </div>
+                            ))}
                         </div>
 
                         <Lightbox

@@ -97,6 +97,49 @@
     object-fit: cover;
 }
 
+/* Mobile Scroll Snap Gallery */
+.mobileScrollContainer {
+    display: none;
+    /* Hidden by default (desktop) */
+}
+
+@media (max-width: 768px) {
+    .mainImageWrapper {
+        display: none;
+        /* Hide interactive image wrapper on mobile */
+    }
+
+    .mobileScrollContainer {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 0;
+        /* No gap for seamless paging */
+        border-radius: 8px;
+        background: #f0f0f0;
+        scrollbar-width: none;
+        /* Hide scrollbar Firefox */
+    }
+
+    .mobileScrollContainer::-webkit-scrollbar {
+        display: none;
+        /* Hide scrollbar Chrome/Safari */
+    }
+
+    .mobileSlide {
+        flex: 0 0 100%;
+        scroll-snap-align: center;
+        position: relative;
+        aspect-ratio: 4/3;
+    }
+
+    .thumbnails {
+        display: none;
+        /* Hide thumbnails on mobile */
+    }
+}
+
 .thumbnails {
     display: flex;
     gap: 0.5rem;
