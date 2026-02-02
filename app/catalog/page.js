@@ -1,13 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import ProductCard from '@/components/ProductCard';
 import { products, categories } from '@/data/products';
 import styles from './page.module.css';
 
-export default function CatalogPage() {
+function CatalogContent() {
     const searchParams = useSearchParams();
     const categoryParam = searchParams.get('category');
     const searchParam = searchParams.get('search');
@@ -141,5 +141,13 @@ export default function CatalogPage() {
                 </motion.div>
             </section>
         </div>
+    );
+}
+
+export default function CatalogPage() {
+    return (
+        <Suspense fallback={<div className={styles.loading}>Loading catalog...</div>}>
+            <CatalogContent />
+        </Suspense>
     );
 }
