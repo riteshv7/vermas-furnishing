@@ -5,15 +5,18 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { ChevronLeft, ChevronRight, Heart } from 'lucide-react';
 import { useUser } from '../context/UserContext';
 import { useAnalytics } from '@/hooks/useAnalytics';
 import { getShimmerDataUrl } from '@/lib/shimmer';
 import styles from './ProductCard.module.css';
+import { useToast } from '@/context/ToastContext'; // Added import
 
 export default function ProductCard({ product, index = 0 }) {
     const router = useRouter();
-    const { isInWishlist, toggleWishlist } = useUser();
+    const { isInWishlist, toggleWishlist: toggleUserWishlist } = useUser(); // Renamed to avoid conflict
     const { trackEvent } = useAnalytics();
+    const { addToast } = useToast(); // Initialized useToast
     const isLiked = isInWishlist(product.id);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -45,6 +48,28 @@ export default function ProductCard({ product, index = 0 }) {
         router.push(`/product/${product.id}`);
     };
 
+    // Modified toggleWishlist logic to include toast
+    const handleToggleWishlist = (e) => {
+        e.stopPropagation();
+        toggleUserWishlist(product); // Call the original toggle from context
+
+        // Check if it was added to wishlist (assuming toggleUserWishlist updates context immediately)
+        // We need to check the state *after* the toggle, so we check if it's *not* liked before the toggle
+        // and then assume it became liked. Or, check the new state.
+        // For simplicity, let's assume if it was NOT liked, it's now added.
+        if (!isLiked) { // If it was not liked, and now it's toggled, it means it's added.
+            addToast({
+                title: 'Added to Wishlist',
+                message: product.name,
+                image: images[0]
+            });
+        }
+        trackEvent('WISHLIST', {
+            productId: product.id,
+            action: isLiked ? 'remove' : 'add'
+        });
+    };
+
     return (
         <motion.div
             className={styles.card}
@@ -59,20 +84,15 @@ export default function ProductCard({ product, index = 0 }) {
             <div className={styles.cardLink}>
                 <div className={styles.imageWrapper}>
                     <button
-                        className={`${styles.wishlistBtn} ${isLiked ? styles.activeWishlist : ''}`}
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            toggleWishlist(product);
-                            trackEvent('WISHLIST', {
-                                productId: product.id,
-                                action: isLiked ? 'remove' : 'add'
-                            });
-                        }}
+                        className={`${styles.wishlistBtn} ${isLiked ? styles.wishlisted : ''}`}
+                        onClick={handleToggleWishlist}
                         aria-label={isLiked ? "Remove from wishlist" : "Add to wishlist"}
                     >
-                        <svg viewBox="0 0 24 24">
-                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                        </svg>
+                        <Heart
+                            size={20}
+                            fill={isLiked ? "currentColor" : "none"}
+                            className={isLiked ? styles.heartActive : ""}
+                        />
                     </button>
                     <AnimatePresence mode="wait">
                         <motion.div

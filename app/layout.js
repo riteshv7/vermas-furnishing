@@ -6,6 +6,7 @@ import WhatsAppFloat from "@/components/WhatsAppFloat";
 import WishlistFloat from "@/components/WishlistFloat";
 import BackToTop from "@/components/BackToTop";
 import { UserProvider } from "@/context/UserContext";
+import { ToastProvider } from "@/context/ToastContext";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const plusJakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-jakarta" });
@@ -20,16 +21,18 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${inter.variable} ${plusJakarta.variable} ${cormorant.variable}`}>
-        <UserProvider>
-          <Navbar />
-          <main style={{ minHeight: '100vh' }}>
-            {children}
-          </main>
-          <Footer />
-          <WhatsAppFloat />
-          <WishlistFloat />
-          <BackToTop />
-        </UserProvider>
+        <ToastProvider>
+          <UserProvider>
+            <Navbar />
+            <main style={{ minHeight: '100vh' }}>
+              {children}
+            </main>
+            <Footer />
+            <WhatsAppFloat />
+            <WishlistFloat />
+            <BackToTop />
+          </UserProvider>
+        </ToastProvider>
       </body>
     </html>
   );

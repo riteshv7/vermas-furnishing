@@ -1,12 +1,33 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import styles from './Hero.module.css';
 
 export default function Hero() {
+    const ref = useRef(null);
+    const { scrollYProgress } = useScroll({
+        target: ref,
+        offset: ["start start", "end start"]
+    });
+
+    // Move the background image down as the user scrolls down
+    const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+
     return (
-        <section className={styles.hero}>
+        <section className={styles.hero} ref={ref}>
+            <motion.div style={{ y, width: '100%', height: '100%', position: 'absolute', top: 0, left: 0, zIndex: 0 }}>
+                <Image
+                    src="/hero-bg.jpg"
+                    alt="Luxury Home Furnishing"
+                    fill
+                    priority
+                    className={styles.bgImage}
+                    sizes="100vw"
+                />
+            </motion.div>
             <div className={styles.overlay}></div>
             <div className={styles.content}>
                 <motion.div
