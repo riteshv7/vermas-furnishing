@@ -1,4 +1,4 @@
-import { Inter, Outfit } from "next/font/google";
+import { Inter, Plus_Jakarta_Sans, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -7,7 +7,8 @@ import WishlistFloat from "@/components/WishlistFloat";
 import { UserProvider } from "@/context/UserContext";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
+const plusJakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-jakarta" });
+const cormorant = Cormorant_Garamond({ subsets: ["latin"], weight: ["400", "600", "700"], variable: "--font-cormorant" });
 
 export const metadata = {
   title: "Verma's Furnishing | Premium Sofas, Dining & Home Decor | Mumbai",
@@ -17,7 +18,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${outfit.variable}`}>
+      <body className={`${inter.variable} ${plusJakarta.variable} ${cormorant.variable}`}>
         <UserProvider>
           <Navbar />
           <main style={{ minHeight: '100vh' }}>
