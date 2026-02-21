@@ -92,6 +92,17 @@ export default function ProductCard({ product, index = 0 }) {
                                 placeholder="blur"
                                 blurDataURL={getShimmerDataUrl(700, 475)}
                             />
+                            {hasMultipleImages && currentImageIndex === 0 && (
+                                <Image
+                                    src={images[1]}
+                                    alt={`${product.name} - Alternate View`}
+                                    fill
+                                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                                    className={styles.hoverImage}
+                                    placeholder="blur"
+                                    blurDataURL={getShimmerDataUrl(700, 475)}
+                                />
+                            )}
                         </motion.div>
                     </AnimatePresence>
 

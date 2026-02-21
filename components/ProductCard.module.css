@@ -31,10 +31,24 @@
 
 .image {
     object-fit: cover;
-    transition: transform 0.5s ease;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.hoverImage {
+    position: absolute;
+    inset: 0;
+    object-fit: cover;
+    opacity: 0;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    z-index: 1;
 }
 
 .card:hover .image {
+    transform: scale(1.05);
+}
+
+.card:hover .hoverImage {
+    opacity: 1;
     transform: scale(1.05);
 }
 
