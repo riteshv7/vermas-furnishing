@@ -14,7 +14,6 @@ function CatalogContent() {
 
     const [activeCategory, setActiveCategory] = useState('All');
     const [searchQuery, setSearchQuery] = useState('');
-    const [sortBy, setSortBy] = useState('recommended');
 
     useEffect(() => {
         if (searchParam) {
@@ -31,23 +30,6 @@ function CatalogContent() {
         const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
             product.description.toLowerCase().includes(searchQuery.toLowerCase());
         return matchesCategory && matchesSearch;
-    });
-
-    const sortedProducts = [...filteredProducts].sort((a, b) => {
-        switch (sortBy) {
-            case 'price-low':
-                return (a.price || 0) - (b.price || 0); // Note: Assuming price exists or defaults to 0
-            case 'price-high':
-                return (b.price || 0) - (a.price || 0);
-            case 'newest':
-                return b.id - a.id;
-            case 'name-asc':
-                return a.name.localeCompare(b.name);
-            case 'name-desc':
-                return b.name.localeCompare(a.name);
-            default: // recommended
-                return 0; // Default order in products.js
-        }
     });
 
     return (
@@ -68,34 +50,19 @@ function CatalogContent() {
             <section className={styles.filters}>
                 <div className="container">
                     <div className={styles.filterBar}>
-                        <div className={styles.controls}>
-                            {/* Search */}
-                            <div className={styles.searchBox}>
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                    <circle cx="11" cy="11" r="8" />
-                                    <path d="m21 21-4.35-4.35" />
-                                </svg>
-                                <input
-                                    type="text"
-                                    placeholder="Search products..."
-                                    value={searchQuery}
-                                    onChange={(e) => setSearchQuery(e.target.value)}
-                                    className={styles.searchInput}
-                                />
-                            </div>
-
-                            {/* Sort Dropdown */}
-                            <select
-                                value={sortBy}
-                                onChange={(e) => setSortBy(e.target.value)}
-                                className={styles.sortDropdown}
-                                aria-label="Sort products"
-                            >
-                                <option value="recommended">Recommended</option>
-                                <option value="newest">Newest Arrivals</option>
-                                <option value="name-asc">Alphabetical (A-Z)</option>
-                                <option value="name-desc">Alphabetical (Z-A)</option>
-                            </select>
+                        {/* Search */}
+                        <div className={styles.searchBox}>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                <circle cx="11" cy="11" r="8" />
+                                <path d="m21 21-4.35-4.35" />
+                            </svg>
+                            <input
+                                type="text"
+                                placeholder="Search products..."
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                className={styles.searchInput}
+                            />
                         </div>
 
                         {/* Category Tabs */}
@@ -118,7 +85,7 @@ function CatalogContent() {
             <section className={styles.productsSection}>
                 <div className="container">
                     <p className={styles.resultCount}>
-                        Showing {sortedProducts.length} product{sortedProducts.length !== 1 ? 's' : ''}
+                        Showing {filteredProducts.length} product{filteredProducts.length !== 1 ? 's' : ''}
                         {activeCategory !== 'All' && ` in ${activeCategory}`}
                     </p>
 
@@ -127,7 +94,7 @@ function CatalogContent() {
                         layout
                     >
                         <AnimatePresence mode="popLayout">
-                            {sortedProducts.map((product, index) => (
+                            {filteredProducts.map((product, index) => (
                                 <motion.div
                                     key={product.id}
                                     layout
@@ -142,7 +109,7 @@ function CatalogContent() {
                         </AnimatePresence>
                     </motion.div>
 
-                    {sortedProducts.length === 0 && (
+                    {filteredProducts.length === 0 && (
                         <motion.div
                             className={styles.noResults}
                             initial={{ opacity: 0 }}
