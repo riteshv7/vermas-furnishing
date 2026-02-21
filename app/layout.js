@@ -7,6 +7,7 @@ import WishlistFloat from "@/components/WishlistFloat";
 import BackToTop from "@/components/BackToTop";
 import { UserProvider } from "@/context/UserContext";
 import { ToastProvider } from "@/context/ToastContext";
+import { CustomCursor } from "@/components/CustomCursor";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const plusJakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-jakarta" });
@@ -21,6 +22,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${inter.variable} ${plusJakarta.variable} ${cormorant.variable}`}>
+        <CustomCursor />
         <ToastProvider>
           <UserProvider>
             <Navbar />
