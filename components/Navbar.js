@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
 import styles from './Navbar.module.css';
 
 import { trackEvent } from '@/lib/analytics';
@@ -12,17 +12,28 @@ import { trackEvent } from '@/lib/analytics';
 export default function Navbar() {
     const router = useRouter();
     const [isScrolled, setIsScrolled] = useState(false);
+    const [hidden, setHidden] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
 
-    useEffect(() => {
-        const handleScroll = () => {
-            setIsScrolled(window.scrollY > 80);
-        };
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+    const { scrollY } = useScroll();
+
+    useMotionValueEvent(scrollY, "change", (latest) => {
+        const previous = scrollY.getPrevious();
+        if (latest > 80) {
+            setIsScrolled(true);
+            // Hide navbar if scrolling down, show if scrolling up
+            if (latest > previous && latest > 150) {
+                setHidden(true);
+            } else {
+                setHidden(false);
+            }
+        } else {
+            setIsScrolled(false);
+            setHidden(false);
+        }
+    });
 
     const handleSearch = (e) => {
         e.preventDefault();
@@ -46,9 +57,12 @@ export default function Navbar() {
     return (
         <motion.nav
             className={`${styles.navbar} ${isScrolled ? styles.scrolled : ''}`}
-            initial={{ y: -100 }}
-            animate={{ y: 0 }}
-            transition={{ duration: 0.5 }}
+            variants={{
+                visible: { y: 0 },
+                hidden: { y: "-100%" }
+            }}
+            animate={hidden ? "hidden" : "visible"}
+            transition={{ duration: 0.35, ease: "easeInOut" }}
         >
             <div className={styles.container}>
                 {/* Logo - Left Side */}

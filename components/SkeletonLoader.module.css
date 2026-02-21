@@ -1,0 +1,78 @@
+.skeleton {
+    background: #f6f7f8;
+    background-image: linear-gradient(to right,
+            #f6f7f8 0%,
+            #edeef1 20%,
+            #f6f7f8 40%,
+            #f6f7f8 100%);
+    background-repeat: no-repeat;
+    background-size: 800px 100%;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: placeholderShimmer;
+    animation-timing-function: linear;
+}
+
+@keyframes placeholderShimmer {
+    0% {
+        background-position: -468px 0;
+    }
+
+    100% {
+        background-position: 468px 0;
+    }
+}
+
+.card {
+    background-color: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.imageArea {
+    width: 100%;
+    aspect-ratio: 4/5;
+}
+
+.contentArea {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex-grow: 1;
+}
+
+.titleLine {
+    height: 24px;
+    width: 80%;
+    border-radius: 4px;
+}
+
+.descLine {
+    height: 16px;
+    width: 100%;
+    border-radius: 4px;
+}
+
+.descLineShort {
+    height: 16px;
+    width: 60%;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+
+.tagArea {
+    display: flex;
+    gap: 8px;
+    margin-top: auto;
+}
+
+.tag {
+    height: 20px;
+    width: 60px;
+    border-radius: 4px;
+}
