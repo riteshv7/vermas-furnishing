@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 import WishlistFloat from "@/components/WishlistFloat";
+import BackToTop from "@/components/BackToTop";
 import { UserProvider } from "@/context/UserContext";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -27,6 +28,7 @@ export default function RootLayout({ children }) {
           <Footer />
           <WhatsAppFloat />
           <WishlistFloat />
+          <BackToTop />
         </UserProvider>
       </body>
     </html>

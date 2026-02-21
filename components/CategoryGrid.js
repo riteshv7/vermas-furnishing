@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 import styles from './CategoryGrid.module.css';
 import { trackEvent } from '@/lib/analytics';
+import { getShimmerDataUrl } from '@/lib/shimmer';
 
 const categories = [
     {
@@ -70,6 +71,8 @@ export default function CategoryGrid() {
                                 fill
                                 className={styles.cardImage}
                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                placeholder="blur"
+                                blurDataURL={getShimmerDataUrl(800, 600)}
                             />
                             <div className={styles.overlay}>
                                 <div className={styles.content}>

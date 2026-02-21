@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useUser } from '../context/UserContext';
 import { useAnalytics } from '@/hooks/useAnalytics';
+import { getShimmerDataUrl } from '@/lib/shimmer';
 import styles from './ProductCard.module.css';
 
 export default function ProductCard({ product, index = 0 }) {
@@ -88,6 +89,8 @@ export default function ProductCard({ product, index = 0 }) {
                                 fill
                                 sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                                 className={styles.image}
+                                placeholder="blur"
+                                blurDataURL={getShimmerDataUrl(700, 475)}
                             />
                         </motion.div>
                     </AnimatePresence>
