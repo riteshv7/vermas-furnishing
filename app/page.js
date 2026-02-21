@@ -1,6 +1,7 @@
 import Hero from "@/components/Hero";
 import ProductCard from "@/components/ProductCard";
 import CategoryGrid from "@/components/CategoryGrid";
+import ShopTheLook from "@/components/ShopTheLook";
 import Features from "@/components/Features";
 import FadeIn from "@/components/FadeIn";
 import { products } from "@/data/products";
@@ -18,6 +19,10 @@ export default function Home() {
 
       <FadeIn>
         <CategoryGrid />
+      </FadeIn>
+
+      <FadeIn direction="up">
+        <ShopTheLook />
       </FadeIn>
 
       <FadeIn direction="up" delay={0.2}>
