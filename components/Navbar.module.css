@@ -265,16 +265,18 @@
     .logo {
         display: flex;
         align-items: center;
+        height: 100%;
+        /* Force link container to respect header height */
     }
 
     .logoImage {
-        width: 110px;
-        height: auto;
+        width: 110px !important;
+        height: 100% !important;
+        object-fit: contain;
     }
 
     .navbar.scrolled .logoImage {
-        width: 100px;
-        height: auto;
+        width: 100px !important;
     }
 
     .searchForm.searchOpen .searchInput {
