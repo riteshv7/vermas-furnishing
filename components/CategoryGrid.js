@@ -23,7 +23,7 @@ const categories = [
     {
         id: 'headboards',
         name: 'Headboards',
-        image: '/products/tufted-led-headboard.jpg',
+        image: '/products/scenic-mural-bed.jpg',
         href: '/catalog?category=Headboards'
     },
     {
