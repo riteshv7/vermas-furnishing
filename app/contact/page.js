@@ -50,7 +50,10 @@ export default function ContactPage() {
                                     <span className={styles.icon}>📞</span>
                                     <div>
                                         <h4>Phone / WhatsApp</h4>
-                                        <a href="tel:+919821197173">+91 9821197173</a>
+                                        <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                                            <a href="tel:+919821197173">+91 9821197173</a>
+                                            <a href="tel:+919820767297">+91 9820767297</a>
+                                        </div>
                                     </div>
                                 </div>
 

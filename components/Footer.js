@@ -42,8 +42,11 @@ export default function Footer() {
                     {/* Contact */}
                     <div className={styles.contact}>
                         <h4>Get in Touch</h4>
-                        <a href="tel:+919821197173" className={styles.contactItem}>
+                        <a href="tel:+919821197173" className={styles.contactItem} style={{ marginBottom: '4px' }}>
                             📞 +91 9821197173
+                        </a>
+                        <a href="tel:+919820767297" className={styles.contactItem}>
+                            📞 +91 9820767297
                         </a>
                         <a href="mailto:vermasfurnishings@gmail.com" className={styles.contactItem}>
                             ✉️ vermasfurnishings@gmail.com
