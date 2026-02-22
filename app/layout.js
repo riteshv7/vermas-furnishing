@@ -18,6 +18,12 @@ export const metadata = {
   description: "Handcrafted luxury furniture tailored to your space. Visit our showroom in Mumbai for premium sofas, dining sets, and bespoke home furnishings.",
 };
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+};
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
