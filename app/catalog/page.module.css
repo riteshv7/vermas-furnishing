@@ -19,12 +19,15 @@
 }
 
 .filters {
-    background-color: var(--white);
-    padding: 24px 0;
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 24px 0 16px 0;
     border-bottom: 1px solid var(--border);
     position: sticky;
-    top: 70px;
-    z-index: 100;
+    top: 60px;
+    z-index: 900;
+    /* High behind the 1000 navbar */
 }
 
 .filterBar {
@@ -147,7 +150,9 @@
     }
 
     .filters {
-        top: 56px;
+        top: 60px;
+        /* Aligned exactly under the 60px high mobile navbar */
+        padding: 16px 0 8px 0;
     }
 
     .categoryTabs {
