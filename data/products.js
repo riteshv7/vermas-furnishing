@@ -329,14 +329,7 @@ export const products = [
         image: "/products/emerald-floral-dining.jpg",
         features: ["Emerald green", "Floral print", "Banquette"],
     },
-    {
-        id: 48,
-        name: "Tufted LED Headboard",
-        category: "Headboards",
-        description: "Luxurious grey tufted headboard with LED backlit panel and gold wall sconces.",
-        image: "/products/tufted-led-headboard.jpg",
-        features: ["LED backlight", "Tufted design", "Gold accents"],
-    },
+
     {
         id: 49,
         name: "Channel Brown Bed",
