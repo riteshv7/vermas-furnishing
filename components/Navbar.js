@@ -72,6 +72,7 @@ export default function Navbar() {
                         src="/logo.svg"
                         alt="Verma's Furnishing"
                         className={styles.logoImage}
+                        style={{ height: '65px', width: 'auto', display: 'block' }}
                     />
                 </Link>
 
