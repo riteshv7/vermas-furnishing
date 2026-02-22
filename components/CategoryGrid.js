@@ -10,7 +10,7 @@ import { getShimmerDataUrl } from '@/lib/shimmer';
 const categories = [
     {
         id: 'sofas',
-        name: 'Sofas & Sectionals',
+        name: 'Sofas',
         image: '/products/luxury-living-room.jpg',
         href: '/catalog?category=Sofas'
     },
