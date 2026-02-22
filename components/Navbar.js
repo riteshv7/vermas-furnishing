@@ -70,8 +70,8 @@ export default function Navbar() {
                     <Image
                         src="/logo.svg"
                         alt="Verma's Furnishing"
-                        width={180}
-                        height={80}
+                        width={220}
+                        height={70}
                         priority
                         className={styles.logoImage}
                     />
