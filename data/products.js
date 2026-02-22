@@ -1167,6 +1167,22 @@ export const products = [
         image: "/products/sofa-new-7.jpg",
         features: ["Blue bouclé", "Round shape", "Accent chair"],
     },
+
+    {
+        id: 158,
+        name: "Caramel Home Theatre Recliner",
+        category: "Sofas",
+        description: "Luxurious 3-seater home theatre recliner sofa in premium caramel leather. Features individual reclining seats, adjustable headrests, built-in cup holders, and a sleek modern silhouette. Perfect for living rooms and home cinemas.",
+        image: "/products/recliner-sofa-render-1.jpg",
+        images: [
+            "/products/recliner-sofa-render-1.jpg",
+            "/products/recliner-sofa-render-2.jpg",
+            "/products/recliner-sofa-render-3.jpg",
+            "/products/recliner-sofa-render-4.jpg",
+            "/products/recliner-sofa-real.jpg",
+        ],
+        features: ["3-seater recliner", "Premium leather", "Cup holders", "Adjustable headrest"],
+    },
 ];
 
 export const categories = ["All", "Sofas", "Dining", "Chairs", "Ottomans", "Headboards", "Tables", "Curtains"];
