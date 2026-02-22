@@ -28,7 +28,7 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 32px;
   margin-bottom: 60px;
 }
@@ -36,6 +36,20 @@
 .centerBtn {
   text-align: center;
   margin-top: 40px;
+}
+
+@media (max-width: 1200px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (max-width: 992px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -47,6 +61,13 @@
     font-size: 2rem;
   }
 
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
   .grid {
     grid-template-columns: 1fr;
     gap: 24px;
