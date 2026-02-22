@@ -22,7 +22,7 @@ const categories = [
     },
     {
         id: 'headboards',
-        name: 'Luxury Beds',
+        name: 'Headboards',
         image: '/products/tufted-led-headboard.jpg',
         href: '/catalog?category=Headboards'
     },
