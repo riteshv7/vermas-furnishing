@@ -67,12 +67,10 @@ export default function Navbar() {
             <div className={styles.container}>
                 {/* Logo - Left Side */}
                 <Link href="/" className={styles.logo}>
-                    <Image
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
                         src="/logo.svg"
                         alt="Verma's Furnishing"
-                        width={220}
-                        height={70}
-                        priority
                         className={styles.logoImage}
                     />
                 </Link>
