@@ -28,9 +28,10 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, 1fr) !important;
   gap: 32px;
   margin-bottom: 60px;
+  width: 100%;
 }
 
 .centerBtn {
