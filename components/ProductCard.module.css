@@ -143,18 +143,31 @@
 
 .features {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    overflow-x: auto;
     gap: 8px;
     margin-top: auto;
+    padding-bottom: 4px;
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.features::-webkit-scrollbar {
+    display: none;
+    /* Chrome, Safari and Opera */
 }
 
 .feature {
     padding: 4px 8px;
     background-color: var(--gray-100);
     color: var(--text-light);
-    font-size: 0.75rem;
+    font-size: 0.70rem;
     border-radius: 4px;
     font-weight: 500;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 /* Gallery Navigation */
