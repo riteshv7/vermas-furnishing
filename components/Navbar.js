@@ -68,7 +68,7 @@ export default function Navbar() {
                 {/* Logo - Left Side */}
                 <Link href="/" className={styles.logo}>
                     <Image
-                        src="/logo.png"
+                        src="/logo.svg"
                         alt="Verma's Furnishing"
                         width={180}
                         height={80}
