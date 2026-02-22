@@ -5,7 +5,7 @@ const features = [
     {
         icon: <Users size={24} />,
         title: "Family Legacy & Expertise",
-        description: "Generations of furniture craftsmanship since 2000, blending traditional techniques with modern innovation to create timeless pieces."
+        description: "Generations of furniture craftsmanship since 1998, blending traditional techniques with modern innovation to create timeless pieces."
     },
     {
         icon: <PenTool size={24} />,
@@ -58,7 +58,7 @@ export default function Features() {
 
                 <div className={styles.statsGrid}>
                     <div className={styles.stat}>
-                        <span className={styles.statNumber}>2000</span>
+                        <span className={styles.statNumber}>1998</span>
                         <span className={styles.statLabel}>Established</span>
                     </div>
                     <div className={styles.stat}>
