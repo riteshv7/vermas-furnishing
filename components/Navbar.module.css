@@ -254,21 +254,26 @@
 
 @media (max-width: 768px) {
     .container {
-        padding: 0 20px;
-        height: 56px;
+        padding: 0 16px;
+        height: 60px;
     }
 
     .rightSection {
         gap: 12px;
     }
 
+    .logo {
+        display: flex;
+        align-items: center;
+    }
+
     .logoImage {
-        width: 140px;
+        width: 110px;
         height: auto;
     }
 
     .navbar.scrolled .logoImage {
-        width: 120px;
+        width: 100px;
         height: auto;
     }
 
