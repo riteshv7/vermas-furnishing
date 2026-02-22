@@ -101,7 +101,18 @@ export default function ProductCard({ product, index = 0 }) {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             transition={{ duration: 0.3 }}
-                            style={{ position: 'absolute', inset: 0 }}
+                            style={{ position: 'absolute', inset: 0, touchAction: 'pan-y' }}
+                            drag={hasMultipleImages ? "x" : false}
+                            dragConstraints={{ left: 0, right: 0 }}
+                            dragElastic={0.2}
+                            onDragEnd={(e, { offset, velocity }) => {
+                                const swipe = offset.x * velocity.x;
+                                if (swipe < -2000) {
+                                    setCurrentImageIndex((prev) => (prev + 1) % images.length);
+                                } else if (swipe > 2000) {
+                                    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
+                                }
+                            }}
                         >
                             <Image
                                 src={images[currentImageIndex]}

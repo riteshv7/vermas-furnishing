@@ -92,8 +92,8 @@
 
 .category {
     position: absolute;
-    top: 12px;
-    left: 12px;
+    top: 16px;
+    left: 16px;
     padding: 4px 10px;
     background-color: rgba(255, 255, 255, 0.9);
     color: var(--text);
@@ -162,12 +162,12 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 32px;
-    height: 32px;
+    width: 40px;
+    height: 40px;
     background: rgba(255, 255, 255, 0.9);
     border: none;
     border-radius: 50%;
-    font-size: 18px;
+    font-size: 20px;
     color: var(--text);
     cursor: pointer;
     z-index: 10;
@@ -227,10 +227,10 @@
 
 .wishlistBtn {
     position: absolute;
-    top: 12px;
-    right: 12px;
-    width: 32px;
-    height: 32px;
+    top: 16px;
+    right: 16px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.9);
     border: none;
@@ -266,4 +266,21 @@
 .activeWishlist svg {
     fill: currentColor;
     stroke: none;
+}
+
+/* Mobile Adjustments */
+@media (hover: none) {
+    .card:hover .hoverImage {
+        display: none;
+        /* Disable hover effect on touch devices */
+    }
+
+    .inquireBtn {
+        opacity: 1;
+        transform: translateY(0);
+        bottom: 16px;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
 }

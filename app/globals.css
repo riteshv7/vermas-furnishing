@@ -33,19 +33,21 @@
   margin: 0;
 }
 
-html,
-body {
+html {
   scroll-behavior: smooth;
-  max-width: 100vw;
-  overflow-x: hidden;
+  /* Prevent horizontal scroll bounce on iOS */
+  overscroll-behavior-x: none;
+}
+
+body {
   font-family: var(--font-body);
   color: var(--text);
   background-color: var(--background);
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Improve touch panning and pinch-to-zoom, eliminate 300ms tap delay */
+  touch-action: pan-y pinch-zoom;
 }
 
 h1,
@@ -55,13 +57,36 @@ h4,
 h5,
 h6 {
   font-family: var(--font-heading);
-  color: var(--secondary);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 
 .container {
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 16px;
+  /* Adjusted padding for mobile */
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0 24px;
+  }
 }
 
 .btn {
@@ -69,14 +94,17 @@ h6 {
   align-items: center;
   justify-content: center;
   padding: 12px 24px;
-  border-radius: 50px;
-  /* Pill shape */
+  /* Slightly taller for larger touch target */
+  border-radius: 8px;
   font-weight: 500;
-  transition: all 0.3s ease;
   cursor: pointer;
+  transition: all 0.3s ease;
   border: none;
-  gap: 8px;
   font-family: var(--font-heading);
+  /* Prevent text highlighting when aggressively tapping */
+  user-select: none;
+  -webkit-user-select: none;
+  gap: 8px;
 }
 
 .btn-primary {

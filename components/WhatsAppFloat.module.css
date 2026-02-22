@@ -22,8 +22,8 @@
 
 @media (max-width: 768px) {
     .float {
-        bottom: 20px;
-        right: 20px;
+        bottom: calc(max(20px, env(safe-area-inset-bottom) + 20px));
+        right: 16px;
         width: 56px;
         height: 56px;
     }
