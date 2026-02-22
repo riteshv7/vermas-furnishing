@@ -263,11 +263,13 @@
     }
 
     .logoImage {
-        height: 40px;
+        width: 140px;
+        height: auto;
     }
 
     .navbar.scrolled .logoImage {
-        height: 36px;
+        width: 120px;
+        height: auto;
     }
 
     .searchForm.searchOpen .searchInput {

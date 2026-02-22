@@ -51,7 +51,7 @@
 
 @media (max-width: 768px) {
     .float {
-        bottom: calc(max(85px, env(safe-area-inset-bottom) + 85px));
+        bottom: calc(max(90px, env(safe-area-inset-bottom) + 90px));
         right: 16px;
     }
 }
