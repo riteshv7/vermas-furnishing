@@ -154,6 +154,7 @@
     /* IE and Edge */
     scrollbar-width: none;
     /* Firefox */
+    width: 100%;
 }
 
 .features::-webkit-scrollbar {

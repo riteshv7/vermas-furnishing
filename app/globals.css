@@ -37,6 +37,8 @@ html {
   scroll-behavior: smooth;
   /* Prevent horizontal scroll bounce on iOS */
   overscroll-behavior-x: none;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 body {
@@ -48,6 +50,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   /* Improve touch panning and pinch-to-zoom, eliminate 300ms tap delay */
   touch-action: pan-y pinch-zoom;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 h1,

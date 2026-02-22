@@ -156,6 +156,7 @@
         /* IE and Edge */
         scrollbar-width: none;
         /* Firefox */
+        width: 100%;
     }
 
     .categoryTabs::-webkit-scrollbar {
