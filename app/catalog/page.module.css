@@ -1,5 +1,9 @@
 .catalog {
     padding-top: 80px;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
 }
 
 .header {
@@ -22,6 +26,8 @@
     background-color: var(--white);
     padding: 24px 0;
     border-bottom: 1px solid var(--border);
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .filterBar {
