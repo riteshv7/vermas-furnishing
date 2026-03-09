@@ -1183,6 +1183,36 @@ export const products = [
         ],
         features: ["3-seater recliner", "Premium leather", "Cup holders", "Adjustable headrest"],
     },
+
+    {
+        id: 143,
+        name: "Beige Ribbed 8-Seater Dining",
+        category: "Dining",
+        description: "Elegant 8-seater dining set with beige ribbed velvet chairs, gold-tipped legs, and a stunning marble table with fluted gold base. Installed in a luxury residence.",
+        image: "/products/beige-ribbed-gold-dining.jpg",
+        features: ["8-seater", "Ribbed velvet", "Gold-tipped legs", "Marble top"],
+    },
+    {
+        id: 144,
+        name: "White Marble Gold Arch Dining",
+        category: "Dining",
+        description: "Sophisticated dining set featuring a white marble table with a sculptural gold arch base, paired with mixed grey and emerald velvet chairs. Statement chandelier and gold wall art.",
+        image: "/products/white-marble-gold-arch-dining.jpg",
+        features: ["Marble top", "Gold arch base", "Mixed velvet chairs", "Statement chandelier"],
+    },
+    {
+        id: 145,
+        name: "Glass Oval Boucle Dining Set",
+        category: "Dining",
+        description: "Contemporary 8-seater with a large oval glass top table on a sleek silver sculpted base, paired with luxurious grey boucle armchairs with black silver-tipped legs.",
+        image: "/products/glass-oval-boucle-dining.jpg",
+        images: [
+            "/products/glass-oval-boucle-dining.jpg",
+            "/products/ceramic-boucle-dining-1.jpg",
+            "/products/ceramic-boucle-dining-2.jpg",
+        ],
+        features: ["Glass oval top", "Boucle armchairs", "8-seater", "Silver base"],
+    },
 ];
 
 export const categories = ["All", "Sofas", "Dining", "Chairs", "Ottomans", "Headboards", "Tables", "Curtains"];
