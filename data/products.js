@@ -1213,6 +1213,27 @@ export const products = [
         ],
         features: ["Glass oval top", "Boucle armchairs", "8-seater", "Silver base"],
     },
+
+    {
+        id: 146,
+        name: "Grey Velvet Marble 10-Seater",
+        category: "Dining",
+        description: "Grand 10-seater dining set with a stunning white marble table, sleek black steel grid base, and luxurious grey velvet armchairs with gold-tipped black legs. Floor-to-ceiling windows with city views.",
+        image: "/products/grey-velvet-marble-dining.jpg",
+        features: ["10-seater", "White marble top", "Grey velvet chairs", "Black steel base"],
+    },
+    {
+        id: 147,
+        name: "Yellow Leather Glass Dining Set",
+        category: "Dining",
+        description: "Bold and modern 8-seater dining set with a glass top table on a sculptural black barrel base, paired with striking yellow leather chairs featuring artistic dark X-frame legs.",
+        image: "/products/yellow-glass-dining-1.jpg",
+        images: [
+            "/products/yellow-glass-dining-1.jpg",
+            "/products/yellow-glass-dining-2.jpg",
+        ],
+        features: ["8-seater", "Glass top", "Yellow leather", "X-frame legs"],
+    },
 ];
 
 export const categories = ["All", "Sofas", "Dining", "Chairs", "Ottomans", "Headboards", "Tables", "Curtains"];
