@@ -1247,6 +1247,23 @@ export const products = [
         ],
         features: ["4-seater", "Gold cylinder base", "Marble top", "Mixed seating"],
     },
+
+    {
+        id: 149,
+        name: "White Curved Moon Sofas",
+        category: "Sofas",
+        description: "Stunning pair of sculptural white curved sofas with gold-tipped legs, displayed with tulip pedestal coffee tables and a gold arc floor lamp. A luxurious showroom statement.",
+        image: "/products/white-curved-pair-sofas.jpg",
+        features: ["Curved design", "Matching pair", "Gold-tipped legs", "Showroom piece"],
+    },
+    {
+        id: 150,
+        name: "Brown Channel-Back Sofa",
+        category: "Sofas",
+        description: "Bold 3-seater sofa in rich caramel brown velvet with deep vertical channel detailing on the back and arms. Structured and modern with a premium finish.",
+        image: "/products/brown-channel-sofa.jpg",
+        features: ["3-seater", "Channel-back", "Caramel velvet", "Structured design"],
+    },
 ];
 
 export const categories = ["All", "Sofas", "Dining", "Chairs", "Ottomans", "Headboards", "Tables", "Curtains"];
