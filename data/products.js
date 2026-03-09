@@ -1234,6 +1234,19 @@ export const products = [
         ],
         features: ["8-seater", "Glass top", "Yellow leather", "X-frame legs"],
     },
+
+    {
+        id: 148,
+        name: "Marble Gold Cylinder Bistro Set",
+        category: "Dining",
+        description: "Chic 4-seat bistro dining set featuring a white marble table on polished gold cylindrical legs, paired with deep burgundy velvet chairs and a grey boucle loveseat bench with gold ring base. Perfect for intimate dining spaces.",
+        image: "/products/marble-gold-cylinder-dining-1.jpg",
+        images: [
+            "/products/marble-gold-cylinder-dining-1.jpg",
+            "/products/marble-gold-cylinder-dining-2.jpg",
+        ],
+        features: ["4-seater", "Gold cylinder base", "Marble top", "Mixed seating"],
+    },
 ];
 
 export const categories = ["All", "Sofas", "Dining", "Chairs", "Ottomans", "Headboards", "Tables", "Curtains"];
