@@ -1,0 +1,417 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
+.page {
+  min-height: 100vh;
+  background: #fbf9f8;
+  padding-top: 80px;
+}
+
+/* ── Shared Label ── */
+.label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #82746e;
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+/* ══════════════════════════════════
+   Hero
+══════════════════════════════════ */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 80vh;
+  min-height: 520px;
+  max-height: 860px;
+  overflow: hidden;
+}
+
+.heroImageWrapper {
+  position: absolute;
+  inset: 0;
+}
+
+.heroImage {
+  object-fit: cover;
+  object-position: center 30%;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(20,12,6,0.35) 0%, rgba(20,12,6,0.6) 100%);
+}
+
+.heroContent {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 4rem;
+}
+
+@media (max-width: 768px) {
+  .heroContent { padding: 2rem; }
+}
+
+.heroLabel {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+.heroTitle {
+  font-family: 'Noto Serif', Georgia, serif;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.1;
+  margin: 0;
+  max-width: 720px;
+}
+
+/* ══════════════════════════════════
+   Opening Statement
+══════════════════════════════════ */
+.openingSection {
+  padding: 7rem 4rem;
+  background: #fbf9f8;
+}
+
+@media (max-width: 768px) {
+  .openingSection { padding: 4rem 1.5rem; }
+}
+
+.openingGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .openingGrid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  .openingImageStack { display: none; }
+}
+
+.openingBody {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.05rem;
+  color: #50443f;
+  line-height: 1.8;
+  font-weight: 300;
+  margin-bottom: 1.25rem;
+}
+
+.openingImageStack {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 0.75rem;
+  height: 480px;
+}
+
+.openingImgLarge,
+.openingImgSmall {
+  position: relative;
+  overflow: hidden;
+  background: #efeded;
+}
+
+.stackImage {
+  object-fit: cover;
+  transition: transform 0.7s ease;
+}
+
+.openingImgLarge:hover .stackImage,
+.openingImgSmall:hover .stackImage {
+  transform: scale(1.04);
+}
+
+/* ══════════════════════════════════
+   Three Pillars
+══════════════════════════════════ */
+.pillarsSection {
+  background: #f5f3f3;
+  padding: 7rem 4rem;
+}
+
+@media (max-width: 768px) {
+  .pillarsSection { padding: 4rem 1.5rem; }
+}
+
+.pillarsHeader {
+  margin-bottom: 4rem;
+  max-width: 500px;
+}
+
+.pillarsTitle {
+  font-family: 'Noto Serif', Georgia, serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 600;
+  color: #1b1c1c;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.pillarsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+}
+
+@media (max-width: 900px) {
+  .pillarsGrid { grid-template-columns: 1fr; gap: 2rem; }
+}
+
+.pillarCard {
+  padding-top: 2rem;
+  border-top: 1px solid rgba(212,195,188,0.5);
+}
+
+.pillarNumber {
+  font-family: 'Noto Serif', Georgia, serif;
+  font-size: 3rem;
+  font-weight: 600;
+  color: rgba(96, 67, 52, 0.15);
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+
+.pillarTitle {
+  font-family: 'Noto Serif', Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1b1c1c;
+  margin: 0 0 0.75rem;
+}
+
+.pillarText {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  color: #50443f;
+  line-height: 1.75;
+  font-weight: 300;
+  margin: 0;
+}
+
+/* ══════════════════════════════════
+   Founder Quote
+══════════════════════════════════ */
+.quoteSection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 520px;
+}
+
+@media (max-width: 900px) {
+  .quoteSection { grid-template-columns: 1fr; }
+  .quoteImageWrapper { aspect-ratio: 16/9; }
+}
+
+.quoteInner {
+  background: linear-gradient(135deg, #604334 0%, #7a5a4a 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5rem 4rem;
+}
+
+@media (max-width: 768px) {
+  .quoteInner { padding: 3rem 1.5rem; }
+}
+
+.quoteMark {
+  font-family: 'Noto Serif', Georgia, serif;
+  font-size: 7rem;
+  color: rgba(255,255,255,0.2);
+  line-height: 0.5;
+  margin-bottom: 1.5rem;
+  user-select: none;
+}
+
+.quoteText {
+  font-family: 'Noto Serif', Georgia, serif;
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+  font-style: italic;
+  font-weight: 400;
+  color: #fff;
+  line-height: 1.55;
+  margin: 0 0 1.5rem;
+}
+
+.quoteCite {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  font-style: normal;
+}
+
+.quoteImageWrapper {
+  position: relative;
+  overflow: hidden;
+  background: #efeded;
+}
+
+.quoteImage {
+  object-fit: cover;
+  transition: transform 0.8s ease;
+}
+
+.quoteImageWrapper:hover .quoteImage {
+  transform: scale(1.04);
+}
+
+/* ══════════════════════════════════
+   Commitment Section
+══════════════════════════════════ */
+.commitSection {
+  padding: 7rem 4rem;
+  background: #fbf9f8;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .commitSection { padding: 4rem 1.5rem; }
+}
+
+.commitTitle {
+  font-family: 'Noto Serif', Georgia, serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 600;
+  color: #1b1c1c;
+  margin: 0 0 1.5rem;
+  line-height: 1.2;
+}
+
+.commitText {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  color: #50443f;
+  line-height: 1.8;
+  font-weight: 300;
+  margin-bottom: 3.5rem;
+}
+
+.commitStats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  border-top: 1px solid rgba(212,195,188,0.5);
+  padding-top: 3rem;
+}
+
+@media (max-width: 640px) {
+  .commitStats { grid-template-columns: repeat(2, 1fr); }
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.statNum {
+  font-family: 'Noto Serif', Georgia, serif;
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: #604334;
+  line-height: 1;
+}
+
+.statLabel {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #82746e;
+  font-weight: 500;
+}
+
+/* ══════════════════════════════════
+   CTA
+══════════════════════════════════ */
+.ctaSection {
+  background: #efeded;
+  padding: 6rem 4rem;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .ctaSection { padding: 4rem 1.5rem; }
+}
+
+.ctaTitle {
+  font-family: 'Noto Serif', Georgia, serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 600;
+  color: #1b1c1c;
+  margin: 0 0 0.75rem;
+}
+
+.ctaSub {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  color: #50443f;
+  font-weight: 300;
+  margin-bottom: 2.5rem;
+}
+
+.ctaBtns {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.ctaBtnPrimary {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #604334 0%, #7a5a4a 100%);
+  color: #fff;
+  padding: 0.95rem 2.25rem;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: opacity 0.25s ease;
+}
+
+.ctaBtnPrimary:hover { opacity: 0.85; }
+
+.ctaBtnSecondary {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: transparent;
+  color: #604334;
+  border: 1px solid rgba(96,67,52,0.4);
+  padding: 0.95rem 2.25rem;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+
+.ctaBtnSecondary:hover {
+  border-color: #604334;
+  background: rgba(96,67,52,0.05);
+}
