@@ -1,76 +1,430 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
+/* ── Page shell ── */
 .page {
   min-height: 100vh;
+  background-color: #fbf9f8;
 }
 
-.section {
-  padding: 80px 0;
-  background-color: var(--background);
+/* ── Shared label ── */
+.sectionLabel {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #82746e;
+  display: block;
+  margin-bottom: 0.6rem;
 }
 
-.sectionHeader {
-  text-align: center;
-  margin-bottom: 60px;
+/* ══════════════════════════════════════
+   Featured Collections
+══════════════════════════════════════ */
+.collectionsSection {
+  padding: 7rem 4rem 5rem;
+  background: #fbf9f8;
 }
 
-.title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 16px;
-  color: var(--secondary);
+@media (max-width: 768px) {
+  .collectionsSection {
+    padding: 4rem 1.5rem 3rem;
+  }
 }
 
-.subtitle {
-  font-size: 1.125rem;
-  color: var(--text-light);
+.collectionsHeader {
   max-width: 600px;
-  margin: 0 auto;
+  margin-bottom: 3.5rem;
+}
+
+.collectionsTitle {
+  font-family: 'Noto Serif', Georgia, serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 600;
+  color: #1b1c1c;
+  line-height: 1.2;
+  margin: 0 0 1rem;
+}
+
+.collectionsSub {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  color: #50443f;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+.collectionsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+@media (max-width: 900px) {
+  .collectionsGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+.collectionCard {
+  display: block;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.collectionImageWrapper {
+  position: relative;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+  background: #efeded;
+}
+
+.collectionImage {
+  object-fit: cover;
+  transition: transform 0.7s ease;
+}
+
+.collectionCard:hover .collectionImage {
+  transform: scale(1.05);
+}
+
+.collectionOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(30, 18, 12, 0.7) 0%, transparent 55%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2rem 1.75rem;
+  transition: background 0.3s ease;
+}
+
+.collectionCard:hover .collectionOverlay {
+  background: linear-gradient(to top, rgba(30, 18, 12, 0.8) 0%, transparent 60%);
+}
+
+.collectionLabel {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.65);
+  margin-bottom: 0.4rem;
+}
+
+.collectionName {
+  font-family: 'Noto Serif', Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 0 0 0.3rem;
+  line-height: 1.2;
+}
+
+.collectionSub {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.7);
+  margin: 0;
+}
+
+.viewAllWrap {
+  margin-top: 2.5rem;
+  text-align: right;
+}
+
+.viewAllLink {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #604334;
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 1px solid rgba(96,67,52,0.3);
+  padding-bottom: 2px;
+  transition: opacity 0.2s;
+}
+
+.viewAllLink:hover {
+  opacity: 0.7;
+}
+
+/* ══════════════════════════════════════
+   Founder Quote
+══════════════════════════════════════ */
+.quoteSection {
+  background: #efeded;
+  padding: 6rem 4rem;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .quoteSection {
+    padding: 4rem 1.5rem;
+  }
+}
+
+.quoteMark {
+  font-family: 'Noto Serif', Georgia, serif;
+  font-size: 6rem;
+  color: #d4c3bc;
+  line-height: 0.5;
+  margin-bottom: 1.5rem;
+  user-select: none;
+}
+
+.quoteText {
+  font-family: 'Noto Serif', Georgia, serif;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-style: italic;
+  font-weight: 400;
+  color: #1b1c1c;
+  line-height: 1.5;
+  max-width: 800px;
+  margin: 0 auto 1.5rem;
+}
+
+.quoteCite {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #82746e;
+  font-style: normal;
+}
+
+/* ══════════════════════════════════════
+   New Arrivals
+══════════════════════════════════════ */
+.arrivalsSection {
+  padding: 6rem 0;
+  background: #fbf9f8;
+}
+
+@media (max-width: 768px) {
+  .arrivalsSection {
+    padding: 4rem 0;
+  }
+}
+
+.arrivalHeader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 2.5rem;
+  border-bottom: 1px solid rgba(212,195,188,0.4);
+  padding-bottom: 1.25rem;
+}
+
+.arrivalsTitle {
+  font-family: 'Noto Serif', Georgia, serif;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 600;
+  color: #1b1c1c;
+  margin: 0;
+  line-height: 1.15;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr) !important;
-  gap: 32px;
-  margin-bottom: 60px;
-  width: 100%;
-}
-
-.centerBtn {
-  text-align: center;
-  margin-top: 40px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
 }
 
 @media (max-width: 1200px) {
-  .grid {
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 24px;
-  }
+  .grid { grid-template-columns: repeat(3, 1fr); }
 }
 
-@media (max-width: 992px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 24px;
-  }
-}
-
-@media (max-width: 768px) {
-  .section {
-    padding: 60px 0;
-  }
-
-  .title {
-    font-size: 2rem;
-  }
-
-  .grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 16px;
-  }
+@media (max-width: 900px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 480px) {
-  .grid {
-    grid-template-columns: 1fr !important;
-    gap: 24px;
+  .grid { grid-template-columns: 1fr; }
+}
+
+/* ══════════════════════════════════════
+   Craftsmanship Story
+══════════════════════════════════════ */
+.craftSection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 640px;
+  background: #f5f3f3;
+}
+
+@media (max-width: 900px) {
+  .craftSection {
+    grid-template-columns: 1fr;
   }
 }
+
+.craftImageCol {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 0;
+  overflow: hidden;
+}
+
+@media (max-width: 900px) {
+  .craftImageCol {
+    aspect-ratio: 16/9;
+  }
+
+  .craftImageSide {
+    display: none;
+  }
+}
+
+.craftImageWrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.craftImageSide {
+  position: relative;
+  overflow: hidden;
+}
+
+.craftImage {
+  object-fit: cover;
+  transition: transform 0.7s ease;
+}
+
+.craftImageWrapper:hover .craftImage,
+.craftImageSide:hover .craftImage {
+  transform: scale(1.04);
+}
+
+.craftContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5rem 4rem;
+}
+
+@media (max-width: 768px) {
+  .craftContent {
+    padding: 3rem 1.5rem;
+  }
+}
+
+.craftTitle {
+  font-family: 'Noto Serif', Georgia, serif;
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 600;
+  color: #1b1c1c;
+  line-height: 1.2;
+  margin: 0 0 1.5rem;
+}
+
+.craftText {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.97rem;
+  color: #50443f;
+  line-height: 1.8;
+  font-weight: 300;
+  margin-bottom: 1rem;
+}
+
+.craftCta {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #604334;
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 1px solid rgba(96,67,52,0.3);
+  padding-bottom: 2px;
+  display: inline-block;
+  margin-top: 1rem;
+  transition: opacity 0.2s;
+}
+
+.craftCta:hover { opacity: 0.7; }
+
+/* ══════════════════════════════════════
+   WhatsApp CTA Banner
+══════════════════════════════════════ */
+.ctaBanner {
+  background: linear-gradient(135deg, #604334 0%, #7a5a4a 100%);
+  padding: 6rem 4rem;
+}
+
+@media (max-width: 768px) {
+  .ctaBanner { padding: 4rem 1.5rem; }
+}
+
+.ctaBannerInner {
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.ctaBannerTitle {
+  font-family: 'Noto Serif', Georgia, serif;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.2;
+  margin: 0 0 1rem;
+}
+
+.ctaBannerSub {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.7;
+  font-weight: 300;
+  margin-bottom: 2.5rem;
+}
+
+.ctaBannerBtns {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.ctaBtnPrimary {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 500;
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.4);
+  padding: 0.9rem 2rem;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.ctaBtnPrimary:hover {
+  background: rgba(255,255,255,0.25);
+  border-color: rgba(255,255,255,0.7);
+}
+
+.ctaBtnWhatsapp {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 500;
+  background: #25D366;
+  color: #fff;
+  padding: 0.9rem 2rem;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: opacity 0.25s ease;
+}
+
+.ctaBtnWhatsapp:hover { opacity: 0.85; }
