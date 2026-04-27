@@ -13,9 +13,9 @@ export default function Home() {
   const collections = [
     {
       label: "Sofas & Sectionals",
-      title: "The Sculptural Series",
-      sub: "Velvet, Boucle & Leather",
-      image: "/products/cream-boucle-walnut-sofa.jpg",
+      title: "The Tufted Elegance Series",
+      sub: "Timeless Design & Premium Velvet",
+      image: "/products/featured-sofa.jpg",
       href: "/catalog?category=Sofas",
     },
     {
@@ -27,9 +27,9 @@ export default function Home() {
     },
     {
       label: "Chairs & Ottomans",
-      title: "Statement Seating",
-      sub: "Accent & Lounge",
-      image: "/products/teal-cream-accent-chair.jpg",
+      title: "Botanical Accent Series",
+      sub: "Tufted Backs & Tropical Prints",
+      image: "/products/featured-chairs.jpg",
       href: "/catalog?category=Chairs",
     },
   ];
@@ -117,20 +117,11 @@ export default function Home() {
           <div className={styles.craftImageCol}>
             <div className={styles.craftImageWrapper}>
               <Image
-                src="/products/luxury-living-room.jpg"
+                src="/products/craft-showroom.jpg"
                 alt="Craftsmanship at Verma's"
                 fill
                 className={styles.craftImage}
                 sizes="(max-width:768px) 100vw, 50vw"
-              />
-            </div>
-            <div className={styles.craftImageSide}>
-              <Image
-                src="/products/beige-quilted-living-set.jpg"
-                alt="Verma's showroom"
-                fill
-                className={styles.craftImage}
-                sizes="(max-width:768px) 0vw, 25vw"
               />
             </div>
           </div>

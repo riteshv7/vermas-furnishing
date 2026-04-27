@@ -263,10 +263,9 @@
 }
 
 .craftImageCol {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 0;
+  display: block;
   overflow: hidden;
+  position: relative;
 }
 
 @media (max-width: 900px) {
@@ -282,6 +281,8 @@
 .craftImageWrapper {
   position: relative;
   overflow: hidden;
+  height: 100%;
+  width: 100%;
 }
 
 .craftImageSide {

@@ -30,7 +30,7 @@ export default function OurStoryPage() {
       <section className={styles.hero}>
         <div className={styles.heroImageWrapper}>
           <Image
-            src="/products/luxury-living-room.jpg"
+            src="/products/our-story-banner.jpg"
             alt="Verma's craftsmanship"
             fill
             className={styles.heroImage}
@@ -63,7 +63,7 @@ export default function OurStoryPage() {
           <div className={styles.openingImageStack}>
             <div className={styles.openingImgLarge}>
               <Image
-                src="/products/beige-quilted-living-set.jpg"
+                src="/products/origins-showroom.jpg"
                 alt="Verma's showroom"
                 fill
                 className={styles.stackImage}
@@ -72,7 +72,7 @@ export default function OurStoryPage() {
             </div>
             <div className={styles.openingImgSmall}>
               <Image
-                src="/products/cream-boucle-walnut-sofa.jpg"
+                src="/products/origins-sofa.jpg"
                 alt="Handcrafted sofa"
                 fill
                 className={styles.stackImage}

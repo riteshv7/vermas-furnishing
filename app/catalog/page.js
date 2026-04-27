@@ -25,8 +25,7 @@ function CatalogContent() {
         }
     }, [categoryParam, searchParam]);
 
-    // Catalog is currently empty — add products here or in products.js to show them
-    const catalogProducts = [];
+    const catalogProducts = products;
 
     const filteredProducts = catalogProducts.filter(product => {
         const matchesCategory = activeCategory === 'All' || product.category === activeCategory;
