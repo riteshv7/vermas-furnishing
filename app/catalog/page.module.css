@@ -99,6 +99,8 @@
     padding: 60px 0;
     background-color: var(--background);
     min-height: 50vh;
+    width: 100%;
+    overflow: hidden;
 }
 
 .resultCount {
@@ -112,12 +114,17 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 30px;
     align-items: stretch;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .productGrid>* {
     height: 100%;
     display: flex;
     flex-direction: column;
+    min-width: 0;
+    max-width: 100%;
 }
 
 .noResults {
