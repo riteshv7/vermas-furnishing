@@ -25,7 +25,10 @@ function CatalogContent() {
         }
     }, [categoryParam, searchParam]);
 
-    const filteredProducts = products.filter(product => {
+    // Catalog is currently empty — add products here or in products.js to show them
+    const catalogProducts = [];
+
+    const filteredProducts = catalogProducts.filter(product => {
         const matchesCategory = activeCategory === 'All' || product.category === activeCategory;
         const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
             product.description.toLowerCase().includes(searchQuery.toLowerCase());
