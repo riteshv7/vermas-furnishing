@@ -8,14 +8,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { 
   User, 
-  Package, 
+  MessageSquare, 
   Heart, 
   MapPin, 
   Settings, 
   LogOut,
   ChevronRight,
   ShieldCheck,
-  CreditCard
+  MessageCircle
 } from "lucide-react";
 import styles from "./account.module.css";
 
@@ -38,9 +38,9 @@ export default function AccountPage() {
 
   const sidebarItems = [
     { id: "profile", label: "Profile", icon: User },
-    { id: "orders", label: "Orders", icon: Package },
+    { id: "enquiries", label: "My Enquiries", icon: MessageSquare },
     { id: "wishlist", label: "Wishlist", icon: Heart },
-    { id: "addresses", label: "Addresses", icon: MapPin },
+    { id: "addresses", label: "Shipping", icon: MapPin },
     { id: "settings", label: "Settings", icon: Settings },
   ];
 
@@ -60,7 +60,7 @@ export default function AccountPage() {
               </div>
               <div className={styles.userInfo}>
                 <h3>{session.user.name}</h3>
-                <p>Premium Member</p>
+                <p>Curated Member</p>
               </div>
             </div>
 
@@ -91,15 +91,15 @@ export default function AccountPage() {
             >
               <div className={styles.welcomeHeader}>
                 <h1>Welcome back, {session.user.name.split(' ')[0]}</h1>
-                <p>Manage your curated collection, track your bespoke furniture deliveries, and update your styling preferences.</p>
+                <p>Manage your curated collection, track your furniture enquiries, and connect with your personal interior concierge.</p>
               </div>
 
               <div className={styles.dashboardGrid}>
-                {/* Ongoing Orders */}
+                {/* Recent Enquiries */}
                 <div className={styles.card}>
                   <div className={styles.cardHeader}>
-                    <h2>Ongoing Orders</h2>
-                    <Link href="#" className={styles.viewAll}>View All</Link>
+                    <h2>Recent Enquiries</h2>
+                    <Link href="#" className={styles.viewAll}>View History</Link>
                   </div>
                   <div className={styles.orderItem}>
                     <div className={styles.orderImg}>
@@ -107,9 +107,9 @@ export default function AccountPage() {
                     </div>
                     <div className={styles.orderDetails}>
                       <h4>Bespoke Nordic Oak Armchair</h4>
-                      <p>Order #LX-99238 • Expected Aug 24</p>
+                      <p>Inquiry #EN-99238 • June 24, 2026</p>
                     </div>
-                    <span className={styles.statusTag}>In Workshop</span>
+                    <span className={styles.statusTag}>Quotation Sent</span>
                   </div>
                   <div className={styles.orderItem}>
                     <div className={styles.orderImg}>
@@ -117,37 +117,46 @@ export default function AccountPage() {
                     </div>
                     <div className={styles.orderDetails}>
                       <h4>Carrara Marble Coffee Table</h4>
-                      <p>Order #LX-99210 • Delivered July 12</p>
+                      <p>Inquiry #EN-99210 • June 12, 2026</p>
                     </div>
-                    <span className={`${styles.statusTag} ${styles.delivered}`}>Delivered</span>
+                    <span className={`${styles.statusTag} ${styles.delivered}`}>Consultation Scheduled</span>
                   </div>
                 </div>
 
-                {/* Loyalty / Info */}
+                {/* Concierge Card */}
                 <div className={`${styles.card} ${styles.loyaltyCard}`}>
-                  <h3>Loyalty Program</h3>
+                  <h3>Personal Concierge</h3>
                   <div className={styles.tierInfo}>
-                    <h4>Elite Tier Status</h4>
-                    <p>You have 4,500 LUXE Points available for your next curated purchase.</p>
+                    <h4>Direct WhatsApp Support</h4>
+                    <p>Have questions about a piece or want a custom quotation? Chat directly with our interior specialists.</p>
                   </div>
-                  <button className={styles.redeemBtn}>Redeem Rewards</button>
+                  <a 
+                    href="https://wa.me/919820265115" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className={styles.redeemBtn}
+                    style={{ backgroundColor: '#25D366', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}
+                  >
+                    <MessageCircle size={20} />
+                    Chat on WhatsApp
+                  </a>
                 </div>
               </div>
 
-              {/* Security & Payment */}
+              {/* Security & Support */}
               <div className={styles.footerGrid}>
                 <div className={styles.smallCard}>
                   <ShieldCheck size={24} className={styles.cardIcon} />
                   <div>
                     <h4>Security & Privacy</h4>
-                    <p>Update your password and manage two-factor authentication.</p>
+                    <p>Update your password and manage your account preferences.</p>
                   </div>
                 </div>
                 <div className={styles.smallCard}>
-                  <CreditCard size={24} className={styles.cardIcon} />
+                  <MessageSquare size={24} className={styles.cardIcon} />
                   <div>
-                    <h4>Payment Methods</h4>
-                    <p>Manage your saved credit cards and billing information.</p>
+                    <h4>Enquiry Help</h4>
+                    <p>Need assistance with a specific piece? We're here to help.</p>
                   </div>
                 </div>
               </div>
@@ -156,5 +165,6 @@ export default function AccountPage() {
         </div>
       </div>
     </div>
+
   );
 }
