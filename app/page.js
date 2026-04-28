@@ -128,7 +128,7 @@ export default function Home() {
           </div>
           <div className={styles.craftContent}>
             <span className={styles.sectionLabel}>Our Legacy</span>
-            <h2 className={styles.craftTitle}>Decades of Quiet Craftsmanship</h2>
+            <h2 className={styles.craftTitle}>Three Generations of Quiet Craftsmanship</h2>
             <p className={styles.craftText}>
               Founded in the heart of Mumbai's artisan district, Verma's has
               remained committed to the slow-made movement. We believe in the

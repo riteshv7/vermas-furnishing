@@ -17,6 +17,23 @@ const cormorant = Cormorant_Garamond({ subsets: ["latin"], weight: ["400", "600"
 export const metadata = {
   title: "Verma's Furnishing | Premium Sofas, Dining & Home Decor | Mumbai",
   description: "Handcrafted luxury furniture tailored to your space. Visit our showroom in Mumbai for premium sofas, dining sets, and bespoke home furnishings.",
+  openGraph: {
+    title: "Verma's Furnishing | Premium Handcrafted Furniture",
+    description: "Handcrafted luxury furniture tailored to your space. Premium sofas, dining sets, and bespoke home furnishings from Mumbai.",
+    url: 'https://vermasfurnishing.com',
+    siteName: "Verma's Furnishing",
+    type: 'website',
+    locale: 'en_IN',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "Verma's Furnishing | Premium Handcrafted Furniture",
+    description: "Handcrafted luxury furniture tailored to your space. Visit our showroom in Mumbai.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export const viewport = {
