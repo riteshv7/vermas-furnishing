@@ -43,32 +43,12 @@ export default function ProductDisplay({ product, relatedProducts }) {
                 </Link>
             </div>
 
-            {/* Hero Image */}
-            <motion.div
-                className={styles.heroSection}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.7 }}
-            >
-                <Image
-                    src={images[0]}
-                    alt={product.name}
-                    fill
-                    className={styles.heroImage}
-                    priority
-                />
-                <div className={styles.heroOverlay}>
-                    <span className={styles.heroCategoryLabel}>{product.category}</span>
-                    <h1 className={styles.heroTitle}>{product.name}</h1>
-                </div>
-            </motion.div>
-
             {/* Main Product Layout */}
             <motion.div
                 className={styles.productLayout}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
+                transition={{ duration: 0.5 }}
             >
                 {/* Gallery Section */}
                 <div className={styles.gallery}>
@@ -200,7 +180,6 @@ export default function ProductDisplay({ product, relatedProducts }) {
                     )}
 
                     <div className={styles.actions}>
-                        {/* Primary dark CTA */}
                         <a
                             href={`https://wa.me/919821197173?text=${whatsappMessage}`}
                             target="_blank"
@@ -210,7 +189,6 @@ export default function ProductDisplay({ product, relatedProducts }) {
                         >
                             Inquire About This Piece
                         </a>
-                        {/* Secondary WhatsApp link */}
                         <a
                             href={`https://wa.me/919821197173?text=${whatsappMessage}`}
                             target="_blank"
@@ -226,29 +204,6 @@ export default function ProductDisplay({ product, relatedProducts }) {
                     </div>
                 </div>
             </motion.div>
-
-            {/* Craftsmanship Section */}
-            <section className={styles.craftSection}>
-                <div>
-                    <span className={styles.craftLabel}>Our Process</span>
-                    <h2 className={styles.craftTitle}>The Art of the Join</h2>
-                    <p className={styles.craftText}>
-                        Every piece at Verma's is born from a singular vision: that furniture should be as
-                        permanent as the architecture it inhabits. Our craftsmen utilize traditional joinery
-                        techniques, ensuring structural integrity that spans generations. Each item is
-                        hand-finished with attention to texture and form, transforming raw materials into
-                        objects of quiet permanence.
-                    </p>
-                </div>
-                <div className={styles.craftImageWrapper}>
-                    <Image
-                        src={images[images.length > 1 ? 1 : 0]}
-                        alt={`${product.name} - craftsmanship detail`}
-                        fill
-                        className={styles.craftImage}
-                    />
-                </div>
-            </section>
 
             {/* Related Products */}
             {relatedProducts.length > 0 && (

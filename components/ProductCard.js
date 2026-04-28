@@ -71,12 +71,8 @@ export default function ProductCard({ product, index = 0 }) {
     };
 
     return (
-        <motion.div
+        <div
             className={styles.card}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
             onClick={handleCardClick}
             style={{ cursor: 'pointer' }}
         >
@@ -196,6 +192,6 @@ export default function ProductCard({ product, index = 0 }) {
                     <span className={styles.category}>{product.category}</span>
                 </div>
             </div>
-        </motion.div>
+        </div>
     );
 }

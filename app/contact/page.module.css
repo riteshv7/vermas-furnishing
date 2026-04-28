@@ -73,6 +73,7 @@
 .infoItem a {
     color: var(--text-light);
     font-size: 0.95rem;
+    font-variant-numeric: tabular-nums;
 }
 
 .infoItem a:hover {
@@ -96,14 +97,25 @@
     margin-top: 24px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 12px;
+    align-items: flex-start;
+    gap: 16px;
+    padding-left: 10px;
 }
 
 .socialLink {
-    color: var(--accent);
+    color: var(--text);
     font-weight: 500;
-    font-size: 0.95rem;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.socialLink svg {
+    color: var(--secondary);
+    flex-shrink: 0;
 }
 
 .socialLink:hover {

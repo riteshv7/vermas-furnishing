@@ -18,7 +18,7 @@ export default function CatalogClient({ initialProducts, categories, initialCate
     const filteredProducts = initialProducts.filter(product => {
         const matchesCategory = activeCategory === 'All' || product.category === activeCategory;
         const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            product.description.toLowerCase().includes(searchQuery.toLowerCase());
+            (product.description && product.description.toLowerCase().includes(searchQuery.toLowerCase()));
         return matchesCategory && matchesSearch;
     });
 
@@ -81,19 +81,20 @@ export default function CatalogClient({ initialProducts, categories, initialCate
 
                     <motion.div
                         className={styles.productGrid}
-                        layout
                     >
-                        <AnimatePresence mode="popLayout">
+                        <AnimatePresence>
                             {filteredProducts.map((product, index) => (
                                 <motion.div
                                     key={product.id}
-                                    layout
-                                    initial={{ opacity: 0, scale: 0.9 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    exit={{ opacity: 0, scale: 0.9 }}
-                                    transition={{ duration: 0.3 }}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: 20 }}
+                                    transition={{ 
+                                        duration: 0.4, 
+                                        delay: Math.min(index * 0.05, 0.5) // Cap the delay at 0.5s so products don't take forever to appear
+                                    }}
                                 >
-                                    <ProductCard product={product} index={index} />
+                                    <ProductCard product={product} />
                                 </motion.div>
                             ))}
                         </AnimatePresence>

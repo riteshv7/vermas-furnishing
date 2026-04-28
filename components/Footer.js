@@ -1,4 +1,4 @@
-import { Instagram, Linkedin } from 'lucide-react';
+import { Instagram, Linkedin, Phone, Mail, MessageSquare } from 'lucide-react';
 import Link from 'next/link';
 import styles from './Footer.module.css';
 
@@ -43,13 +43,13 @@ export default function Footer() {
                     <div className={styles.contact}>
                         <h4>Get in Touch</h4>
                         <a href="tel:+919821197173" className={styles.contactItem} style={{ marginBottom: '4px' }}>
-                            📞 +91 9821197173
+                            <Phone size={16} /> +91 9821197173
                         </a>
                         <a href="tel:+919820767297" className={styles.contactItem}>
-                            📞 +91 9820767297
+                            <Phone size={16} /> +91 9820767297
                         </a>
                         <a href="mailto:vermasfurnishings@gmail.com" className={styles.contactItem}>
-                            ✉️ vermasfurnishings@gmail.com
+                            <Mail size={16} /> vermasfurnishings@gmail.com
                         </a>
                         <a
                             href="https://wa.me/919821197173"
@@ -57,7 +57,7 @@ export default function Footer() {
                             rel="noopener noreferrer"
                             className={styles.whatsappLink}
                         >
-                            💬 Chat on WhatsApp
+                            <MessageSquare size={16} /> Chat on WhatsApp
                         </a>
                     </div>
                 </div>

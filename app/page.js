@@ -8,7 +8,13 @@ import InstagramFeed from "@/components/InstagramFeed";
 import styles from "./page.module.css";
 
 export default function Home() {
-  const newArrivals = products.slice(0, 4);
+  // Hand-pick one from each category so visitors see the full range
+  const newArrivals = [
+    products.find(p => p.category === 'Dining'),      // A dining set
+    products.find(p => p.category === 'Headboards'),   // A headboard
+    products.find(p => p.category === 'Ottomans'),     // An ottoman
+    products.find(p => p.category === 'Tables'),       // A table
+  ].filter(Boolean);
 
   // Hand-pick 3 collection showcase images
   const collections = [

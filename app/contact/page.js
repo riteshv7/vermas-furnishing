@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { Instagram, Linkedin, MapPin, Phone, Mail, Clock } from 'lucide-react';
 import styles from './page.module.css';
 
 export default function ContactPage() {
@@ -37,7 +38,7 @@ export default function ContactPage() {
 
                             <div className={styles.infoItems}>
                                 <div className={styles.infoItem}>
-                                    <span className={styles.icon}>📍</span>
+                                    <span className={styles.icon}><MapPin size={24} /></span>
                                     <div>
                                         <h4>Manufacturing Unit</h4>
                                         <p>Shop No. 4, Siddheshwar Society,</p>
@@ -46,7 +47,7 @@ export default function ContactPage() {
                                 </div>
 
                                 <div className={styles.infoItem}>
-                                    <span className={styles.icon}>📞</span>
+                                    <span className={styles.icon}><Phone size={24} /></span>
                                     <div>
                                         <h4>Phone / WhatsApp</h4>
                                         <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
@@ -57,7 +58,7 @@ export default function ContactPage() {
                                 </div>
 
                                 <div className={styles.infoItem}>
-                                    <span className={styles.icon}>✉️</span>
+                                    <span className={styles.icon}><Mail size={24} /></span>
                                     <div>
                                         <h4>Email</h4>
                                         <a href="mailto:vermasfurnishings@gmail.com">vermasfurnishings@gmail.com</a>
@@ -65,7 +66,7 @@ export default function ContactPage() {
                                 </div>
 
                                 <div className={styles.infoItem}>
-                                    <span className={styles.icon}>🕐</span>
+                                    <span className={styles.icon}><Clock size={24} /></span>
                                     <div>
                                         <h4>Business Hours</h4>
                                         <p>Monday - Saturday: 10AM - 7PM</p>
@@ -93,7 +94,7 @@ export default function ContactPage() {
                                     rel="noopener noreferrer"
                                     className={styles.socialLink}
                                 >
-                                    📸 @vermasfurnishings on Instagram
+                                    <Instagram size={24} /> @vermasfurnishings
                                 </a>
                                 <a
                                     href="https://www.linkedin.com/company/verma-s/"
@@ -101,7 +102,7 @@ export default function ContactPage() {
                                     rel="noopener noreferrer"
                                     className={styles.socialLink}
                                 >
-                                    💼 Verma's Furnishing on LinkedIn
+                                    <Linkedin size={24} /> Verma's Furnishing
                                 </a>
                             </div>
                         </motion.div>
@@ -115,7 +116,7 @@ export default function ContactPage() {
                         >
                             <div className={styles.mapWrapper}>
                                 <iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3771.306148386183!2d72.8464673!3d19.0494498!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c9288e7a8e7d%3A0x6d9f3f4e1f7a8e7d!2sSiddheshwar%20Society!5e0!3m2!1sen!2sin!4v1714310000000!5m2!1sen!2sin"
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3771.266228308466!2d72.8465034!3d19.0520857!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c9288e7a8e7d%3A0x6d9f3f4e1f7a8e7d!2sSiddheshwar+Co-operative+Housing+Society!5e0!3m2!1sen!2sin!4v1714310000000!5m2!1sen!2sin"
                                     width="100%"
                                     height="100%"
                                     style={{ border: 0 }}

@@ -48,7 +48,7 @@
     position: relative;
     z-index: 3;
     max-width: 800px;
-    padding: 0 24px;
+    padding: 100px 24px 0;
 }
 
 .tagline {
