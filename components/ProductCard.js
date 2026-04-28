@@ -77,7 +77,6 @@ export default function ProductCard({ product, index = 0 }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
-            whileHover={{ y: -8 }}
             onClick={handleCardClick}
             style={{ cursor: 'pointer' }}
         >
@@ -187,24 +186,14 @@ export default function ProductCard({ product, index = 0 }) {
                             Inquire
                         </a>
                     </div>
-                    <span className={styles.category}>{product.category}</span>
                 </div>
-
                 <div className={styles.content}>
                     <h3 className={styles.name}>
                         <Link href={`/product/${product.id}`} className={styles.titleLink}>
                             {product.name}
                         </Link>
                     </h3>
-                    <p className={styles.description}>{product.description}</p>
-
-                    {product.features && (
-                        <div className={styles.features}>
-                            {product.features.map((feature, i) => (
-                                <span key={i} className={styles.feature}>{feature}</span>
-                            ))}
-                        </div>
-                    )}
+                    <span className={styles.category}>{product.category}</span>
                 </div>
             </div>
         </motion.div>

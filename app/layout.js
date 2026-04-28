@@ -8,6 +8,7 @@ import BackToTop from "@/components/BackToTop";
 import { UserProvider } from "@/context/UserContext";
 import { ToastProvider } from "@/context/ToastContext";
 import GoogleAnalytics from '@/components/GoogleAnalytics';
+import AuthProvider from "@/components/AuthProvider";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const plusJakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-jakarta" });
@@ -30,16 +31,18 @@ export default function RootLayout({ children }) {
       <body className={`${inter.variable} ${plusJakarta.variable} ${cormorant.variable}`}>
         <GoogleAnalytics ga_id={process.env.NEXT_PUBLIC_GA_ID} />
         <ToastProvider>
-          <UserProvider>
-            <Navbar />
-            <main style={{ minHeight: '100vh' }}>
-              {children}
-            </main>
-            <Footer />
-            <WhatsAppFloat />
-            <WishlistFloat />
-            <BackToTop />
-          </UserProvider>
+          <AuthProvider>
+            <UserProvider>
+              <Navbar />
+              <main style={{ minHeight: '100vh' }}>
+                {children}
+              </main>
+              <Footer />
+              <WhatsAppFloat />
+              <WishlistFloat />
+              <BackToTop />
+            </UserProvider>
+          </AuthProvider>
         </ToastProvider>
       </body>
     </html>

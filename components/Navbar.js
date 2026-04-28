@@ -5,11 +5,13 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
+import { useSession } from 'next-auth/react';
 import styles from './Navbar.module.css';
 
 import { trackEvent } from '@/lib/analytics';
 
 export default function Navbar() {
+    const { data: session } = useSession();
     const router = useRouter();
     const [isScrolled, setIsScrolled] = useState(false);
     const [hidden, setHidden] = useState(false);
@@ -116,10 +118,20 @@ export default function Navbar() {
 
                     {/* Account Icon */}
                     <Link href="/account" className={styles.iconBtn} aria-label="My Account">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="12" cy="7" r="4"></circle>
-                        </svg>
+                        {session?.user ? (
+                            <div className={styles.userAvatar}>
+                                {session.user.image ? (
+                                    <Image src={session.user.image} alt={session.user.name} width={24} height={24} className={styles.avatarImg} />
+                                ) : (
+                                    <span className={styles.avatarInitial}>{session.user.name?.charAt(0)}</span>
+                                )}
+                            </div>
+                        ) : (
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                        )}
                     </Link>
 
                     {/* WhatsApp CTA */}
