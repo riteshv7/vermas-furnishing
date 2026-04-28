@@ -6,12 +6,15 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
 import { useSession } from 'next-auth/react';
+import { Heart, ShoppingBag } from 'lucide-react';
+import { useUser } from '../context/UserContext';
 import styles from './Navbar.module.css';
 
 import { trackEvent } from '@/lib/analytics';
 
 export default function Navbar() {
     const { data: session } = useSession();
+    const { wishlist } = useUser();
     const router = useRouter();
     const [isScrolled, setIsScrolled] = useState(false);
     const [hidden, setHidden] = useState(false);
@@ -22,19 +25,13 @@ export default function Navbar() {
     const { scrollY } = useScroll();
 
     useMotionValueEvent(scrollY, "change", (latest) => {
-        const previous = scrollY.getPrevious();
         if (latest > 80) {
             setIsScrolled(true);
-            // Hide navbar if scrolling down, show if scrolling up
-            if (latest > previous && latest > 150) {
-                setHidden(true);
-            } else {
-                setHidden(false);
-            }
         } else {
             setIsScrolled(false);
-            setHidden(false);
         }
+        // Navbar always stays visible — no hiding on scroll
+        setHidden(false);
     });
 
     const handleSearch = (e) => {
@@ -115,6 +112,19 @@ export default function Navbar() {
                             </button>
                         </form>
                     </div>
+
+                    {/* Shopping Bag Icon */}
+                    <Link href="/cart" className={styles.wishlistBtn} aria-label="Shopping Bag">
+                        <ShoppingBag size={22} strokeWidth={1.5} />
+                        {wishlist.length > 0 && (
+                            <span className={styles.wishlistBadge}>{wishlist.length}</span>
+                        )}
+                    </Link>
+
+                    {/* Wishlist Icon (Small/Hidden or kept as alternate) */}
+                    <Link href="/account" className={styles.iconBtn} style={{ display: 'none' }} aria-label="My Wishlist">
+                        <Heart size={22} strokeWidth={1.5} />
+                    </Link>
 
                     {/* Account Icon */}
                     <Link href="/account" className={styles.iconBtn} aria-label="My Account">

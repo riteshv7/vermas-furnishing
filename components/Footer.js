@@ -63,7 +63,7 @@ export default function Footer() {
                 </div>
 
                 <div className={styles.bottom}>
-                    <p>© 2026 Verma's Furnishing. All rights reserved.</p>
+                    <p>© {new Date().getFullYear()} Verma's Furnishing. All rights reserved.</p>
                     <div className={styles.socials}>
                         <a
                             href="https://instagram.com/vermasfurnishings"

@@ -2,27 +2,27 @@
 
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { useUser } from "../../context/UserContext";
 import { 
-  User, 
-  MessageSquare, 
-  Heart, 
-  MapPin, 
-  Settings, 
   LogOut,
-  ChevronRight,
-  ShieldCheck,
-  MessageCircle
+  MessageCircle,
+  ArrowRight,
+  Sparkles,
+  Phone,
+  Heart,
+  X,
+  ShoppingBag
 } from "lucide-react";
 import styles from "./account.module.css";
 
 export default function AccountPage() {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState("profile");
+  const { wishlist, removeFromWishlist } = useUser();
 
   useEffect(() => {
     if (status === "unauthenticated") {
@@ -31,140 +31,167 @@ export default function AccountPage() {
   }, [status, router]);
 
   if (status === "loading") {
-    return <div className={styles.loading}>Loading your profile...</div>;
+    return (
+      <div className={styles.loading}>
+        <div className={styles.loadingSpinner} />
+        <span>Loading your profile...</span>
+      </div>
+    );
   }
 
   if (!session) return null;
 
-  const sidebarItems = [
-    { id: "profile", label: "Profile", icon: User },
-    { id: "enquiries", label: "My Enquiries", icon: MessageSquare },
-    { id: "wishlist", label: "Wishlist", icon: Heart },
-    { id: "addresses", label: "Shipping", icon: MapPin },
-    { id: "settings", label: "Settings", icon: Settings },
-  ];
+  const firstName = session.user.name?.split(' ')[0] || 'there';
+  const userInitial = session.user.name?.charAt(0)?.toUpperCase() || 'U';
+
+  // Build WhatsApp message from wishlist
+  const wishlistMessage = wishlist.length > 0
+    ? `Hi, I'm ${session.user.name}. I'm interested in these pieces:\n${wishlist.map(item => `• ${item.name}`).join('\n')}\n\nCan you share pricing and availability?`
+    : `Hi, I'm ${session.user.name}. I'd like to discuss some furniture pieces.`;
 
   return (
     <div className={styles.container}>
-      <div className="container">
-        <div className={styles.layout}>
-          {/* Sidebar */}
-          <aside className={styles.sidebar}>
-            <div className={styles.userBrief}>
-              <div className={styles.avatar}>
-                {session.user.image ? (
-                  <Image src={session.user.image} alt={session.user.name} fill />
-                ) : (
-                  <span>{session.user.name?.charAt(0) || "U"}</span>
-                )}
-              </div>
-              <div className={styles.userInfo}>
-                <h3>{session.user.name}</h3>
-                <p>Curated Member</p>
-              </div>
+      <div className={styles.innerContainer}>
+        
+        {/* Hero Welcome Section */}
+        <motion.section 
+          className={styles.heroSection}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className={styles.heroContent}>
+            <div className={styles.avatarLarge}>
+              {session.user.image ? (
+                <Image src={session.user.image} alt={session.user.name} fill />
+              ) : (
+                <span>{userInitial}</span>
+              )}
             </div>
+            <div className={styles.heroText}>
+              <p className={styles.heroGreeting}>Welcome back</p>
+              <h1 className={styles.heroName}>{session.user.name}</h1>
+              <p className={styles.heroEmail}>{session.user.email}</p>
+            </div>
+          </div>
+          <button 
+            className={styles.signOutBtn} 
+            onClick={() => signOut({ callbackUrl: "/" })}
+          >
+            <LogOut size={16} />
+            Sign Out
+          </button>
+        </motion.section>
 
-            <nav className={styles.nav}>
-              {sidebarItems.map((item) => (
-                <button
-                  key={item.id}
-                  className={`${styles.navItem} ${activeTab === item.id ? styles.active : ""}`}
-                  onClick={() => setActiveTab(item.id)}
-                >
-                  <item.icon size={20} />
-                  <span>{item.label}</span>
-                </button>
-              ))}
-              <button className={styles.logoutBtn} onClick={() => signOut({ callbackUrl: "/" })}>
-                <LogOut size={20} />
-                <span>Logout</span>
-              </button>
-            </nav>
-          </aside>
-
-          {/* Content Area */}
-          <main className={styles.content}>
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.4 }}
-            >
-              <div className={styles.welcomeHeader}>
-                <h1>Welcome back, {session.user.name.split(' ')[0]}</h1>
-                <p>Manage your curated collection, track your furniture enquiries, and connect with your personal interior concierge.</p>
+        {/* WhatsApp Concierge — Full Width */}
+        <motion.section 
+          className={styles.conciergeCard}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.15 }}
+        >
+          <div className={styles.conciergeInner}>
+            <div className={styles.conciergeText}>
+              <div className={styles.conciergeLabel}>
+                <Sparkles size={14} />
+                <span>Personal Concierge</span>
               </div>
+              <h2>Need help choosing the perfect piece?</h2>
+              <p>Our interior specialists are available on WhatsApp to help you find exactly what you&apos;re looking for — from custom quotations to design consultations.</p>
+            </div>
+            <div className={styles.conciergeActions}>
+              <a 
+                href={`https://wa.me/919821197173?text=${encodeURIComponent(wishlistMessage)}`}
+                target="_blank" 
+                rel="noopener noreferrer"
+                className={styles.whatsappBtn}
+              >
+                <MessageCircle size={20} />
+                Chat on WhatsApp
+              </a>
+              <a href="tel:+919821197173" className={styles.callBtn}>
+                <Phone size={18} />
+                Call Us
+              </a>
+            </div>
+          </div>
+        </motion.section>
 
-              <div className={styles.dashboardGrid}>
-                {/* Recent Enquiries */}
-                <div className={styles.card}>
-                  <div className={styles.cardHeader}>
-                    <h2>Recent Enquiries</h2>
-                    <Link href="#" className={styles.viewAll}>View History</Link>
-                  </div>
-                  <div className={styles.orderItem}>
-                    <div className={styles.orderImg}>
-                       <div className={styles.placeholderImg}>🪑</div>
-                    </div>
-                    <div className={styles.orderDetails}>
-                      <h4>Bespoke Nordic Oak Armchair</h4>
-                      <p>Inquiry #EN-99238 • June 24, 2026</p>
-                    </div>
-                    <span className={styles.statusTag}>Quotation Sent</span>
-                  </div>
-                  <div className={styles.orderItem}>
-                    <div className={styles.orderImg}>
-                       <div className={styles.placeholderImg}>🪑</div>
-                    </div>
-                    <div className={styles.orderDetails}>
-                      <h4>Carrara Marble Coffee Table</h4>
-                      <p>Inquiry #EN-99210 • June 12, 2026</p>
-                    </div>
-                    <span className={`${styles.statusTag} ${styles.delivered}`}>Consultation Scheduled</span>
-                  </div>
-                </div>
+        {/* Wishlist Section */}
+        <motion.section 
+          className={styles.wishlistSection}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.25 }}
+        >
+          <div className={styles.sectionHeader}>
+            <div className={styles.sectionTitle}>
+              <Heart size={20} strokeWidth={1.5} />
+              <h2>Saved Collection</h2>
+            </div>
+            <span className={styles.itemCount}>{wishlist.length} {wishlist.length === 1 ? 'piece' : 'pieces'}</span>
+          </div>
 
-                {/* Concierge Card */}
-                <div className={`${styles.card} ${styles.loyaltyCard}`}>
-                  <h3>Personal Concierge</h3>
-                  <div className={styles.tierInfo}>
-                    <h4>Direct WhatsApp Support</h4>
-                    <p>Have questions about a piece or want a custom quotation? Chat directly with our interior specialists.</p>
-                  </div>
-                  <a 
-                    href="https://wa.me/919820265115" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className={styles.redeemBtn}
-                    style={{ backgroundColor: '#25D366', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}
+          {wishlist.length > 0 ? (
+            <>
+              <div className={styles.wishlistGrid}>
+                {wishlist.map((item, index) => (
+                  <motion.div 
+                    key={item.id} 
+                    className={styles.wishlistItem}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: 0.05 * index }}
                   >
-                    <MessageCircle size={20} />
-                    Chat on WhatsApp
-                  </a>
-                </div>
+                    <div className={styles.wishlistImgWrap}>
+                      {item.image ? (
+                        <Image 
+                          src={item.image} 
+                          alt={item.name} 
+                          fill 
+                          style={{ objectFit: 'cover' }}
+                        />
+                      ) : (
+                        <div className={styles.wishlistPlaceholder}>
+                          <ShoppingBag size={24} />
+                        </div>
+                      )}
+                      <button 
+                        className={styles.removeBtn}
+                        onClick={() => removeFromWishlist(item.id)}
+                        aria-label="Remove from wishlist"
+                      >
+                        <X size={14} />
+                      </button>
+                    </div>
+                    <p className={styles.wishlistName}>{item.name}</p>
+                  </motion.div>
+                ))}
               </div>
+              <a 
+                href={`https://wa.me/919821197173?text=${encodeURIComponent(wishlistMessage)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.enquireAllBtn}
+              >
+                <MessageCircle size={18} />
+                Enquire About All {wishlist.length} Pieces
+              </a>
+            </>
+          ) : (
+            <div className={styles.emptyWishlist}>
+              <Heart size={40} strokeWidth={1} />
+              <h3>Your collection is empty</h3>
+              <p>Browse our catalog and tap the heart icon to save pieces you love.</p>
+              <Link href="/catalog" className={styles.browseBtn}>
+                Browse Catalog
+                <ArrowRight size={16} />
+              </Link>
+            </div>
+          )}
+        </motion.section>
 
-              {/* Security & Support */}
-              <div className={styles.footerGrid}>
-                <div className={styles.smallCard}>
-                  <ShieldCheck size={24} className={styles.cardIcon} />
-                  <div>
-                    <h4>Security & Privacy</h4>
-                    <p>Update your password and manage your account preferences.</p>
-                  </div>
-                </div>
-                <div className={styles.smallCard}>
-                  <MessageSquare size={24} className={styles.cardIcon} />
-                  <div>
-                    <h4>Enquiry Help</h4>
-                    <p>Need assistance with a specific piece? We're here to help.</p>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </main>
-        </div>
       </div>
     </div>
-
   );
 }

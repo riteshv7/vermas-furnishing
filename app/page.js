@@ -4,6 +4,7 @@ import FadeIn from "@/components/FadeIn";
 import { products } from "@/data/products";
 import Link from "next/link";
 import Image from "next/image";
+import InstagramFeed from "@/components/InstagramFeed";
 import styles from "./page.module.css";
 
 export default function Home() {
@@ -172,6 +173,7 @@ export default function Home() {
           </div>
         </section>
       </FadeIn>
+      <InstagramFeed />
     </div>
   );
 }

@@ -40,7 +40,7 @@ export default function OurStoryPage() {
         </div>
         <div className={styles.heroContent}>
           <span className={styles.heroLabel}>Our Story</span>
-          <h1 className={styles.heroTitle}>A Century of<br />Hand-Carved Memories.</h1>
+          <h1 className={styles.heroTitle}>Three Generations of<br />Hand-Carved Memories.</h1>
         </div>
       </section>
 
@@ -134,7 +134,7 @@ export default function OurStoryPage() {
         </p>
         <div className={styles.commitStats}>
           {[
-            { num: "30+", label: "Years in Mumbai" },
+            { num: "30+", label: "Years of Craftsmanship" },
             { num: "5,000+", label: "Pieces Crafted" },
             { num: "100%", label: "Hand-finished" },
             { num: "3", label: "Generations" },
