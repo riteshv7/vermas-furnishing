@@ -30,6 +30,12 @@ export default function ProductDisplay({ product, relatedProducts }) {
         `${greeting} I'm interested in the "${product.name}". Can you share more details?`
     );
 
+    // Share link
+    const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
+    const shareMessage = encodeURIComponent(
+        `Check out this beautiful "${product.name}" from Verma's Furnishing: ${shareUrl}`
+    );
+
     return (
         <div className={styles.container}>
 
@@ -52,7 +58,6 @@ export default function ProductDisplay({ product, relatedProducts }) {
             >
                 {/* Gallery Section */}
                 <div className={styles.gallery}>
-                    {/* Desktop Interactive Image */}
                     <div className={styles.mainImageWrapper} onClick={() => setLightboxOpen(true)}>
                         <AnimatePresence mode="wait">
                             <motion.div
@@ -65,45 +70,14 @@ export default function ProductDisplay({ product, relatedProducts }) {
                             >
                                 <Image
                                     src={images[currentImageIndex]}
-                                    alt={`${product.name} - View ${currentImageIndex + 1}`}
+                                    alt={`${product.name}`}
                                     fill
                                     className={styles.mainImage}
                                     priority
                                 />
-                                <div className={styles.zoomHint}>
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                        <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35M11 8v6M8 11h6" />
-                                    </svg>
-                                </div>
                             </motion.div>
                         </AnimatePresence>
                     </div>
-
-                    {/* Mobile Swipe Gallery */}
-                    <div className={styles.mobileScrollContainer}>
-                        {images.map((img, idx) => (
-                            <div key={idx} className={styles.mobileSlide} onClick={() => {
-                                setCurrentImageIndex(idx);
-                                setLightboxOpen(true);
-                            }}>
-                                <Image
-                                    src={img}
-                                    alt={`${product.name} - View ${idx + 1}`}
-                                    fill
-                                    className={styles.mainImage}
-                                    priority={idx === 0}
-                                />
-                            </div>
-                        ))}
-                    </div>
-
-                    <Lightbox
-                        open={lightboxOpen}
-                        close={() => setLightboxOpen(false)}
-                        index={currentImageIndex}
-                        slides={slides}
-                        on={{ view: ({ index }) => setCurrentImageIndex(index) }}
-                    />
 
                     {images.length > 1 && (
                         <div className={styles.thumbnails}>
@@ -113,12 +87,7 @@ export default function ProductDisplay({ product, relatedProducts }) {
                                     className={`${styles.thumbnailButton} ${currentImageIndex === idx ? styles.activeThumbnail : ''}`}
                                     onClick={() => setCurrentImageIndex(idx)}
                                 >
-                                    <Image
-                                        src={img}
-                                        alt={`Thumbnail ${idx + 1}`}
-                                        fill
-                                        className={styles.thumbnailImage}
-                                    />
+                                    <Image src={img} alt="" fill className={styles.thumbnailImage} />
                                 </button>
                             ))}
                         </div>
@@ -134,23 +103,11 @@ export default function ProductDisplay({ product, relatedProducts }) {
                             <button
                                 onClick={() => {
                                     toggleWishlist(product);
-                                    trackEvent('WISHLIST', {
-                                        productId: product.id,
-                                        action: isLiked ? 'remove' : 'add'
-                                    });
+                                    trackEvent('WISHLIST', { productId: product.id, action: isLiked ? 'remove' : 'add' });
                                 }}
-                                style={{
-                                    background: 'none',
-                                    border: 'none',
-                                    cursor: 'pointer',
-                                    color: isLiked ? '#e31b23' : '#d4c3bc',
-                                    padding: '0.5rem',
-                                    transition: 'transform 0.2s, color 0.2s',
-                                    flexShrink: 0,
-                                }}
-                                title={isLiked ? "Remove from wishlist" : "Add to wishlist"}
+                                style={{ background: 'none', border: 'none', cursor: 'pointer', color: isLiked ? '#e31b23' : '#d4c3bc' }}
                             >
-                                <svg width="28" height="28" viewBox="0 0 24 24" fill={isLiked ? "currentColor" : "none"} stroke="currentColor" strokeWidth="1.5">
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill={isLiked ? "currentColor" : "none"} stroke="currentColor">
                                     <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
                                 </svg>
                             </button>
@@ -158,22 +115,14 @@ export default function ProductDisplay({ product, relatedProducts }) {
                     </div>
 
                     <div className={styles.divider} />
-
                     <p className={styles.description}>{product.description}</p>
 
-                    {product.features && (
+                    {product.features?.length > 0 && (
                         <div className={styles.features}>
                             <h3>Key Features</h3>
                             <ul className={styles.featureList}>
                                 {product.features.map((feature, idx) => (
-                                    <li key={idx} className={styles.featureItem}>
-                                        <div className={styles.featureIcon}>
-                                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
-                                                <path d="M20 6L9 17l-5-5" />
-                                            </svg>
-                                        </div>
-                                        {feature}
-                                    </li>
+                                    <li key={idx} className={styles.featureItem}>{feature}</li>
                                 ))}
                             </ul>
                         </div>
@@ -187,44 +136,50 @@ export default function ProductDisplay({ product, relatedProducts }) {
                             className={styles.inquireBtn}
                             onClick={() => trackEvent('INQUIRE', { productId: product.id, productName: product.name })}
                         >
-                            Inquire About This Piece
+                            Inquire via WhatsApp
                         </a>
-                        <a
-                            href={`https://wa.me/919821197173?text=${whatsappMessage}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={styles.inquireBtnWhatsapp}
-                            onClick={() => trackEvent('INQUIRE_WA', { productId: product.id, productName: product.name })}
-                        >
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
-                            </svg>
-                            Continue on WhatsApp
-                        </a>
+                        
+                        <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
+                            <a
+                                href={`https://wa.me/?text=${shareMessage}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={styles.shareBtn}
+                                style={{ 
+                                    display: 'flex', 
+                                    alignItems: 'center', 
+                                    gap: '0.5rem', 
+                                    fontSize: '0.9rem', 
+                                    color: '#25D366', 
+                                    fontWeight: 600,
+                                    textDecoration: 'none',
+                                    border: '1px solid #25D366',
+                                    padding: '0.5rem 1rem',
+                                    borderRadius: '8px'
+                                }}
+                            >
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+                                </svg>
+                                Share with Family
+                            </a>
+                        </div>
                     </div>
                 </div>
             </motion.div>
 
-            {/* Related Products */}
             {relatedProducts.length > 0 && (
-                <motion.section
-                    className={styles.relatedSection}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.15 }}
-                >
-                    <div className={styles.relatedHeader}>
-                        <h2 className={styles.relatedTitle}>You May Also Like</h2>
-                        <Link href="/catalog" className={styles.relatedLink}>View All →</Link>
-                    </div>
+                <section className={styles.relatedSection}>
+                    <h2 className={styles.relatedTitle}>You May Also Like</h2>
                     <div className={styles.relatedGrid}>
                         {relatedProducts.map((p, idx) => (
                             <ProductCard key={p.id} product={p} index={idx} />
                         ))}
                     </div>
-                </motion.section>
+                </section>
             )}
+            
+            <Lightbox open={lightboxOpen} close={() => setLightboxOpen(false)} index={currentImageIndex} slides={slides} />
         </div>
     );
 }

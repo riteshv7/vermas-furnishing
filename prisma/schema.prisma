@@ -70,3 +70,17 @@ model AnalyticsEvent {
   createdAt DateTime @default(now())
   isInternal Boolean  @default(false)
 }
+
+model Product {
+  id          Int      @id @default(autoincrement())
+  name        String
+  category    String
+  description String
+  image       String
+  images      String?  // JSON string array
+  features    String?  // JSON string array
+  isFeatured  Boolean  @default(false)
+  isNewArrival Boolean @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

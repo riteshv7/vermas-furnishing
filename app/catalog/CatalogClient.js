@@ -9,16 +9,23 @@ export default function CatalogClient({ initialProducts, categories, initialCate
     const [activeCategory, setActiveCategory] = useState(initialCategory || 'All');
     const [searchQuery, setSearchQuery] = useState(initialSearch || '');
 
-    // Synchronize with props if they change (e.g. from nav links)
     useEffect(() => {
         if (initialCategory) setActiveCategory(initialCategory);
         if (initialSearch !== undefined) setSearchQuery(initialSearch);
     }, [initialCategory, initialSearch]);
 
+    // Smart Filter: Checks Name, Description, and Features
     const filteredProducts = initialProducts.filter(product => {
         const matchesCategory = activeCategory === 'All' || product.category === activeCategory;
-        const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            (product.description && product.description.toLowerCase().includes(searchQuery.toLowerCase()));
+        
+        const q = searchQuery.toLowerCase().trim();
+        if (!q) return matchesCategory;
+
+        const matchesSearch = 
+            product.name.toLowerCase().includes(q) ||
+            (product.description && product.description.toLowerCase().includes(q)) ||
+            (product.features && product.features.some(f => f.toLowerCase().includes(q)));
+            
         return matchesCategory && matchesSearch;
     });
 
@@ -40,22 +47,19 @@ export default function CatalogClient({ initialProducts, categories, initialCate
             <section className={styles.filters}>
                 <div className="container">
                     <div className={styles.filterBar}>
-                        {/* Search */}
                         <div className={styles.searchBox}>
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                <circle cx="11" cy="11" r="8" />
-                                <path d="m21 21-4.35-4.35" />
+                                <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
                             </svg>
                             <input
                                 type="text"
-                                placeholder="Search products..."
+                                placeholder="Search by name, material, or feature..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 className={styles.searchInput}
                             />
                         </div>
 
-                        {/* Category Tabs */}
                         <div className={styles.categoryTabs}>
                             {categories.map((category) => (
                                 <button
@@ -79,9 +83,7 @@ export default function CatalogClient({ initialProducts, categories, initialCate
                         {activeCategory !== 'All' && ` in ${activeCategory}`}
                     </p>
 
-                    <motion.div
-                        className={styles.productGrid}
-                    >
+                    <motion.div className={styles.productGrid}>
                         <AnimatePresence>
                             {filteredProducts.map((product, index) => (
                                 <motion.div
@@ -89,10 +91,7 @@ export default function CatalogClient({ initialProducts, categories, initialCate
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, y: 20 }}
-                                    transition={{ 
-                                        duration: 0.4, 
-                                        delay: Math.min(index * 0.05, 0.5) // Cap the delay at 0.5s so products don't take forever to appear
-                                    }}
+                                    transition={{ duration: 0.4, delay: Math.min(index * 0.05, 0.5) }}
                                 >
                                     <ProductCard product={product} />
                                 </motion.div>
@@ -101,35 +100,26 @@ export default function CatalogClient({ initialProducts, categories, initialCate
                     </motion.div>
 
                     {filteredProducts.length === 0 && (
-                        <motion.div
-                            className={styles.noResults}
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                        >
-                            <p>No products found. Try a different search or category.</p>
-                        </motion.div>
+                        <div className={styles.noResults}>
+                            <p>No products found matching "{searchQuery}". Try searching for something else!</p>
+                        </div>
                     )}
                 </div>
             </section>
 
-            {/* CTA */}
             <section className={styles.cta}>
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                >
+                <div className="container">
                     <h2>Can't find what you're looking for?</h2>
                     <p>We also create custom furniture. Share your vision with us!</p>
                     <a
-                        href="https://wa.me/919821197173?text=Hi, I'm looking for custom furniture. Can we discuss?"
+                        href="https://wa.me/919821197173?text=Hi, I'm looking for custom furniture."
                         target="_blank"
                         rel="noopener noreferrer"
                         className="btn btn-whatsapp"
                     >
                         Request Custom Design
                     </a>
-                </motion.div>
+                </div>
             </section>
         </div>
     );

@@ -2,57 +2,148 @@
 
 import { useEffect, useState } from 'react';
 import styles from './admin.module.css';
-import { products } from '@/data/products';
 
 export default function AdminDashboard() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [accessCode, setAccessCode] = useState('');
+    const [activeTab, setActiveTab] = useState('analytics'); 
+    const [hideInternal, setHideInternal] = useState(true);
+    
+    // Analytics Data
     const [data, setData] = useState(null);
-    const [loading, setLoading] = useState(false); // Start false until auth
+    
+    // Product Data
+    const [productList, setProductList] = useState([]);
+    const [editingProduct, setEditingProduct] = useState(null);
+    const [isAdding, setIsAdding] = useState(false);
+    
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    const handleLogin = (e) => {
-        e.preventDefault();
-        if (accessCode === 'Verma2024!') {
+    useEffect(() => {
+        const savedCode = localStorage.getItem('verma_admin_code');
+        if (savedCode) {
+            setAccessCode(savedCode);
             setIsAuthenticated(true);
-            localStorage.setItem('verma_internal', 'true');
-            fetchData();
-        } else {
-            setError('Invalid Access Code');
+            fetchAnalytics(savedCode, hideInternal);
+            fetchProducts(savedCode);
         }
-    };
+    }, []);
 
-    const fetchData = async () => {
+    // Re-fetch analytics when toggle changes
+    useEffect(() => {
+        if (isAuthenticated) {
+            fetchAnalytics(accessCode, hideInternal);
+        }
+    }, [hideInternal]);
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
         setLoading(true);
         setError(null);
         try {
-            const res = await fetch('/api/analytics', {
-                headers: {
-                    'x-admin-code': 'Verma2024!'
-                }
+            const res = await fetch(`/api/analytics?hideInternal=${hideInternal}`, {
+                headers: { 'x-admin-code': accessCode }
             });
             const result = await res.json();
-
+            
             if (result.success) {
+                setIsAuthenticated(true);
+                localStorage.setItem('verma_internal', 'true');
+                localStorage.setItem('verma_admin_code', accessCode);
                 setData(result.data);
+                fetchProducts(accessCode);
             } else {
-                setError(result.error);
+                setError('Invalid Access Code');
             }
         } catch (err) {
-            setError('Failed to fetch data');
+            setError('Failed to login');
         } finally {
             setLoading(false);
         }
     };
 
-    // Remove automatic useEffect fetch, wait for login
-    // useEffect(() => {
-    //     fetchData();
-    // }, []);
+    const fetchAnalytics = async (codeToUse = accessCode, hide = hideInternal) => {
+        setLoading(true);
+        try {
+            const res = await fetch(`/api/analytics?hideInternal=${hide}`, {
+                headers: { 'x-admin-code': codeToUse }
+            });
+            const result = await res.json();
+            if (result.success) setData(result.data);
+        } catch (err) {
+            console.error('Failed to fetch analytics');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const fetchProducts = async (codeToUse = accessCode) => {
+        try {
+            const res = await fetch('/api/admin/products', {
+                headers: { 'x-admin-code': codeToUse }
+            });
+            const result = await res.json();
+            if (result.success) setProductList(result.products);
+        } catch (err) {
+            console.error('Failed to fetch products');
+        }
+    };
+
+    const handleSaveProduct = async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const productData = {
+            name: formData.get('name'),
+            category: formData.get('category'),
+            description: formData.get('description'),
+            image: formData.get('image'),
+            features: formData.get('features').split(',').map(f => f.trim()).filter(f => f),
+            isFeatured: formData.get('isFeatured') === 'on',
+            isNewArrival: formData.get('isNewArrival') === 'on',
+        };
+
+        if (editingProduct) productData.id = editingProduct.id;
+
+        try {
+            const res = await fetch('/api/admin/products', {
+                method: editingProduct ? 'PUT' : 'POST',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'x-admin-code': accessCode
+                },
+                body: JSON.stringify(productData)
+            });
+            const result = await res.json();
+            if (result.success) {
+                setEditingProduct(null);
+                setIsAdding(false);
+                fetchProducts();
+            } else {
+                alert('Failed to save product');
+            }
+        } catch (err) {
+            alert('Error saving product');
+        }
+    };
+
+    const handleDeleteProduct = async (id) => {
+        if (!confirm('Are you sure you want to delete this product?')) return;
+        try {
+            const res = await fetch(`/api/admin/products?id=${id}`, {
+                method: 'DELETE',
+                headers: { 'x-admin-code': accessCode }
+            });
+            const result = await res.json();
+            if (result.success) fetchProducts();
+        } catch (err) {
+            alert('Error deleting product');
+        }
+    };
 
     const getProductName = (id) => {
-        const product = products.find(p => p.id === id);
-        return product ? product.name : 'Unknown Product';
+        const product = productList.find(p => p.id === id);
+        return product ? product.name : `Product #${id}`;
     };
 
     const getMetricValue = (type) => {
@@ -75,7 +166,7 @@ export default function AdminDashboard() {
                             style={{ padding: '12px', borderRadius: '8px', border: '1px solid #ccc', fontSize: '1rem' }}
                         />
                         <button type="submit" className={styles.refreshButton} style={{ width: '100%' }}>
-                            Login
+                            {loading ? 'Logging in...' : 'Login'}
                         </button>
                     </form>
                     {error && <p style={{ color: 'red', marginTop: '1rem' }}>{error}</p>}
@@ -84,73 +175,101 @@ export default function AdminDashboard() {
         );
     }
 
-    if (loading && !data) {
-        return (
-            <div className={styles.loadingOverlay}>
-                <div className={styles.spinner}></div>
-            </div>
-        );
-    }
-
-    if (error) {
-        return <div className={styles.container}>
-            <p>Error: {error}</p>
-            <button onClick={fetchData} className={styles.refreshButton}>Retry</button>
-        </div>;
-    }
-
-    const totalViews = getMetricValue('VIEW');
-    const totalClicks = getMetricValue('CLICK');
-    const totalInquiries = getMetricValue('INQUIRE');
-    const totalWishlist = getMetricValue('WISHLIST');
-
-    const clickRate = totalViews > 0 ? ((totalClicks / totalViews) * 100).toFixed(1) : 0;
-    const inquiryRate = totalViews > 0 ? ((totalInquiries / totalViews) * 100).toFixed(1) : 0;
-
     return (
         <div className={styles.container}>
             <header className={styles.header}>
-                <h1 className={styles.title}>Admin Dashboard</h1>
+                <div>
+                    <h1 className={styles.title}>Verma's Admin</h1>
+                    <nav className={styles.tabs}>
+                        <button className={activeTab === 'analytics' ? styles.activeTab : styles.tab} onClick={() => setActiveTab('analytics')}>Analytics</button>
+                        <button className={activeTab === 'leads' ? styles.activeTab : styles.tab} onClick={() => setActiveTab('leads')}>Customer Leads</button>
+                        <button className={activeTab === 'products' ? styles.activeTab : styles.tab} onClick={() => setActiveTab('products')}>Manage Products</button>
+                    </nav>
+                </div>
+                <button onClick={() => {
+                    localStorage.removeItem('verma_admin_code');
+                    setIsAuthenticated(false);
+                }} className={styles.refreshButton} style={{ backgroundColor: '#ff4444' }}>Logout</button>
+            </header>
+
+            {activeTab === 'analytics' && data && (
+                <AnalyticsDashboard 
+                    data={data} 
+                    getMetricValue={getMetricValue} 
+                    getProductName={getProductName} 
+                    refresh={() => fetchAnalytics()}
+                    loading={loading}
+                    accessCode={accessCode}
+                    hideInternal={hideInternal}
+                    setHideInternal={setHideInternal}
+                />
+            )}
+
+            {activeTab === 'leads' && data && (
+                <LeadsDashboard 
+                    leads={data.leads || []}
+                    getProductName={getProductName}
+                    refresh={() => fetchAnalytics()}
+                />
+            )}
+
+            {activeTab === 'products' && (
+                <ProductManager 
+                    productList={productList} 
+                    onEdit={setEditingProduct}
+                    onAdd={() => setIsAdding(true)}
+                    onDelete={handleDeleteProduct}
+                    editingProduct={editingProduct}
+                    isAdding={isAdding}
+                    onCancel={() => { setEditingProduct(null); setIsAdding(false); }}
+                    onSave={handleSaveProduct}
+                    accessCode={accessCode}
+                />
+            )}
+        </div>
+    );
+}
+
+function AnalyticsDashboard({ data, getMetricValue, getProductName, refresh, loading, accessCode, hideInternal, setHideInternal }) {
+    const totalViews = getMetricValue('VIEW');
+    const totalClicks = getMetricValue('CLICK');
+    const totalInquiries = getMetricValue('INQUIRE');
+    const inquiryRate = totalViews > 0 ? ((totalInquiries / totalViews) * 100).toFixed(1) : 0;
+
+    return (
+        <>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+                <div>
+                    <h2 className={styles.sectionTitle}>Performance Overview</h2>
+                    <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem', color: '#666', cursor: 'pointer' }}>
+                        <input 
+                            type="checkbox" 
+                            checked={hideInternal} 
+                            onChange={(e) => setHideInternal(e.target.checked)} 
+                        />
+                        Real Traffic Only (Hide Admin views)
+                    </label>
+                </div>
                 <div style={{ display: 'flex', gap: '1rem' }}>
                     <button
                         onClick={async () => {
-                            try {
-                                const res = await fetch('/api/analytics?export=csv', {
-                                    headers: { 'x-admin-code': 'Verma2024!' }
-                                });
-                                if (!res.ok) throw new Error('Export failed');
-                                const blob = await res.blob();
-                                const url = window.URL.createObjectURL(blob);
-                                const a = document.createElement('a');
-                                a.href = url;
-                                a.download = 'analytics_export.csv';
-                                document.body.appendChild(a);
-                                a.click();
-                                window.URL.revokeObjectURL(url);
-                                a.remove();
-                            } catch (e) {
-                                alert('Failed to download CSV');
-                            }
+                            const res = await fetch(`/api/analytics?export=csv&hideInternal=${hideInternal}`, { headers: { 'x-admin-code': accessCode } });
+                            const blob = await res.blob();
+                            const url = window.URL.createObjectURL(blob);
+                            const a = document.createElement('a');
+                            a.href = url; a.download = 'analytics.csv'; a.click();
                         }}
-                        className={styles.refreshButton}
-                        style={{ backgroundColor: '#4CAF50' }}
-                    >
-                        Export CSV
-                    </button>
-                    <button
-                        onClick={fetchData}
-                        className={styles.refreshButton}
-                        disabled={loading}
-                    >
-                        {loading ? 'Refreshing...' : 'Refresh Data'}
+                        className={styles.refreshButton} style={{ backgroundColor: '#4CAF50' }}
+                    >Export CSV</button>
+                    <button onClick={refresh} className={styles.refreshButton} disabled={loading}>
+                        {loading ? 'Refreshing...' : 'Refresh'}
                     </button>
                 </div>
-            </header>
+            </div>
 
             <div className={styles.metricsGrid}>
-                {/* ... existing metrics ... */}
                 <div className={styles.metricCard}>
-                    <div className={styles.metricLabel}>Total Page Views</div>
+                    <div className={styles.metricLabel}>Total Views</div>
                     <div className={styles.metricValue}>{totalViews}</div>
                 </div>
                 <div className={styles.metricCard}>
@@ -162,90 +281,8 @@ export default function AdminDashboard() {
                     <div className={styles.metricValue}>{totalInquiries}</div>
                 </div>
                 <div className={styles.metricCard}>
-                    <div className={styles.metricLabel}>Wishlist Adds</div>
-                    <div className={styles.metricValue}>{totalWishlist}</div>
-                </div>
-                <div className={styles.metricCard}>
-                    <div className={styles.metricLabel}>Click Through Rate</div>
-                    <div className={styles.metricValue}>{clickRate}%</div>
-                </div>
-                <div className={styles.metricCard}>
                     <div className={styles.metricLabel}>Inquiry Rate</div>
                     <div className={styles.metricValue}>{inquiryRate}%</div>
-                </div>
-            </div>
-
-            {/* New Audience Insights Section */}
-            <div className={styles.section}>
-                <h2 className={styles.sectionTitle}>Audience Insights</h2>
-                <div className={styles.metricsGrid} style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))' }}>
-
-                    {/* Device Usage */}
-                    <div className={styles.metricCard} style={{ alignItems: 'flex-start', padding: '1.5rem' }}>
-                        <h3 className={styles.cardTitle} style={{ fontSize: '1.1rem', marginBottom: '1rem', color: '#555' }}>Device Usage</h3>
-                        <div style={{ width: '100%' }}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                                <span>Mobile</span>
-                                <b>{data?.stats?.devices?.Mobile || 0}</b>
-                            </div>
-                            <div style={{ width: '100%', height: '6px', background: '#eee', borderRadius: '3px', marginBottom: '1rem' }}>
-                                <div style={{
-                                    width: `${((data?.stats?.devices?.Mobile || 0) / (totalViews || 1)) * 100}%`,
-                                    height: '100%',
-                                    background: '#B57EDC',
-                                    borderRadius: '3px'
-                                }}></div>
-                            </div>
-
-                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                                <span>Desktop</span>
-                                <b>{data?.stats?.devices?.Desktop || 0}</b>
-                            </div>
-                            <div style={{ width: '100%', height: '6px', background: '#eee', borderRadius: '3px' }}>
-                                <div style={{
-                                    width: `${((data?.stats?.devices?.Desktop || 0) / (totalViews || 1)) * 100}%`,
-                                    height: '100%',
-                                    background: '#4CAF50',
-                                    borderRadius: '3px'
-                                }}></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Top Searches */}
-                    <div className={styles.metricCard} style={{ alignItems: 'flex-start', padding: '1.5rem' }}>
-                        <h3 className={styles.cardTitle} style={{ fontSize: '1.1rem', marginBottom: '1rem', color: '#555' }}>Top Search Queries</h3>
-                        {data?.stats?.topSearches?.length > 0 ? (
-                            <ul style={{ listStyle: 'none', padding: 0, width: '100%' }}>
-                                {data.stats.topSearches.map(([term, count], i) => (
-                                    <li key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '0.5rem 0', borderBottom: '1px solid #eee' }}>
-                                        <span style={{ textTransform: 'capitalize' }}>"{term}"</span>
-                                        <span style={{ fontWeight: 'bold', color: '#888' }}>{count}</span>
-                                    </li>
-                                ))}
-                            </ul>
-                        ) : (
-                            <p style={{ color: '#999', fontStyle: 'italic' }}>No search data yet</p>
-                        )}
-                    </div>
-
-                    {/* Popular Categories */}
-                    <div className={styles.metricCard} style={{ alignItems: 'flex-start', padding: '1.5rem' }}>
-                        <h3 className={styles.cardTitle} style={{ fontSize: '1.1rem', marginBottom: '1rem', color: '#555' }}>Popular Categories</h3>
-                        {data?.stats?.topCategories?.length > 0 ? (
-                            <ul style={{ listStyle: 'none', padding: 0, width: '100%' }}>
-                                {data.stats.topCategories.map(([cat, count], i) => (
-                                    <li key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '0.5rem 0', borderBottom: '1px solid #eee' }}>
-                                        <span>{cat}</span>
-                                        <span style={{ fontWeight: 'bold', color: '#888' }}>{count}</span>
-                                    </li>
-                                ))}
-                            </ul>
-                        ) : (
-                            <p style={{ color: '#999', fontStyle: 'italic' }}>No category data yet</p>
-                        )}
-                    </div>
-
                 </div>
             </div>
 
@@ -253,20 +290,12 @@ export default function AdminDashboard() {
                 <h2 className={styles.sectionTitle}>Top Viewed Products</h2>
                 <div className={styles.tableWrapper}>
                     <table className={styles.table}>
-                        <thead>
-                            <tr>
-                                <th>Product Name</th>
-                                <th>ID</th>
-                                <th>Views</th>
-                            </tr>
-                        </thead>
+                        <thead><tr><th>Product Name</th><th>ID</th><th>Views</th></tr></thead>
                         <tbody>
-                            {data?.topViewed?.map((item, index) => (
+                            {data.topViewed?.map((item, index) => (
                                 <tr key={index}>
-                                    <td className={styles.productName}>
-                                        {getProductName(item.productId)}
-                                    </td>
-                                    <td><span className={styles.productId}>{item.productId}</span></td>
+                                    <td>{getProductName(item.productId)}</td>
+                                    <td>{item.productId}</td>
                                     <td>{item._count.productId}</td>
                                 </tr>
                             ))}
@@ -274,69 +303,134 @@ export default function AdminDashboard() {
                     </table>
                 </div>
             </div>
+        </>
+    );
+}
 
-            <div className={styles.section}>
-                <h2 className={styles.sectionTitle}>High Interaction Products (Clicks, Inquiries, Wishlist)</h2>
-                <div className={styles.tableWrapper}>
-                    <table className={styles.table}>
-                        <thead>
-                            <tr>
-                                <th>Product Name</th>
-                                <th>Interaction Type</th>
-                                <th>Count</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {data?.topInteracted?.map((item, index) => (
-                                <tr key={index}>
-                                    <td className={styles.productName}>
-                                        {getProductName(item.productId)}
-                                    </td>
-                                    <td>
-                                        <span className={`${styles.eventType} ${styles['type' + item.type]}`}>
-                                            {item.type}
-                                        </span>
-                                    </td>
-                                    <td>{item._count.productId}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
+function LeadsDashboard({ leads, getProductName, refresh }) {
+    return (
+        <div className={styles.section}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+                <h2 className={styles.sectionTitle}>Recent Customer Inquiries ({leads.length})</h2>
+                <button onClick={refresh} className={styles.refreshButton}>Refresh List</button>
             </div>
-
-            <div className={styles.section}>
-                <h2 className={styles.sectionTitle}>Recent Activity</h2>
-                <div className={styles.tableWrapper}>
-                    <table className={styles.table}>
-                        <thead>
-                            <tr>
-                                <th>Time</th>
-                                <th>Event</th>
-                                <th>Details</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {data?.recent?.map((event) => (
-                                <tr key={event.id}>
-                                    <td>{new Date(event.createdAt).toLocaleString()}</td>
+            <div className={styles.tableWrapper}>
+                <table className={styles.table}>
+                    <thead><tr><th>Time</th><th>Product</th><th>Device</th><th>Status</th></tr></thead>
+                    <tbody>
+                        {leads.length > 0 ? leads.map(lead => {
+                            let meta = {};
+                            try { meta = JSON.parse(lead.metadata || '{}'); } catch(e) {}
+                            return (
+                                <tr key={lead.id}>
+                                    <td>{new Date(lead.createdAt).toLocaleString()}</td>
                                     <td>
-                                        <span className={`${styles.eventType} ${styles['type' + event.type]}`}>
-                                            {event.type}
-                                        </span>
+                                        <a href={`/product/${lead.productId}`} target="_blank" style={{ color: '#B57EDC', fontWeight: 600 }}>{getProductName(lead.productId)}</a>
                                     </td>
-                                    <td>
-                                        {event.productId ? (
-                                            <>Product: <span className={styles.productName}>{getProductName(event.productId)}</span></>
-                                        ) : (
-                                            event.path
-                                        )}
-                                    </td>
+                                    <td>{meta.device || 'Unknown'}</td>
+                                    <td><span style={{ color: '#4CAF50', fontWeight: 600 }}>WhatsApp Click</span></td>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
+                            );
+                        }) : (
+                            <tr><td colSpan="4" style={{ textAlign: 'center', padding: '2rem' }}>No inquiries yet.</td></tr>
+                        )}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    );
+}
+
+function ProductManager({ productList, onEdit, onAdd, onDelete, editingProduct, isAdding, onCancel, onSave, accessCode }) {
+    const product = editingProduct || {};
+    const [imagePreview, setImagePreview] = useState(product.image || '');
+    const [uploading, setUploading] = useState(false);
+
+    const handleImageUpload = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        setUploading(true);
+        const formData = new FormData();
+        formData.append('file', file);
+        try {
+            const res = await fetch('/api/admin/upload', {
+                method: 'POST',
+                headers: { 'x-admin-code': accessCode },
+                body: formData
+            });
+            const result = await res.json();
+            if (result.success) {
+                setImagePreview(result.url);
+                const imageInput = document.querySelector('input[name="image"]');
+                if (imageInput) imageInput.value = result.url;
+            } else {
+                alert('Upload failed.');
+            }
+        } catch (err) {
+            alert('Error uploading image');
+        } finally {
+            setUploading(false);
+        }
+    };
+    
+    if (editingProduct || isAdding) {
+        return (
+            <div className={styles.section}>
+                <h2 className={styles.sectionTitle}>{isAdding ? 'Add New Product' : 'Edit Product'}</h2>
+                <form onSubmit={onSave} className={styles.productForm}>
+                    <div className={styles.formGroup}><label>Product Name</label><input name="name" defaultValue={product.name} required /></div>
+                    <div className={styles.formGroup}><label>Category</label>
+                        <select name="category" defaultValue={product.category || 'Sofas'}>
+                            <option>Sofas</option><option>Dining</option><option>Chairs</option><option>Ottomans</option><option>Headboards</option><option>Tables</option><option>Curtains</option>
+                        </select>
+                    </div>
+                    <div className={styles.formGroup}><label>Description</label><textarea name="description" defaultValue={product.description} rows="4" required /></div>
+                    <div className={styles.formGroup}><label>Product Image</label>
+                        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                            {imagePreview && <img src={imagePreview} alt="Preview" style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '8px' }} />}
+                            <div style={{ flex: 1 }}>
+                                <input type="file" accept="image/*" onChange={handleImageUpload} />
+                                {uploading && <p style={{ fontSize: '0.8rem', color: '#B57EDC' }}>Uploading...</p>}
+                                <input type="hidden" name="image" defaultValue={imagePreview} />
+                            </div>
+                        </div>
+                    </div>
+                    <div className={styles.formGroup}><label>Features (Comma separated)</label><input name="features" defaultValue={product.features?.join(', ')} /></div>
+                    <div style={{ display: 'flex', gap: '2rem', margin: '1rem 0' }}>
+                        <label><input type="checkbox" name="isFeatured" defaultChecked={product.isFeatured} /> Featured</label>
+                        <label><input type="checkbox" name="isNewArrival" defaultChecked={product.isNewArrival} /> New Arrival</label>
+                    </div>
+                    <div style={{ display: 'flex', gap: '1rem', marginTop: '2rem' }}>
+                        <button type="submit" className={styles.refreshButton}>Save Product</button>
+                        <button type="button" onClick={onCancel} className={styles.refreshButton} style={{ backgroundColor: '#666' }}>Cancel</button>
+                    </div>
+                </form>
+            </div>
+        );
+    }
+
+    return (
+        <div className={styles.section}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+                <h2 className={styles.sectionTitle}>Product Inventory ({productList.length})</h2>
+                <button onClick={onAdd} className={styles.refreshButton}>+ Add New Product</button>
+            </div>
+            <div className={styles.tableWrapper}>
+                <table className={styles.table}>
+                    <thead><tr><th>Image</th><th>Name</th><th>Category</th><th>Actions</th></tr></thead>
+                    <tbody>
+                        {productList.map(p => (
+                            <tr key={p.id}>
+                                <td><img src={p.image} alt="" style={{ width: '40px', height: '40px', objectFit: 'cover', borderRadius: '4px' }} /></td>
+                                <td>{p.name}</td><td>{p.category}</td>
+                                <td>
+                                    <button onClick={() => onEdit(p)} style={{ marginRight: '10px', color: '#B57EDC', border: 'none', background: 'none', cursor: 'pointer' }}>Edit</button>
+                                    <button onClick={() => onDelete(p.id)} style={{ color: '#ff4444', border: 'none', background: 'none', cursor: 'pointer' }}>Delete</button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </div>
         </div>
     );

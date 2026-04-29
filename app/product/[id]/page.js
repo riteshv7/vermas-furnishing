@@ -1,10 +1,14 @@
 import { redirect } from 'next/navigation';
-import { products } from '../../../data/products';
-import ProductDisplay from '../../../components/ProductDisplay';
+import { prisma } from '@/lib/prisma';
+import ProductDisplay from '@/components/ProductDisplay';
 
 export async function generateMetadata({ params }) {
     const { id } = await params;
-    const product = products.find(p => p.id === parseInt(id));
+    const productId = parseInt(id);
+    
+    const product = await prisma.product.findUnique({
+        where: { id: productId }
+    });
 
     if (!product) {
         return {
@@ -33,15 +37,36 @@ export async function generateMetadata({ params }) {
 export default async function ProductPage({ params }) {
     const { id } = await params;
     const productId = parseInt(id);
-    const product = products.find(p => p.id === productId);
 
-    if (!product) {
+    const dbProduct = await prisma.product.findUnique({
+        where: { id: productId }
+    });
+
+    if (!dbProduct) {
         redirect('/catalog');
     }
 
+    // Format product
+    const product = {
+        ...dbProduct,
+        images: dbProduct.images ? JSON.parse(dbProduct.images) : undefined,
+        features: dbProduct.features ? JSON.parse(dbProduct.features) : []
+    };
+
     // Find related products
-    const relatedProducts = products
-        .filter(p => p.category === product.category && p.id !== product.id)
+    const dbRelated = await prisma.product.findMany({
+        where: { 
+            category: product.category,
+            id: { not: productId }
+        },
+        take: 10 // Get a bunch to shuffle
+    });
+
+    const relatedProducts = dbRelated
+        .map(p => ({
+            ...p,
+            features: p.features ? JSON.parse(p.features) : []
+        }))
         .sort(() => 0.5 - Math.random()) // Shuffle
         .slice(0, 4);
 

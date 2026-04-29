@@ -1,5 +1,6 @@
 .container {
     padding: 2rem;
+    padding-top: 120px;
     max-width: 1400px;
     margin: 0 auto;
     min-height: 100vh;
@@ -204,9 +205,70 @@
     }
 }
 
+/* Tabs */
+.tabs {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.tab {
+    background: none;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-weight: 600;
+    color: #666;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+}
+
+.activeTab {
+    background: none;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-weight: 600;
+    color: #000;
+    border-bottom: 2px solid #000;
+}
+
+/* Product Form */
+.productForm {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.formGroup label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.formGroup input, .formGroup textarea, .formGroup select {
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+.formGroup input:focus {
+    outline: none;
+    border-color: #000;
+}
+
 @media (max-width: 768px) {
     .container {
         padding: 1rem;
+        padding-top: 100px;
     }
 
     .metricsGrid {

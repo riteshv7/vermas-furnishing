@@ -1,4 +1,5 @@
-import { products, categories } from '@/data/products';
+import { categories } from '@/data/products';
+import { prisma } from '@/lib/prisma';
 import CatalogClient from './CatalogClient';
 
 export const metadata = {
@@ -12,7 +13,7 @@ export const metadata = {
 };
 
 // JSON-LD structured data for Google — ItemList of all products
-function CatalogStructuredData() {
+async function CatalogStructuredData({ products }) {
     const jsonLd = {
         "@context": "https://schema.org",
         "@type": "ItemList",
@@ -60,9 +61,21 @@ export default async function CatalogPage({ searchParams }) {
     const initialCategory = categoryParam && categories.includes(categoryParam) ? categoryParam : 'All';
     const initialSearch = searchParam || '';
 
+    // Fetch products from database
+    const dbProducts = await prisma.product.findMany({
+        orderBy: { id: 'asc' }
+    });
+
+    // Format products for frontend (parsing JSON strings)
+    const products = dbProducts.map(p => ({
+        ...p,
+        images: p.images ? JSON.parse(p.images) : undefined,
+        features: p.features ? JSON.parse(p.features) : []
+    }));
+
     return (
         <>
-            <CatalogStructuredData />
+            <CatalogStructuredData products={products} />
             <CatalogClient
                 initialProducts={products}
                 categories={categories}
