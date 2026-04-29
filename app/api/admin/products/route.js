@@ -3,8 +3,9 @@ import { prisma } from '@/lib/prisma';
 
 // Helper for auth
 function checkAuth(request) {
-    const accessCode = request.headers.get('x-admin-code');
-    return accessCode === process.env.ADMIN_PASSWORD;
+    const accessCode = request.headers.get('x-admin-code')?.trim();
+    const masterPassword = process.env.ADMIN_PASSWORD?.trim();
+    return accessCode && accessCode === masterPassword;
 }
 
 export async function GET(request) {

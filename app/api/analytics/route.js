@@ -6,7 +6,6 @@ export async function POST(request) {
         const body = await request.json();
         const { type, productId, path, metadata } = body;
 
-        // Simple Device Detection
         const userAgent = request.headers.get('user-agent') || '';
         const isMobile = /mobile|android|iphone|ipad|ipod/i.test(userAgent);
         const deviceType = isMobile ? 'Mobile' : 'Desktop';
@@ -30,21 +29,22 @@ export async function POST(request) {
         return NextResponse.json({ success: true });
     } catch (error) {
         console.error('Analytics Error:', error);
-        return NextResponse.json({ success: false, error: 'Failed to log event' }, { status: 500 });
+        return NextResponse.json({ success: false, error: 'Failed' }, { status: 500 });
     }
 }
 
 export async function GET(request) {
     try {
-        const accessCode = request.headers.get('x-admin-code');
-        if (accessCode !== process.env.ADMIN_PASSWORD) {
+        const accessCode = request.headers.get('x-admin-code')?.trim();
+        const masterPassword = process.env.ADMIN_PASSWORD?.trim();
+
+        if (!accessCode || accessCode !== masterPassword) {
             return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
         }
 
         const { searchParams } = new URL(request.url);
         const hideInternal = searchParams.get('hideInternal') === 'true';
         
-        // Base filter
         const where = hideInternal ? { isInternal: false } : {};
 
         if (searchParams.get('export') === 'csv') {
@@ -67,14 +67,12 @@ export async function GET(request) {
             });
         }
 
-        // 1. Basic Totals
         const totalEvents = await prisma.analyticsEvent.groupBy({
             by: ['type'],
             where,
             _count: { type: true },
         });
 
-        // 2. Top Viewed Products
         const topViewedProducts = await prisma.analyticsEvent.groupBy({
             by: ['productId', 'type'],
             where: { ...where, type: 'VIEW', productId: { not: null } },
@@ -83,7 +81,6 @@ export async function GET(request) {
             take: 10,
         });
 
-        // 3. Top Interacted Products
         const topInteractedProducts = await prisma.analyticsEvent.groupBy({
             by: ['productId', 'type'],
             where: {
@@ -96,7 +93,6 @@ export async function GET(request) {
             take: 20,
         });
 
-        // Fetch recent events for processing
         const recentRawEvents = await prisma.analyticsEvent.findMany({
             where,
             take: 1000,
@@ -125,7 +121,6 @@ export async function GET(request) {
             } catch (e) { }
         });
 
-        // 4. Detailed Leads
         const recentLeads = await prisma.analyticsEvent.findMany({
             where: { ...where, type: 'INQUIRE' },
             take: 100,
