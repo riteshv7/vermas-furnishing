@@ -56,43 +56,6 @@
     transform: scale(1.05);
 }
 
-.overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.card:hover .overlay {
-    opacity: 1;
-}
-
-.inquireBtn {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 20px;
-    background-color: #25D366;
-    color: white;
-    border-radius: 50px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    transform: translateY(10px);
-    transition: all 0.3s ease;
-    text-decoration: none;
-}
-
-.card:hover .inquireBtn {
-    transform: translateY(0);
-}
-
-.inquireBtn:hover {
-    background-color: #128C7E;
-}
 
 .category {
     display: block;
@@ -261,12 +224,4 @@
         /* Disable hover effect on touch devices */
     }
 
-    .inquireBtn {
-        opacity: 1;
-        transform: translateY(0);
-        bottom: 16px;
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-    }
 }

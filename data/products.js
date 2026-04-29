@@ -421,7 +421,7 @@ export const products = [
         description: "A masterwork of contemporary design, this set features a rectangular white marble table supported by a complex dark wood geometric 'V' pedestal base, paired with sophisticated taupe leather chairs with elegant vertical channel tufting and gold-tipped walnut legs.",
         image: "/products/taupe-marble-dining-full.jpg",
         images: ["/products/taupe-marble-dining-full.jpg", "/products/taupe-marble-dining-detail.jpg"],
-        features: ["Geometric dark wood 'V' base", "Taupe leather upholstery", "Vertical channel tufting", "White marble tabletop"],
+        features: ["Geometric dark wood 'V' base", "Table marble tabletop", "Vertical channel tufting", "White marble tabletop"],
     },
     {
         id: 520,
