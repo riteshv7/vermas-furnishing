@@ -82,15 +82,15 @@
     text-transform: uppercase;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .container {
-        bottom: 25px;
+        bottom: 100px; /* Above the sticky inquiry bar */
         right: 20px;
     }
     
     .bubble {
-        height: 60px;
-        width: 60px !important;
+        height: 56px;
+        width: 56px !important;
         border-radius: 50% !important;
         padding: 0;
         justify-content: center !important;
@@ -100,3 +100,4 @@
         display: none;
     }
 }
+

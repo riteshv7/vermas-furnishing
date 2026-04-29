@@ -223,7 +223,8 @@
     font-size: 0.95rem;
 }
 
-.actions {
+/* ── Desktop Actions (visible on desktop only) ── */
+.desktopActions {
     margin-top: auto;
     display: flex;
     flex-direction: column;
@@ -250,6 +251,196 @@
     background: #c9a96e;
     transform: translateY(-2px);
     box-shadow: 0 10px 20px rgba(201, 169, 110, 0.2);
+}
+
+.nativeShareBtn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border: 1px solid rgba(0,0,0,0.15);
+    border-radius: 4px;
+    background: transparent;
+    color: #555;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.nativeShareBtn:hover {
+    border-color: #1a1a1a;
+    color: #1a1a1a;
+}
+
+.whatsappShareBtn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: #25D366;
+    font-weight: 600;
+    text-decoration: none;
+    border: 1px solid #25D366;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.whatsappShareBtn:hover {
+    background: rgba(37, 211, 102, 0.06);
+}
+
+/* Wishlist button — ensure 44px minimum tap target */
+.wishlistBtn {
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* ── Feature 5: Image Counter (mobile/tablet) ── */
+.imageCounter {
+    display: none;
+}
+
+/* ── Feature 1: Sticky WhatsApp Bar (hidden on desktop) ── */
+.stickyBar {
+    display: none;
+}
+
+/* ═══════════════════════════════════════════════
+   MOBILE & TABLET STYLES (≤ 1024px)
+   Desktop is COMPLETELY UNAFFECTED by these rules
+   ═══════════════════════════════════════════════ */
+
+@media (max-width: 1024px) {
+    /* Hide desktop action buttons on mobile/tablet */
+    .desktopActions {
+        display: none;
+    }
+
+    /* Show sticky bar */
+    .stickyBar {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: #1a1a1a;
+        padding: 14px 16px;
+        padding-bottom: calc(14px + env(safe-area-inset-bottom)); /* iPhone notch safe */
+        gap: 12px;
+        align-items: center;
+        z-index: 9990;
+        box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+    }
+
+    .stickyShareBtn {
+        width: 52px;
+        height: 52px;
+        min-width: 52px;
+        border-radius: 50%;
+        border: 1px solid rgba(255,255,255,0.2);
+        background: transparent;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        flex-shrink: 0;
+    }
+
+    .stickyInquireBtn {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        background: #c9a96e;
+        color: #1a1a1a;
+        padding: 16px 20px;
+        border-radius: 4px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 0.85rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        min-height: 52px; /* 44px+ tap target */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* Show image counter */
+    .imageCounter {
+        display: block;
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: rgba(0,0,0,0.6);
+        color: white;
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        z-index: 10;
+        letter-spacing: 1px;
+    }
+
+    /* Hide zoom hint on touch (no hover) */
+    .zoomHint {
+        display: none;
+    }
+
+    /* Bigger thumbnails on tablet */
+    .thumbnailButton {
+        width: 70px;
+        height: 70px;
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    /* Larger title on mobile */
+    .title {
+        font-size: 2rem;
+    }
+
+    /* Add bottom padding so sticky bar doesn't cover content */
+    .container {
+        padding-bottom: 90px;
+    }
+
+    /* Ensure gallery gap for thumbnails */
+    .gallery {
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .title {
+        font-size: 1.6rem;
+    }
+
+    .description {
+        font-size: 0.95rem;
+    }
+
+    .thumbnailButton {
+        width: 60px;
+        height: 60px;
+    }
+
+    .stickyInquireBtn {
+        font-size: 0.8rem;
+        padding: 14px 16px;
+    }
+
+    .relatedSection {
+        padding-bottom: 100px; /* Extra room above sticky bar */
+    }
 }
 
 /* ── Related Products ── */
