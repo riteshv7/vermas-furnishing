@@ -2,8 +2,7 @@ import { Inter, Plus_Jakarta_Sans, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import WhatsAppFloat from "@/components/WhatsAppFloat";
-import WishlistFloat from "@/components/WishlistFloat";
+import WhatsAppConcierge from "@/components/WhatsAppConcierge";
 import BackToTop from "@/components/BackToTop";
 import { UserProvider } from "@/context/UserContext";
 import { ToastProvider } from "@/context/ToastContext";
@@ -55,6 +54,7 @@ export default function RootLayout({ children }) {
                 {children}
               </main>
               <Footer />
+              <WhatsAppConcierge />
               <BackToTop />
             </UserProvider>
           </AuthProvider>

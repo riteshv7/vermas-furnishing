@@ -1,0 +1,102 @@
+.container {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    z-index: 9999;
+}
+
+.link {
+    text-decoration: none;
+    color: white;
+}
+
+.bubble {
+    height: 64px;
+    background: #111111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(201, 169, 110, 0.3);
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    backdrop-filter: blur(15px);
+    transition: background 0.3s ease;
+}
+
+.expanded {
+    justify-content: flex-start !important;
+    padding-left: 32px;
+    background: #141414;
+}
+
+.iconWrapper {
+    width: 24px;
+    height: 24px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.icon {
+    color: #c9a96e;
+}
+
+.pulse {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 10px;
+    height: 10px;
+    background-color: #c9a96e;
+    border-radius: 50%;
+    border: 2px solid #111111;
+}
+
+.pulse::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background-color: #c9a96e;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 0.8; }
+    100% { transform: scale(3); opacity: 0; }
+}
+
+.text {
+    padding-left: 18px;
+    padding-right: 40px; /* More padding on the right to prevent clipping */
+    white-space: nowrap;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: white;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+    .container {
+        bottom: 25px;
+        right: 20px;
+    }
+    
+    .bubble {
+        height: 60px;
+        width: 60px !important;
+        border-radius: 50% !important;
+        padding: 0;
+        justify-content: center !important;
+    }
+    
+    .text {
+        display: none;
+    }
+}

@@ -5,7 +5,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import Lightbox from "yet-another-react-lightbox";
+import Zoom from "yet-another-react-lightbox/plugins/zoom";
+import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
 import "yet-another-react-lightbox/styles.css";
+import "yet-another-react-lightbox/plugins/thumbnails.css";
 import { useUser } from '../context/UserContext';
 import ProductCard from './ProductCard';
 import { useAnalytics } from '@/hooks/useAnalytics';
@@ -22,7 +25,11 @@ export default function ProductDisplay({ product, relatedProducts }) {
     const images = product.images || [product.image];
 
     // Prepare slides for lightbox
-    const slides = images.map(src => ({ src }));
+    const slides = images.map(src => ({ 
+        src,
+        width: 1920,
+        height: 1280,
+    }));
 
     // WhatsApp Message
     const greeting = user?.name ? `Hi, I'm ${user.name}.` : "Hi,";
@@ -58,7 +65,20 @@ export default function ProductDisplay({ product, relatedProducts }) {
             >
                 {/* Gallery Section */}
                 <div className={styles.gallery}>
-                    <div className={styles.mainImageWrapper} onClick={() => setLightboxOpen(true)}>
+                    <div 
+                        className={styles.mainImageWrapper} 
+                        onClick={() => setLightboxOpen(true)}
+                        style={{ cursor: 'zoom-in' }}
+                    >
+                        <div className={styles.zoomHint}>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                <line x1="11" y1="8" x2="11" y2="14"></line>
+                                <line x1="8" y1="11" x2="14" y2="11"></line>
+                            </svg>
+                            <span>Click to Inspect Craftsmanship</span>
+                        </div>
                         <AnimatePresence mode="wait">
                             <motion.div
                                 key={currentImageIndex}
@@ -179,7 +199,27 @@ export default function ProductDisplay({ product, relatedProducts }) {
                 </section>
             )}
             
-            <Lightbox open={lightboxOpen} close={() => setLightboxOpen(false)} index={currentImageIndex} slides={slides} />
+            <Lightbox 
+                open={lightboxOpen} 
+                close={() => setLightboxOpen(false)} 
+                index={currentImageIndex} 
+                slides={slides} 
+                plugins={[Zoom, Thumbnails]}
+                zoom={{
+                    maxZoomPixelRatio: 3,
+                    zoomInMultiplier: 2,
+                    doubleTapDelay: 300,
+                    doubleClickDelay: 300,
+                    doubleClickMaxStops: 2,
+                    keyboardMoveDistance: 50,
+                    wheelZoomDistanceFactor: 100,
+                    pinchZoomDistanceFactor: 100,
+                }}
+                styles={{
+                    container: { backgroundColor: "rgba(0, 0, 0, 0.95)", backdropFilter: "blur(10px)" },
+                    thumbnailsContainer: { backgroundColor: "rgba(0, 0, 0, 0.5)" },
+                }}
+            />
         </div>
     );
 }
