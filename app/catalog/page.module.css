@@ -265,8 +265,8 @@
 
 @media (max-width: 768px) {
     .productGrid {
-        grid-template-columns: 1fr !important;
-        gap: 20px;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12px;
     }
 
     .filters {

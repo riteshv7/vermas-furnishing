@@ -55,7 +55,8 @@
 
 @media (max-width: 991px) {
     .gallery {
-        padding: 2rem;
+        padding: 1rem;
+        gap: 0.75rem;
     }
 }
 
@@ -67,6 +68,12 @@
     overflow: hidden;
     cursor: zoom-in;
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+@media (max-width: 768px) {
+    .mainImageWrapper {
+        aspect-ratio: 1/1; /* Square on mobile — shows full product */
+    }
 }
 
 .zoomHint {
@@ -365,13 +372,10 @@
         border-radius: 4px;
         text-decoration: none;
         font-weight: 700;
-        font-size: 0.85rem;
-        letter-spacing: 1px;
+        font-size: 0.9rem;
+        letter-spacing: 1.5px;
         text-transform: uppercase;
-        min-height: 52px; /* 44px+ tap target */
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        min-height: 52px;
     }
 
     /* Show image counter */
@@ -410,7 +414,8 @@
 
     /* Add bottom padding so sticky bar doesn't cover content */
     .container {
-        padding-bottom: 90px;
+        padding-bottom: 100px;
+        padding-top: 70px; /* Less top padding on mobile */
     }
 
     /* Ensure gallery gap for thumbnails */
