@@ -2,15 +2,32 @@ import { categories } from '@/data/products';
 import { prisma } from '@/lib/prisma';
 import CatalogClient from './CatalogClient';
 
-export const metadata = {
-    title: "Our Collection | Handcrafted Sofas, Dining & Headboards | Verma's Furnishing",
-    description: "Browse our curated catalog of handcrafted sofas, marble dining sets, tufted headboards, accent chairs and bespoke furniture. Made in Mumbai, delivered across India.",
-    openGraph: {
-        title: "Our Collection | Verma's Furnishing",
-        description: "Browse our curated catalog of handcrafted sofas, marble dining sets, tufted headboards, accent chairs and bespoke furniture.",
-        type: 'website',
-    },
-};
+export async function generateMetadata({ searchParams }) {
+    const resolvedParams = await searchParams;
+    const category = resolvedParams?.category;
+    
+    if (category && category !== 'All') {
+        return {
+            title: `Premium ${category} Collection | Handcrafted Luxury Furniture | Verma's`,
+            description: `Explore our bespoke ${category.toLowerCase()} collection. Handcrafted in Mumbai with premium materials. Custom designs available for your home.`,
+            openGraph: {
+                title: `${category} Collection | Verma's Furnishing`,
+                description: `Browse our curated catalog of handcrafted ${category.toLowerCase()}.`,
+                type: 'website',
+            },
+        };
+    }
+
+    return {
+        title: "Our Collection | Handcrafted Sofas, Dining & Headboards | Verma's Furnishing",
+        description: "Browse our curated catalog of handcrafted sofas, marble dining sets, tufted headboards, accent chairs and bespoke furniture. Made in Mumbai, delivered across India.",
+        openGraph: {
+            title: "Our Collection | Verma's Furnishing",
+            description: "Browse our curated catalog of handcrafted sofas, marble dining sets, tufted headboards, accent chairs and bespoke furniture.",
+            type: 'website',
+        },
+    };
+}
 
 // JSON-LD structured data for Google — ItemList of all products
 async function CatalogStructuredData({ products }) {
