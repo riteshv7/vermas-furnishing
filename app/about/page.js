@@ -3,7 +3,7 @@ import Link from "next/link";
 import styles from "./page.module.css";
 
 export const metadata = {
-  title: "Our Story - Verma's Furnishing",
+  title: "Our Story | Three Generations of Craftsmanship | Verma's Furnishing",
   description: "Three generations of handcrafted furniture, born in Mumbai. Discover the story, craft, and philosophy behind every Verma's piece.",
 };
 
@@ -67,19 +67,73 @@ export default function OurStoryPage() {
                 alt="Verma's showroom"
                 fill
                 className={styles.stackImage}
-                sizes="(max-width:768px) 100vw, 40vw"
-              />
-            </div>
-            <div className={styles.openingImgSmall}>
-              <Image
-                src="/products/origins-sofa.jpg"
-                alt="Handcrafted sofa"
-                fill
-                className={styles.stackImage}
-                sizes="(max-width:768px) 0vw, 20vw"
               />
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ── Special Editorial Testimonials (Split Grid Version) ── */}
+      <section className={styles.editorialSection}>
+        <div className={styles.editorialHeader}>
+            <span className={styles.label}>A Legacy in Homes</span>
+            <h2 className={styles.editorialTitle}>The Verma's Experience</h2>
+        </div>
+
+        <div className={styles.editorialGrid}>
+            {/* Review 1 */}
+            <div className={styles.editorialCard}>
+                <div className={styles.editorialCardImage}>
+                    <Image 
+                        src="/products/luxury-living-room.jpg" 
+                        alt="Royal Living Room" 
+                        fill 
+                        className={styles.featureImg} 
+                    />
+                </div>
+                <div className={styles.editorialCardContent}>
+                    <span className={styles.cardLabel}>The Family Home</span>
+                    <h3>"The day our Royal Velvet Sofa arrived, our house finally felt like a home. The craftsmanship is unlike anything we've seen in India."</h3>
+                    <p>It's not just furniture; it's a member of the family now. Every time we have guests, the first thing they notice is the intricate carving and the sheer comfort of the velvet.</p>
+                    <cite>— Mrs. Advani, Cuffe Parade</cite>
+                </div>
+            </div>
+
+            {/* Review 2 */}
+            <div className={styles.editorialCard}>
+                <div className={styles.editorialCardContent} style={{ background: '#604334', color: '#fff' }}>
+                    <span className={styles.cardLabel} style={{ color: 'rgba(255,255,255,0.6)' }}>Custom Creations</span>
+                    <h3 style={{ color: '#fff' }}>"We asked for the impossible, and they carved it into reality."</h3>
+                    <p>Our custom headboard was a dream inspired by a 1920s sketch. They didn't just replicate it; they improved it with modern reinforcements that will last a lifetime.</p>
+                    <cite style={{ color: 'rgba(255,255,255,0.6)' }}>— The Kapoor Family, Bandra</cite>
+                </div>
+                <div className={styles.editorialCardImage}>
+                    <Image 
+                        src="/products/arched-channel-headboard.jpg" 
+                        alt="Custom Headboard" 
+                        fill 
+                        className={styles.featureImg} 
+                    />
+                </div>
+            </div>
+
+            {/* Review 3 */}
+            <div className={styles.editorialCard}>
+                <div className={styles.editorialCardImage}>
+                    <Image 
+                        src="/products/contemporary-marble-dining-full.jpg" 
+                        alt="Marble Dining" 
+                        fill 
+                        className={styles.featureImg} 
+                    />
+                </div>
+                <div className={styles.editorialCardContent}>
+                    <span className={styles.cardLabel}>The Designer's Choice</span>
+                    <h3>"Precision in every grain. I've worked with many brands, but the honesty in Verma's materials is what keeps me coming back."</h3>
+                    <p>Working with the Verma team on my latest BKC project was seamless. They understood the nuances of the marble grain better than the quarry themselves.</p>
+                    <cite>— Rohan Mehta, Principal Architect</cite>
+                </div>
+            </div>
         </div>
       </section>
 
@@ -100,42 +154,19 @@ export default function OurStoryPage() {
         </div>
       </section>
 
-      {/* ── Founder Quote ── */}
-      <section className={styles.quoteSection}>
-        <div className={styles.quoteInner}>
-          <div className={styles.quoteMark}>"</div>
-          <blockquote className={styles.quoteText}>
-            We do not build furniture. We build the silent witnesses to your
-            life's most intimate moments.
-          </blockquote>
-          <cite className={styles.quoteCite}>— Verma's Furnishing, Mumbai</cite>
-        </div>
-        <div className={styles.quoteImageWrapper}>
-          <Image
-            src="/products/grey-daybed-brass.jpg"
-            alt="Verma's signature piece"
-            fill
-            className={styles.quoteImage}
-            sizes="(max-width:768px) 100vw, 50vw"
-          />
-        </div>
-      </section>
-
       {/* ── Our Commitment ── */}
       <section className={styles.commitSection}>
-        <span className={styles.label}>Our Commitment to Earth</span>
+        <span className={styles.label}>Our Commitment</span>
         <h2 className={styles.commitTitle}>Made Responsibly. Built to Last.</h2>
         <p className={styles.commitText}>
           Sustainability, for us, is not a marketing promise — it is the logical
           conclusion of craftsmanship. A piece built to last a lifetime is the
-          most sustainable object that can exist. We source our materials from
-          verified suppliers, use water-based finishes, and ensure zero off-cuts
-          go to landfill.
+          most sustainable object that can exist.
         </p>
         <div className={styles.commitStats}>
           {[
-            { num: "30+", label: "Years of Craftsmanship" },
-            { num: "5,000+", label: "Pieces Crafted" },
+            { num: "30+", label: "Years" },
+            { num: "5,000+", label: "Pieces" },
             { num: "100%", label: "Hand-finished" },
             { num: "3", label: "Generations" },
           ].map((s, i) => (

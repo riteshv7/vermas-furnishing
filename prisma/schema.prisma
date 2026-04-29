@@ -84,3 +84,15 @@ model Product {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
+
+model Testimonial {
+  id        Int      @id @default(autoincrement())
+  name      String
+  location  String?
+  content   String
+  image     String?
+  rating    Int      @default(5)
+  productId Int?     
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
