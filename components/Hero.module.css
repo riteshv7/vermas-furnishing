@@ -145,8 +145,15 @@
     text-transform: uppercase;
 }
 
-@media (max-width: 768px) {
-    .controls { bottom: 120px; }
+@media (max-width: 1024px) {
+    .controls { 
+        bottom: 30px;
+        gap: 0;
+    }
+    .controlBtn { 
+        display: none; /* Hide arrows on mobile/tablet — users swipe */
+    }
     .scrollIndicator { display: none; }
     .content { padding-top: 60px; }
+    .content p { font-size: 1rem; }
 }
