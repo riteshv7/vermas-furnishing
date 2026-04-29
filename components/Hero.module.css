@@ -1,53 +1,45 @@
 .hero {
     position: relative;
     min-height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    background-color: #1a1a1a;
+}
+
+.slideContainer {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    overflow: hidden;
-    background-color: var(--secondary);
-    /* Fallback */
 }
 
-.bgImage {
+.bgWrapper {
     position: absolute;
-    top: -20%;
-    /* Extra height for parallax */
-    left: 0;
-    right: 0;
-    bottom: -20%;
+    inset: 0;
     width: 100%;
-    height: 140%;
-    object-fit: cover;
+    height: 100%;
     z-index: 0;
 }
 
-.hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.6) 100%);
-    z-index: 1;
+.bgImage {
+    object-fit: cover;
 }
 
 .overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.4) 100%);
-    z-index: 2;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.7) 100%);
+    z-index: 1;
 }
 
 .content {
     position: relative;
-    z-index: 3;
-    max-width: 800px;
+    z-index: 2;
+    max-width: 900px;
     padding: 100px 24px 0;
 }
 
@@ -55,10 +47,10 @@
     display: inline-block;
     padding: 8px 20px;
     background-color: rgba(201, 169, 110, 0.2);
-    color: #c9a96e;
+    color: #dfc389;
     font-size: 0.9rem;
     font-weight: 500;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
     text-transform: uppercase;
     border-radius: 50px;
     margin-bottom: 24px;
@@ -68,6 +60,8 @@
     color: white;
     margin-bottom: 24px;
     font-weight: 700;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    line-height: 1.1;
 }
 
 .highlight {
@@ -78,79 +72,81 @@
 }
 
 .content p {
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.85);
     font-size: 1.15rem;
-    max-width: 600px;
+    max-width: 650px;
     margin: 0 auto 40px;
     line-height: 1.7;
+    font-weight: 300;
 }
 
 .buttons {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 16px;
+    gap: 20px;
     flex-wrap: wrap;
+}
+
+/* Controls */
+.controls {
+    position: absolute;
+    bottom: 50px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    z-index: 5;
+}
+
+.controlBtn {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: opacity 0.3s;
+}
+
+.controlBtn:hover {
+    opacity: 1;
+}
+
+.indicators {
+    display: flex;
+    gap: 12px;
+}
+
+.indicator {
+    width: 30px;
+    height: 3px;
+    background: rgba(255,255,255,0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.activeIndicator {
+    background: #c9a96e;
+    width: 60px;
 }
 
 .scrollIndicator {
     position: absolute;
     bottom: 40px;
-    left: 50%;
-    transform: translateX(-50%);
+    right: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 12px;
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 0.8rem;
-    letter-spacing: 1px;
-}
-
-.scrollIcon {
-    width: 24px;
-    height: 40px;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: 12px;
-    position: relative;
-}
-
-.scrollIcon::before {
-    content: '';
-    position: absolute;
-    top: 8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 4px;
-    height: 8px;
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 2px;
-    animation: scroll 2s infinite;
-}
-
-@keyframes scroll {
-    0% {
-        transform: translateX(-50%) translateY(0);
-        opacity: 1;
-    }
-
-    100% {
-        transform: translateX(-50%) translateY(16px);
-        opacity: 0;
-    }
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
 }
 
 @media (max-width: 768px) {
-    .content h1 {
-        font-size: 2.2rem;
-    }
-
-    .content p {
-        font-size: 1rem;
-    }
-
-    .tagline {
-        font-size: 0.75rem;
-        padding: 6px 14px;
-    }
+    .controls { bottom: 120px; }
+    .scrollIndicator { display: none; }
+    .content { padding-top: 60px; }
 }

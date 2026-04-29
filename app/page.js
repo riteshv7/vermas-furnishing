@@ -11,7 +11,6 @@ export default async function Home() {
   // Fetch products from DB with extreme caution
   let products = [];
   try {
-    // Try both lowercase and uppercase just in case of environment differences
     const productModel = prisma.product || prisma.Product;
     
     if (productModel) {
@@ -22,22 +21,16 @@ export default async function Home() {
 
       products = dbProducts.map(p => ({
         ...p,
+        images: p.images ? JSON.parse(p.images) : [p.image], // Parse images or use fallback
         features: p.features ? JSON.parse(p.features) : []
       }));
-    } else {
-      console.error("Prisma 'product' model not found on client instance.");
     }
   } catch (error) {
     console.error("Home page data fetch error:", error);
   }
 
-  // Hand-pick one from each category so visitors see the full range
-  const newArrivals = [
-    products.find(p => p.category === 'Dining'),
-    products.find(p => p.category === 'Headboards'),
-    products.find(p => p.category === 'Ottomans'),
-    products.find(p => p.category === 'Tables'),
-  ].filter(Boolean);
+  // Show the 8 most recent products as New Arrivals
+  const newArrivals = products.slice(0, 8);
 
   // Collections data
   const collections = [

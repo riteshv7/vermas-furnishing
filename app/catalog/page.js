@@ -86,7 +86,7 @@ export default async function CatalogPage({ searchParams }) {
     // Format products for frontend (parsing JSON strings)
     const products = dbProducts.map(p => ({
         ...p,
-        images: p.images ? JSON.parse(p.images) : undefined,
+        images: p.images ? JSON.parse(p.images) : [p.image],
         features: p.features ? JSON.parse(p.features) : []
     }));
 

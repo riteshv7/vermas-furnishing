@@ -5,14 +5,34 @@ import { motion, AnimatePresence } from 'framer-motion';
 import ProductCard from '@/components/ProductCard';
 import styles from './page.module.css';
 
+const QUICK_FILTERS = [
+    { label: "Velvet", query: "velvet" },
+    { label: "Marble", query: "marble" },
+    { label: "Solid Teak", query: "teak" },
+    { label: "Brass", query: "brass" },
+    { label: "Modern", query: "modern" },
+    { label: "Classic", query: "classic" }
+];
+
 export default function CatalogClient({ initialProducts, categories, initialCategory, initialSearch }) {
     const [activeCategory, setActiveCategory] = useState(initialCategory || 'All');
     const [searchQuery, setSearchQuery] = useState(initialSearch || '');
+    const [activeQuickFilter, setActiveQuickFilter] = useState(null);
 
     useEffect(() => {
         if (initialCategory) setActiveCategory(initialCategory);
         if (initialSearch !== undefined) setSearchQuery(initialSearch);
     }, [initialCategory, initialSearch]);
+
+    const handleQuickFilter = (query) => {
+        if (activeQuickFilter === query) {
+            setActiveQuickFilter(null);
+            setSearchQuery('');
+        } else {
+            setActiveQuickFilter(query);
+            setSearchQuery(query);
+        }
+    };
 
     // Smart Filter: Checks Name, Description, and Features
     const filteredProducts = initialProducts.filter(product => {
@@ -53,9 +73,12 @@ export default function CatalogClient({ initialProducts, categories, initialCate
                             </svg>
                             <input
                                 type="text"
-                                placeholder="Search by name, material, or feature..."
+                                placeholder="Search by name, material, or style..."
                                 value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
+                                onChange={(e) => {
+                                    setSearchQuery(e.target.value);
+                                    setActiveQuickFilter(null);
+                                }}
                                 className={styles.searchInput}
                             />
                         </div>
@@ -72,26 +95,51 @@ export default function CatalogClient({ initialProducts, categories, initialCate
                             ))}
                         </div>
                     </div>
+
+                    {/* Quick Filters - NEW */}
+                    <div className={styles.quickFilters}>
+                        <span className={styles.quickFilterLabel}>Filter by Material & Style:</span>
+                        <div className={styles.tagGrid}>
+                            {QUICK_FILTERS.map((filter) => (
+                                <button
+                                    key={filter.label}
+                                    onClick={() => handleQuickFilter(filter.query)}
+                                    className={`${styles.tag} ${activeQuickFilter === filter.query ? styles.tagActive : ''}`}
+                                >
+                                    {filter.label}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </section>
 
             {/* Products Grid */}
             <section className={styles.productsSection}>
                 <div className="container">
-                    <p className={styles.resultCount}>
-                        Showing {filteredProducts.length} product{filteredProducts.length !== 1 ? 's' : ''}
-                        {activeCategory !== 'All' && ` in ${activeCategory}`}
-                    </p>
+                    <div className={styles.resultsHeader}>
+                        <p className={styles.resultCount}>
+                            Showing {filteredProducts.length} product{filteredProducts.length !== 1 ? 's' : ''}
+                            {activeCategory !== 'All' && ` in ${activeCategory}`}
+                            {activeQuickFilter && ` for "${activeQuickFilter}"`}
+                        </p>
+                        {searchQuery && (
+                            <button onClick={() => {setSearchQuery(''); setActiveQuickFilter(null);}} className={styles.clearBtn}>
+                                Clear all filters
+                            </button>
+                        )}
+                    </div>
 
                     <motion.div className={styles.productGrid}>
-                        <AnimatePresence>
+                        <AnimatePresence mode="popLayout">
                             {filteredProducts.map((product, index) => (
                                 <motion.div
                                     key={product.id}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: 20 }}
-                                    transition={{ duration: 0.4, delay: Math.min(index * 0.05, 0.5) }}
+                                    layout
+                                    initial={{ opacity: 0, scale: 0.9 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    exit={{ opacity: 0, scale: 0.9 }}
+                                    transition={{ duration: 0.3 }}
                                 >
                                     <ProductCard product={product} />
                                 </motion.div>
@@ -101,7 +149,12 @@ export default function CatalogClient({ initialProducts, categories, initialCate
 
                     {filteredProducts.length === 0 && (
                         <div className={styles.noResults}>
-                            <p>No products found matching "{searchQuery}". Try searching for something else!</p>
+                            <div className={styles.noResultsIcon}>🔍</div>
+                            <h3>No matches found</h3>
+                            <p>We couldn't find any products matching your current filters. Try searching for something else or browse our full collection.</p>
+                            <button onClick={() => {setSearchQuery(''); setActiveQuickFilter(null); setActiveCategory('All');}} className={styles.resetBtn}>
+                                Reset all filters
+                            </button>
                         </div>
                     )}
                 </div>

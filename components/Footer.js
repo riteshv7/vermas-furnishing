@@ -1,139 +1,91 @@
-import { Instagram, Linkedin, Phone, Mail, MessageSquare } from "lucide-react";
+'use client';
+
+import { Instagram, Linkedin, MessageSquare, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import styles from "./Footer.module.css";
 
 const QUICK_LINKS = [
-  { label: "Home", href: "/" },
-  { label: "Catalog", href: "/catalog" },
-  { label: "Contact", href: "/contact" },
+  { label: "Our Story", href: "/about" },
+  { label: "Full Catalog", href: "/catalog" },
+  { label: "Bespoke Service", href: "/catalog?search=custom" },
+  { label: "Contact Us", href: "/contact" },
 ];
 
 const CATEGORIES = [
-  { label: "Sofas", href: "/catalog?category=Sofas" },
-  { label: "Dining", href: "/catalog?category=Dining" },
-  { label: "Chairs", href: "/catalog?category=Chairs" },
-  { label: "Curtains", href: "/catalog?category=Curtains" },
-];
-
-const CONTACT_INFO = [
-  {
-    icon: <Phone size={16} />,
-    text: "+91 9821197173",
-    href: "tel:+919821197173",
-    className: "contactItem",
-  },
-  {
-    icon: <Phone size={16} />,
-    text: "+91 9820767297",
-    href: "tel:+919820767297",
-    className: "contactItem",
-  },
-  {
-    icon: <Mail size={16} />,
-    text: "vermasfurnishings@gmail.com",
-    href: "mailto:vermasfurnishings@gmail.com",
-    className: "contactItem",
-  },
-  {
-    icon: <MessageSquare size={16} />,
-    text: "Chat on WhatsApp",
-    href: "https://wa.me/919821197173",
-    className: "whatsappLink",
-    external: true,
-  },
-];
-
-const SOCIAL_LINKS = [
-  {
-    icon: <Instagram size={24} />,
-    href: "https://instagram.com/vermasfurnishings",
-    label: "Instagram",
-  },
-  {
-    icon: <Linkedin size={24} />,
-    href: "https://www.linkedin.com/company/verma-s/",
-    label: "LinkedIn",
-  },
+  { label: "Sofas & Sectionals", href: "/catalog?category=Sofas" },
+  { label: "Artisan Dining", href: "/catalog?category=Dining" },
+  { label: "Luxury Headboards", href: "/catalog?category=Headboards" },
+  { label: "Bespoke Curtains", href: "/catalog?category=Curtains" },
 ];
 
 export default function Footer() {
   return (
     <footer className={styles.footer}>
       <div className={styles.container}>
-        <div className={styles.grid}>
-          {/* Brand */}
-          <div className={styles.brand}>
-            <h3>VERMA'S</h3>
-            <p>Comfort | Craftsmanship | Class</p>
-            <address className={styles.address}>
-              Shop No. 4, Siddheshwar Society,
-              <br />
-              Bandra (E), Mumbai - 400051
-              <br />
-              Manufacturing Unit
-            </address>
-          </div>
+        <div className={styles.topSection}>
+            {/* Real Contact Details Column */}
+            <div className={styles.brandCol}>
+                <h4 className={styles.getInTouchHeader}>GET IN TOUCH</h4>
+                <div className={styles.contactDetails}>
+                    <p>Mon - Sat: 10 am - 8 pm IST</p>
+                    <p>Sundays: By Appointment</p>
+                    <div className={styles.contactLinksRow}>
+                        <p>Call Us: <a href="tel:+919821197173">+91 98211 97173</a></p>
+                        <p>Email Us: <a href="mailto:vermasfurnishings@gmail.com">vermasfurnishings@gmail.com</a></p>
+                    </div>
+                </div>
+                <div className={styles.socialShowcase}>
+                    <a href="https://instagram.com/vermasfurnishings" target="_blank" rel="noopener noreferrer" className={styles.socialIcon}>
+                        <Instagram size={18} />
+                    </a>
+                    <a href="https://www.linkedin.com/company/verma-s/" target="_blank" rel="noopener noreferrer" className={styles.socialIcon}>
+                        <Linkedin size={18} />
+                    </a>
+                    <a href="https://wa.me/919821197173" target="_blank" rel="noopener noreferrer" className={styles.socialIcon}>
+                        <MessageSquare size={18} />
+                    </a>
+                </div>
+            </div>
 
-          {/* Quick Links */}
-          <nav className={styles.links} aria-label="Footer Quick Links">
-            <h4>Quick Links</h4>
-            <ul>
-              {QUICK_LINKS.map((link) => (
-                <li key={link.label}>
-                  <Link href={link.href}>{link.label}</Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
+            <div className={styles.linksCol}>
+                <div className={styles.linkGroup}>
+                    <h4>Discovery</h4>
+                    <ul>
+                        {QUICK_LINKS.map(link => (
+                            <li key={link.label}><Link href={link.href}>{link.label}</Link></li>
+                        ))}
+                    </ul>
+                </div>
+                <div className={styles.linkGroup}>
+                    <h4>Collections</h4>
+                    <ul>
+                        {CATEGORIES.map(link => (
+                            <li key={link.label}><Link href={link.href}>{link.label}</Link></li>
+                        ))}
+                    </ul>
+                </div>
+            </div>
 
-          {/* Categories */}
-          <nav className={styles.links} aria-label="Footer Categories">
-            <h4>Categories</h4>
-            <ul>
-              {CATEGORIES.map((category) => (
-                <li key={category.label}>
-                  <Link href={category.href}>{category.label}</Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-
-          {/* Contact */}
-          <div className={styles.contact}>
-            <h4>Get in Touch</h4>
-            {CONTACT_INFO.map((item, index) => (
-              <a
-                key={index}
-                href={item.href}
-                className={styles[item.className]}
-                {...(item.external && { target: "_blank", rel: "noopener noreferrer" })}
-              >
-                {item.icon} {item.text}
-              </a>
-            ))}
-          </div>
+            <div className={styles.newsletterCol}>
+                <h4>Join the Inner Circle</h4>
+                <p>Receive exclusive invitations to our seasonal collections and artisan workshops.</p>
+                <form className={styles.newsletterForm} onSubmit={(e) => e.preventDefault()}>
+                    <input type="email" placeholder="Your email address" className={styles.newsletterInput} />
+                    <button type="submit" className={styles.newsletterBtn}>
+                        <ArrowRight size={18} />
+                    </button>
+                </form>
+            </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className={styles.bottom}>
-          <p>
-            © {new Date().getFullYear()} Verma's Furnishing. All rights
-            reserved.
-          </p>
-          <div className={styles.socials}>
-            {SOCIAL_LINKS.map((social, index) => (
-              <a
-                key={index}
-                href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.socialLink}
-                aria-label={social.label}
-              >
-                {social.icon}
-              </a>
-            ))}
-          </div>
+        <div className={styles.bottomSection}>
+            <div className={styles.legalRow}>
+                <p>© {new Date().getFullYear()} Verma's Furnishing. Handcrafted in India.</p>
+                <div className={styles.legalLinks}>
+                    <Link href="/privacy">Privacy</Link>
+                    <Link href="/terms">Terms</Link>
+                </div>
+            </div>
         </div>
       </div>
     </footer>
