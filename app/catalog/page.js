@@ -1,4 +1,4 @@
-import { categories } from '@/data/products';
+import { categories, products as localProducts } from '@/data/products';
 import { prisma } from '@/lib/prisma';
 import CatalogClient from './CatalogClient';
 
@@ -78,17 +78,28 @@ export default async function CatalogPage({ searchParams }) {
     const initialCategory = categoryParam && categories.includes(categoryParam) ? categoryParam : 'All';
     const initialSearch = searchParam || '';
 
-    // Fetch products from database
-    const dbProducts = await prisma.product.findMany({
-        orderBy: { id: 'asc' }
-    });
+    // Fetch products from database, fall back to local data if DB is unreachable
+    let products = [];
+    try {
+        const dbProducts = await prisma.product.findMany({
+            orderBy: { id: 'asc' }
+        });
 
-    // Format products for frontend (parsing JSON strings)
-    const products = dbProducts.map(p => ({
-        ...p,
-        images: p.images ? JSON.parse(p.images) : [p.image],
-        features: p.features ? JSON.parse(p.features) : []
-    }));
+        // Format products for frontend (parsing JSON strings)
+        products = dbProducts.map(p => ({
+            ...p,
+            images: p.images ? JSON.parse(p.images) : [p.image],
+            features: p.features ? JSON.parse(p.features) : []
+        }));
+    } catch (error) {
+        console.error("Catalog page DB fetch error:", error);
+        // Fall back to local products data so the page always renders
+        products = localProducts.map(p => ({
+            ...p,
+            images: p.images || [p.image],
+            features: p.features || []
+        }));
+    }
 
     return (
         <>

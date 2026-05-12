@@ -165,7 +165,15 @@ export default function ProductCard({ product, index = 0 }) {
                         </>
                     )}
 
-
+                    <a
+                        href={`https://wa.me/919821197173?text=${whatsappMessage}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.inquireBtn}
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        Inquire Now
+                    </a>
                 </div>
                 <div className={styles.content}>
                     <h3 className={styles.name}>

@@ -3,7 +3,7 @@
     min-height: 100vh;
     width: 100%;
     overflow: hidden;
-    background-color: #1a1a1a;
+    background-color: #111;
 }
 
 .slideContainer {
@@ -11,10 +11,6 @@
     inset: 0;
     width: 100%;
     height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
 }
 
 .bgWrapper {
@@ -29,131 +25,150 @@
     object-fit: cover;
 }
 
+/* Much lighter overlay — let the images breathe */
 .overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.7) 100%);
+    background: linear-gradient(
+        to bottom, 
+        rgba(0, 0, 0, 0.1) 0%, 
+        rgba(0, 0, 0, 0.15) 50%, 
+        rgba(0, 0, 0, 0.55) 100%
+    );
     z-index: 1;
 }
 
+/* ── Bottom-center editorial content ── */
 .content {
-    position: relative;
+    position: absolute;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 2;
-    max-width: 900px;
-    padding: 100px 24px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
 }
 
-.tagline {
-    display: inline-block;
-    padding: 8px 20px;
-    background-color: rgba(201, 169, 110, 0.2);
-    color: #dfc389;
-    font-size: 0.9rem;
-    font-weight: 500;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    border-radius: 50px;
-    margin-bottom: 24px;
-}
-
-.content h1 {
-    color: white;
-    margin-bottom: 24px;
-    font-weight: 700;
-    font-size: clamp(2.5rem, 6vw, 4.5rem);
-    line-height: 1.1;
-}
-
-.highlight {
-    background: linear-gradient(135deg, #c9a96e 0%, #dfc389 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.content p {
-    color: rgba(255, 255, 255, 0.85);
-    font-size: 1.15rem;
-    max-width: 650px;
-    margin: 0 auto 40px;
-    line-height: 1.7;
-    font-weight: 300;
-}
-
-.buttons {
+.ctaWrap {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
+    gap: 16px;
 }
 
-/* Controls */
+.ctaBtn {
+    display: inline-block;
+    padding: 14px 36px;
+    background: rgba(255, 255, 255, 0.95);
+    color: #1a1a1a;
+    text-decoration: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.ctaBtn:hover {
+    background: #c9a96e;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.motto {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: 0.5px;
+    margin: 0;
+    text-align: center;
+}
+
+/* ── Dot indicators — bottom center ── */
 .controls {
     position: absolute;
-    bottom: 50px;
+    bottom: 30px;
     width: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
-    gap: 40px;
     z-index: 5;
-}
-
-.controlBtn {
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
-    opacity: 0.5;
-    transition: opacity 0.3s;
-}
-
-.controlBtn:hover {
-    opacity: 1;
 }
 
 .indicators {
     display: flex;
-    gap: 12px;
+    gap: 10px;
 }
 
 .indicator {
-    width: 30px;
-    height: 3px;
-    background: rgba(255,255,255,0.3);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    border: none;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.indicator:hover {
+    background: rgba(255, 255, 255, 0.6);
 }
 
 .activeIndicator {
     background: #c9a96e;
-    width: 60px;
+    transform: scale(1.3);
 }
 
-.scrollIndicator {
-    position: absolute;
-    bottom: 40px;
-    right: 50px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-    color: rgba(255, 255, 255, 0.4);
-    font-size: 0.75rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-}
-
+/* ── Mobile / Tablet ── */
 @media (max-width: 1024px) {
-    .controls { 
-        bottom: 30px;
-        gap: 0;
+    .content {
+        bottom: 70px;
     }
-    .controlBtn { 
-        display: none; /* Hide arrows on mobile/tablet — users swipe */
+
+    .ctaBtn {
+        padding: 12px 28px;
+        font-size: 0.75rem;
     }
-    .scrollIndicator { display: none; }
-    .content { padding-top: 60px; }
-    .content p { font-size: 1rem; }
+
+    .motto {
+        font-size: 0.8rem;
+    }
+
+    .controls {
+        bottom: 24px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero {
+        min-height: 100svh; /* Safe viewport height for mobile browsers */
+    }
+
+    .content {
+        bottom: 60px;
+    }
+
+    .ctaBtn {
+        padding: 12px 24px;
+        font-size: 0.72rem;
+    }
+
+    .motto {
+        font-size: 0.75rem;
+    }
+
+    .controls {
+        bottom: 20px;
+    }
+
+    .indicator {
+        width: 7px;
+        height: 7px;
+    }
 }
