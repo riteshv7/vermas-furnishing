@@ -1,0 +1,344 @@
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+    min-height: 100vh;
+    background: #fafafa;
+}
+
+/* Login */
+.loginBox {
+    max-width: 400px;
+    margin: 120px auto;
+    text-align: center;
+}
+.loginBox h1 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #1a1a1a;
+}
+.loginBox form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+.header h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+.subtitle {
+    font-size: 0.9rem;
+    color: #888;
+    margin-top: 4px;
+}
+
+/* Form Panel */
+.formPanel {
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 32px;
+    position: sticky;
+    top: 80px;
+    z-index: 10;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+}
+.formPanel h2 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: #1a1a1a;
+}
+.hint {
+    font-size: 0.85rem;
+    color: #888;
+    margin-bottom: 16px;
+}
+
+/* Selected Preview */
+.selectedPreview {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+.previewThumb {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 2px solid #2563eb;
+}
+.previewThumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.removeBtn {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+.previewLabel {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(37, 99, 235, 0.85);
+    color: white;
+    font-size: 0.65rem;
+    text-align: center;
+    padding: 2px 0;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Form Grid */
+.formGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 20px;
+    margin-bottom: 16px;
+}
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.formGroupFull {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    grid-column: 1 / -1;
+}
+.formGroup label,
+.formGroupFull label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+/* Inputs */
+.input {
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: border-color 0.2s;
+    background: #fff;
+    width: 100%;
+    box-sizing: border-box;
+}
+.input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+textarea.input {
+    resize: vertical;
+}
+select.input {
+    cursor: pointer;
+}
+
+/* Form Actions */
+.formActions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+/* Buttons */
+.btnPrimary {
+    padding: 12px 28px;
+    background: #1a1a1a;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.btnPrimary:hover:not(:disabled) {
+    background: #333;
+}
+.btnPrimary:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+.btnSecondary {
+    padding: 10px 20px;
+    background: transparent;
+    color: #666;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+.btnSecondary:hover {
+    background: #f5f5f5;
+    color: #333;
+}
+
+/* Messages */
+.error {
+    color: #dc2626;
+    font-size: 0.9rem;
+    margin-top: 12px;
+    font-weight: 500;
+}
+.success {
+    color: #16a34a;
+    font-size: 0.9rem;
+    margin-top: 12px;
+    font-weight: 500;
+}
+
+/* Loading */
+.loading {
+    text-align: center;
+    padding: 60px;
+    color: #888;
+    font-size: 1.1rem;
+}
+
+/* Image Grid */
+.imageGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+}
+.imageCard {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 3px solid transparent;
+    transition: all 0.2s;
+    background: #eee;
+}
+.imageCard img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+.imageCard:hover {
+    border-color: #bbb;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+.imageCard:hover img {
+    transform: scale(1.05);
+}
+.imageCard.selected {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.3), 0 6px 20px rgba(37, 99, 235, 0.15);
+}
+.selectedBadge {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #2563eb;
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4);
+}
+
+/* Import Log */
+.importLog {
+    margin-top: 40px;
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    padding: 24px;
+}
+.importLog h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #1a1a1a;
+}
+.logItem {
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 0.9rem;
+    color: #555;
+}
+.logItem:last-child {
+    border-bottom: none;
+}
+.logItem a {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px 16px 60px;
+    }
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .formPanel {
+        position: static;
+        padding: 20px;
+    }
+    .formGrid {
+        grid-template-columns: 1fr;
+    }
+    .imageGrid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 8px;
+    }
+    .formActions {
+        flex-direction: column;
+    }
+    .btnPrimary, .btnSecondary {
+        width: 100%;
+        text-align: center;
+    }
+}
