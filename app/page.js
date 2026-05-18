@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import InstagramFeed from "@/components/InstagramFeed";
 import styles from "./page.module.css";
+import { products as localProducts } from '@/data/products';
 
 export default async function Home() {
   // Fetch products from DB with extreme caution
@@ -21,12 +22,20 @@ export default async function Home() {
 
       products = dbProducts.map(p => ({
         ...p,
-        images: p.images ? JSON.parse(p.images) : [p.image], // Parse images or use fallback
-        features: p.features ? JSON.parse(p.features) : []
+        images: typeof p.images === 'string' ? JSON.parse(p.images) : (p.images || [p.image]),
+        features: typeof p.features === 'string' ? JSON.parse(p.features) : (p.features || [])
       }));
     }
   } catch (error) {
     console.error("Home page data fetch error:", error);
+  }
+
+  if (!products || products.length === 0) {
+    products = localProducts.map(p => ({
+        ...p,
+        images: p.images || [p.image],
+        features: p.features || []
+    }));
   }
 
   // Show the 8 most recent products as New Arrivals
