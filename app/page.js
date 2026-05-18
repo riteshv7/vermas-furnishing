@@ -17,7 +17,7 @@ export default async function Home() {
     if (productModel) {
       const dbProducts = await productModel.findMany({
         orderBy: { id: 'desc' },
-        take: 20
+        take: 50 // Fetch more so we have a pool to pick from
       });
 
       products = dbProducts.map(p => ({
@@ -38,8 +38,31 @@ export default async function Home() {
     }));
   }
 
-  // Show the 8 most recent products as New Arrivals
-  const newArrivals = products.slice(0, 8);
+  // Ensure diversity in the New Arrivals grid (8 products max)
+  const newArrivals = [];
+  const categoryCounts = {};
+  
+  // First pass: try to get an even spread of categories
+  for (const product of products) {
+    if (newArrivals.length >= 8) break;
+    
+    const cat = product.category || 'Other';
+    // Allow max 3 per category for variety
+    if ((categoryCounts[cat] || 0) < 3) {
+      newArrivals.push(product);
+      categoryCounts[cat] = (categoryCounts[cat] || 0) + 1;
+    }
+  }
+  
+  // Fallback: If we still don't have 8, just fill the rest with whatever is newest
+  if (newArrivals.length < 8) {
+    for (const product of products) {
+      if (newArrivals.length >= 8) break;
+      if (!newArrivals.find(p => p.id === product.id)) {
+        newArrivals.push(product);
+      }
+    }
+  }
 
   // Collections data
   const collections = [
@@ -47,7 +70,7 @@ export default async function Home() {
       label: "Sofas & Sectionals",
       title: "The Tufted Elegance Series",
       sub: "Timeless Design & Premium Velvet",
-      image: "/products/featured-sofa.jpg",
+      image: "/products/hero-3.webp",
       href: "/catalog?category=Sofas",
     },
     {
@@ -153,7 +176,7 @@ export default async function Home() {
           <div className={styles.craftImageCol}>
             <div className={styles.craftImageWrapper}>
               <Image
-                src="/products/craft-showroom.jpg"
+                src="/products/unwatermarked_Gemini_Generated_Image_pdqfm7pdqfm7pdqf.png"
                 alt="Craftsmanship at Verma's"
                 fill
                 className={styles.craftImage}

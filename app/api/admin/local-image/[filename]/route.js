@@ -19,10 +19,13 @@ export async function GET(request, { params }) {
     }
 
     try {
+        const ext = path.extname(filename).toLowerCase();
+        const contentType = ext === '.webp' ? 'image/webp' : ext === '.png' ? 'image/png' : 'image/jpeg';
+        
         const fileBuffer = fs.readFileSync(filePath);
         return new NextResponse(fileBuffer, {
             headers: {
-                'Content-Type': 'image/webp',
+                'Content-Type': contentType,
                 'Cache-Control': 'public, max-age=3600',
             },
         });

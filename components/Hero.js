@@ -12,7 +12,7 @@ const SLIDES = [
         tagline: "Comfort | Craftsmanship | Class",
         title: "Crafting Premium",
         highlight: "Home Furnishings",
-        image: "/hero-bg.jpg",
+        image: "/products/hero-1.png",
         cta: "Shop Collection",
         link: "/catalog",
         motto: "Live Well. Live Verma's."
@@ -20,21 +20,21 @@ const SLIDES = [
     {
         id: 1,
         tagline: "The Art of Living",
-        title: "Modern Bouclé",
-        highlight: "Walnut Collection",
-        image: "/products/cream-boucle-walnut-sofa.jpg",
+        title: "Modern Elegance",
+        highlight: "Living Collection",
+        image: "/products/hero-2.png",
         cta: "Shop New Arrivals",
         link: "/catalog?category=Sofas",
         motto: "Handcrafted in Mumbai."
     },
     {
         id: 2,
-        tagline: "Regal Dining",
-        title: "Emerald Corner",
-        highlight: "Bespoke Dining",
-        image: "/products/emerald-corner-dining-full.jpg",
-        cta: "View Dining",
-        link: "/catalog?category=Dining",
+        tagline: "Regal Comfort",
+        title: "The Signature",
+        highlight: "Bespoke Lounges",
+        image: "/products/unwatermarked_Gemini_Generated_Image_62ubfn62ubfn62ub.png",
+        cta: "View Collection",
+        link: "/catalog?category=Chairs",
         motto: "A Statement in Royalty."
     }
 ];

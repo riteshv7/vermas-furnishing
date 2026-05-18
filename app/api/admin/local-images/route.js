@@ -12,7 +12,7 @@ export async function GET(request) {
 
     try {
         const files = fs.readdirSync(IMAGE_DIR)
-            .filter(f => f.endsWith('.webp') && !f.startsWith('.'))
+            .filter(f => f.match(/\.(webp|jpg|jpeg|png)$/i) && !f.startsWith('.'))
             .sort();
 
         return NextResponse.json({ success: true, files, directory: IMAGE_DIR });

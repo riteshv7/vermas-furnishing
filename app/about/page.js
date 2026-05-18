@@ -30,7 +30,7 @@ export default function OurStoryPage() {
       <section className={styles.hero}>
         <div className={styles.heroImageWrapper}>
           <Image
-            src="/products/our-story-banner.jpg"
+            src="/products/hero-4.png"
             alt="Verma's craftsmanship"
             fill
             className={styles.heroImage}
@@ -63,7 +63,7 @@ export default function OurStoryPage() {
           <div className={styles.openingImageStack}>
             <div className={styles.openingImgLarge}>
               <Image
-                src="/products/origins-showroom.jpg"
+                src="/products/hero-5.png"
                 alt="Verma's showroom"
                 fill
                 className={styles.stackImage}
