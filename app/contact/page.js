@@ -116,7 +116,7 @@ export default function ContactPage() {
                         >
                             <div className={styles.mapWrapper}>
                                 <iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3771.266228308466!2d72.8465034!3d19.0520857!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c9288e7a8e7d%3A0x6d9f3f4e1f7a8e7d!2sSiddheshwar+Co-operative+Housing+Society!5e0!3m2!1sen!2sin!4v1714310000000!5m2!1sen!2sin"
+                                    src="https://maps.google.com/maps?q=Siddheshwar%20Society,%20Bandra%20East,%20Mumbai&t=&z=15&ie=UTF8&iwloc=&output=embed"
                                     width="100%"
                                     height="100%"
                                     style={{ border: 0 }}
@@ -128,7 +128,7 @@ export default function ContactPage() {
                             </div>
                             <div className={styles.mapActions}>
                                 <a 
-                                    href="https://maps.app.goo.gl/uXpXN16vX9N5K8R67" 
+                                    href="https://www.google.com/maps/search/?api=1&query=Siddheshwar+Society,+Bandra+East,+Mumbai+400051" 
                                     target="_blank" 
                                     rel="noopener noreferrer"
                                     className={styles.directionsBtn}
