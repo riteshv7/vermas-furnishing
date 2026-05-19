@@ -165,15 +165,26 @@ export default function ProductCard({ product, index = 0 }) {
                         </>
                     )}
 
-                    <a
-                        href={`https://wa.me/919821197173?text=${whatsappMessage}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={styles.inquireBtn}
-                        onClick={(e) => e.stopPropagation()}
-                    >
-                        Inquire Now
-                    </a>
+                    <div className={styles.inquireActions}>
+                        <a
+                            href={`https://wa.me/919821197173?text=${whatsappMessage}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={styles.inquireBtn}
+                            onClick={(e) => { e.stopPropagation(); trackEvent('INQUIRE', { productId: product.id, productName: product.name }); }}
+                        >
+                            +91 98211
+                        </a>
+                        <a
+                            href={`https://wa.me/919820767297?text=${whatsappMessage}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={styles.inquireBtn}
+                            onClick={(e) => { e.stopPropagation(); trackEvent('INQUIRE', { productId: product.id, productName: product.name }); }}
+                        >
+                            +91 98207
+                        </a>
+                    </div>
                 </div>
                 <div className={styles.content}>
                     <h3 className={styles.name}>
