@@ -30,7 +30,7 @@ export default function Footer() {
                     <p>Mon - Sat: 10 am - 8 pm IST</p>
                     <p>Sundays: By Appointment</p>
                     <div className={styles.contactLinksRow}>
-                        <p>Call Us: <a href="tel:+919821197173">+91 98211 97173</a></p>
+                        <p>Call Us: <a href="tel:+919821197173">+91 98211 97173</a> / <a href="tel:+919820767297">+91 98207 67297</a></p>
                         <p>Email Us: <a href="mailto:vermasfurnishings@gmail.com">vermasfurnishings@gmail.com</a></p>
                     </div>
                 </div>
