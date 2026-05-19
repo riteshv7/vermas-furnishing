@@ -4,7 +4,7 @@ import path from 'path';
 import cloudinary from '@/lib/cloudinary';
 import { prisma } from '@/lib/prisma';
 
-const IMAGE_DIR = "/Users/riteshverma/Documents/VERMA'S copy/VERMAS_Images_2026-03-26/Sofa/done editing";
+const IMAGE_DIR = "/Users/riteshverma/Documents/VERMA'S/VERMA'S Products/UPLOADER";
 
 function uploadToCloudinary(buffer, filename) {
     return new Promise((resolve, reject) => {
