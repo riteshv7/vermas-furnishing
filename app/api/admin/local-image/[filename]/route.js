@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 
-const IMAGE_DIR = "/Users/riteshverma/Documents/VERMA'S copy/VERMAS_Images_2026-03-26/Sofa/done editing";
+const IMAGE_DIR = "/Users/riteshverma/Documents/VERMA'S/VERMA'S Products/UPLOADER";
 
 export async function GET(request, { params }) {
     const accessCode = request.nextUrl.searchParams.get('code');
