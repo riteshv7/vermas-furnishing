@@ -150,8 +150,8 @@ export default function CatalogClient({ initialProducts, categories, initialCate
                     {filteredProducts.length === 0 && (
                         <div className={styles.noResults}>
                             <div className={styles.noResultsIcon}>🔍</div>
-                            <h3>No matches found</h3>
-                            <p>We couldn't find any products matching your current filters. Try searching for something else or browse our full collection.</p>
+                            <h3>Crafting in progress...</h3>
+                            <p>We are curating our collection for this category. In the meantime, remember we create custom furniture! Share your vision with us.</p>
                             <button onClick={() => {setSearchQuery(''); setActiveQuickFilter(null); setActiveCategory('All');}} className={styles.resetBtn}>
                                 Reset all filters
                             </button>
