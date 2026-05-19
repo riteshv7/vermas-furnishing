@@ -76,6 +76,150 @@ export const products = [
         isFeatured: false,
         isNewArrival: true
     },
+    {
+        id: 185,
+        name: "The Classic Tufted Velvet Headboard",
+        category: "Headboards",
+        description: "Premium handcrafted 1 from Verma's Furnishing.",
+        image: "https://res.cloudinary.com/drykjkn6v/image/upload/v1779231061/vermas-products/unwatermarked_Gemini_Generated_Image_yqponsyqponsyqpo.jpg.jpg",
+        features: ["Premium materials", "Elegant design", "Easy installation"]
+    },
+    {
+        id: 186,
+        name: "The Modern Channel-Tufted Headboard",
+        category: "Headboards",
+        description: "Premium handcrafted 2 from Verma's Furnishing.",
+        image: "https://res.cloudinary.com/drykjkn6v/image/upload/v1779231073/vermas-products/unwatermarked_Gemini_Generated_Image_pir6aepir6aepir6.jpg.jpg",
+        features: ["Premium materials", "Elegant design", "Easy installation"]
+    },
+    {
+        id: 187,
+        name: "The Regal Wingback Headboard",
+        category: "Headboards",
+        description: "Premium handcrafted 3 from Verma's Furnishing.",
+        image: "https://res.cloudinary.com/drykjkn6v/image/upload/v1779231124/vermas-products/unwatermarked_Gemini_Generated_Image_yuym02yuym02yuym.jpg.jpg",
+        features: ["Premium materials", "Elegant design", "Easy installation"]
+    },
+    {
+        id: 188,
+        name: "The Minimalist Upholstered Headboard",
+        category: "Headboards",
+        description: "Premium handcrafted 4 from Verma's Furnishing.",
+        image: "https://res.cloudinary.com/drykjkn6v/image/upload/v1779231140/vermas-products/unwatermarked_Gemini_Generated_Image_1z3b771z3b771z3b.jpg.jpg",
+        features: ["Premium materials", "Elegant design", "Easy installation"]
+    },
+    {
+        id: 189,
+        name: "The Scandi Wooden Slat Headboard",
+        category: "Headboards",
+        description: "Premium handcrafted 5 from Verma's Furnishing.",
+        image: "https://res.cloudinary.com/drykjkn6v/image/upload/v1779231170/vermas-products/unwatermarked_Gemini_Generated_Image_6m07vj6m07vj6m07.jpg.jpg",
+        features: ["Premium materials", "Elegant design", "Easy installation"]
+    },
+    {
+        id: 190,
+        name: "The Luxurious Leather Panel Headboard",
+        category: "Headboards",
+        description: "Premium handcrafted 6 from Verma's Furnishing.",
+        image: "https://res.cloudinary.com/drykjkn6v/image/upload/v1779231182/vermas-products/unwatermarked_Gemini_Generated_Image_czgphoczgphoczgp.jpg.jpg",
+        features: ["Premium materials", "Elegant design", "Easy installation"]
+    },
+    {
+        id: 191,
+        name: "The Contemporary Geometric Headboard",
+        category: "Headboards",
+        description: "Premium handcrafted 7 from Verma's Furnishing.",
+        image: "https://res.cloudinary.com/drykjkn6v/image/upload/v1779231223/vermas-products/unwatermarked_Gemini_Generated_Image_wymwolwymwolwymw.jpg.jpg",
+        features: ["Premium materials", "Elegant design", "Easy installation"]
+    },
+    {
+        id: 192,
+        name: "The Plush Button-Tufted Headboard",
+        category: "Headboards",
+        description: "Premium handcrafted 8 from Verma's Furnishing.",
+        image: "https://res.cloudinary.com/drykjkn6v/image/upload/v1779231241/vermas-products/unwatermarked_Gemini_Generated_Image_ab0nspab0nspab0n.jpg.jpg",
+        features: ["Premium materials", "Elegant design", "Easy installation"]
+    },
+    {
+        id: 193,
+        name: "The Vintage Cane and Wood Headboard",
+        category: "Headboards",
+        description: "Premium handcrafted 9 from Verma's Furnishing.",
+        image: "https://res.cloudinary.com/drykjkn6v/image/upload/v1779231284/vermas-products/unwatermarked_Gemini_Generated_Image_srn8w8srn8w8srn8.jpg.jpg",
+        features: ["Premium materials", "Elegant design", "Easy installation"]
+    },
+    {
+        id: 194,
+        name: "The Elegant Curved Velvet Headboard",
+        category: "Headboards",
+        description: "Premium handcrafted 10 from Verma's Furnishing.",
+        image: "https://res.cloudinary.com/drykjkn6v/image/upload/v1779231299/vermas-products/unwatermarked_Gemini_Generated_Image_oiieoiieoiieoiie.jpg.jpg",
+        features: ["Premium materials", "Elegant design", "Easy installation"]
+    },
+    {
+        id: 195,
+        name: "The Mid-Century Walnut Headboard",
+        category: "Headboards",
+        description: "Premium handcrafted 11 from Verma's Furnishing.",
+        image: "https://res.cloudinary.com/drykjkn6v/image/upload/v1779231315/vermas-products/unwatermarked_Gemini_Generated_Image_ra23j0ra23j0ra23.jpg.jpg",
+        features: ["Premium materials", "Elegant design", "Easy installation"]
+    },
+    {
+        id: 196,
+        name: "The Oversized Hotel-Style Headboard",
+        category: "Headboards",
+        description: "Premium handcrafted 12 from Verma's Furnishing.",
+        image: "https://res.cloudinary.com/drykjkn6v/image/upload/v1779231336/vermas-products/unwatermarked_Gemini_Generated_Image_2hvnje2hvnje2hvn.jpg.jpg",
+        features: ["Premium materials", "Elegant design", "Easy installation"]
+    },
+    {
+        id: 197,
+        name: "The Bohemian Woven Rattan Headboard",
+        category: "Headboards",
+        description: "Premium handcrafted 13 from Verma's Furnishing.",
+        image: "https://res.cloudinary.com/drykjkn6v/image/upload/v1779231355/vermas-products/unwatermarked_Gemini_Generated_Image_3rwi153rwi153rwi.jpg.jpg",
+        features: ["Premium materials", "Elegant design", "Easy installation"]
+    },
+    {
+        id: 198,
+        name: "The Sleek Floating Headboard",
+        category: "Headboards",
+        description: "Premium handcrafted 14 from Verma's Furnishing.",
+        image: "https://res.cloudinary.com/drykjkn6v/image/upload/v1779231378/vermas-products/unwatermarked_Gemini_Generated_Image_97mxzc97mxzc97mx.jpg.jpg",
+        features: ["Premium materials", "Elegant design", "Easy installation"]
+    },
+    {
+        id: 199,
+        name: "The Transitional Nailhead Trim Headboard",
+        category: "Headboards",
+        description: "Premium handcrafted 15 from Verma's Furnishing.",
+        image: "https://res.cloudinary.com/drykjkn6v/image/upload/v1779231387/vermas-products/unwatermarked_Gemini_Generated_Image_bx1v46bx1v46bx1v.jpg.jpg",
+        features: ["Premium materials", "Elegant design", "Easy installation"]
+    },
+    {
+        id: 200,
+        name: "The Art Deco Arch Headboard",
+        category: "Headboards",
+        description: "Premium handcrafted 16 from Verma's Furnishing.",
+        image: "https://res.cloudinary.com/drykjkn6v/image/upload/v1779231403/vermas-products/unwatermarked_Gemini_Generated_Image_qxsuddqxsuddqxsu.jpg.jpg",
+        features: ["Premium materials", "Elegant design", "Easy installation"]
+    },
+    {
+        id: 201,
+        name: "The Rustic Reclaimed Wood Headboard",
+        category: "Headboards",
+        description: "Premium handcrafted 17 from Verma's Furnishing.",
+        image: "https://res.cloudinary.com/drykjkn6v/image/upload/v1779231416/vermas-products/unwatermarked_Gemini_Generated_Image_18h5ec18h5ec18h5.jpg.jpg",
+        features: ["Premium materials", "Elegant design", "Easy installation"]
+    },
+    {
+        id: 202,
+        name: "The Grand Upholstered Master Headboard",
+        category: "Headboards",
+        description: "Premium handcrafted last from Verma's Furnishing.",
+        image: "https://res.cloudinary.com/drykjkn6v/image/upload/v1779231642/vermas-products/unwatermarked_Gemini_Generated_Image_5u3tsv5u3tsv5u3t.jpg.jpg",
+        features: ["Premium materials", "Elegant design", "Easy installation"]
+    }
 ];
 
 export const categories = ["All", "Sofas", "Dining", "Chairs", "Ottomans", "Headboards", "Tables", "Curtains"];
