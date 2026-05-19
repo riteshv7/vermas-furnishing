@@ -1,8 +1,4 @@
 | Step | Task | Status |
 | --- | --- | --- |
-| 1 | Explore project context | Done |
-| 2 | Ask clarifying questions | Done |
-| 3 | Propose 2-3 approaches | Done |
-| 4 | Present design | Done |
-| 5 | Write design doc | In Progress |
-| 6 | Transition to implementation | Todo |
+| 1 | Task 1: Clear DB Headboards | Done |
+| 2 | Task 2: Clear Local File Headboards | Done |
