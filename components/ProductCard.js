@@ -10,15 +10,17 @@ import { useUser } from '../context/UserContext';
 import { useAnalytics } from '@/hooks/useAnalytics';
 import { getShimmerDataUrl } from '@/lib/shimmer';
 import styles from './ProductCard.module.css';
-import { useToast } from '@/context/ToastContext'; // Added import
+import { useToast } from '@/context/ToastContext';
+import ContactModal from './ContactModal';
 
 export default function ProductCard({ product, index = 0 }) {
     const router = useRouter();
-    const { isInWishlist, toggleWishlist: toggleUserWishlist } = useUser(); // Renamed to avoid conflict
+    const { isInWishlist, toggleWishlist: toggleUserWishlist } = useUser();
     const { trackEvent } = useAnalytics();
-    const { addToast } = useToast(); // Initialized useToast
+    const { addToast } = useToast();
     const isLiked = isInWishlist(product.id);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     // Support both single image and multiple images
     const images = product.images || [product.image];
@@ -165,15 +167,16 @@ export default function ProductCard({ product, index = 0 }) {
                         </>
                     )}
 
-                    <a
-                        href={`https://wa.me/919821197173?text=${whatsappMessage}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                    <button
                         className={styles.inquireBtn}
-                        onClick={(e) => e.stopPropagation()}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            e.preventDefault();
+                            setIsModalOpen(true);
+                        }}
                     >
                         Inquire Now
-                    </a>
+                    </button>
                 </div>
                 <div className={styles.content}>
                     <h3 className={styles.name}>
@@ -184,6 +187,12 @@ export default function ProductCard({ product, index = 0 }) {
                     <span className={styles.category}>{product.category}</span>
                 </div>
             </div>
+            
+            <ContactModal 
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                whatsappMessage={whatsappMessage}
+            />
         </div>
     );
 }
